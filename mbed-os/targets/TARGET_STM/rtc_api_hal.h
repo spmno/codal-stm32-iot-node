@@ -35,11 +35,6 @@
 #include "rtc_api.h"
 #include "ticker_api.h"
 #include "lp_ticker_api.h"
-#include "us_ticker_api.h"
-#include "hal_tick.h"
-#include "mbed_critical.h"
-#include "mbed_error.h"
-#include "mbed_debug.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -51,11 +46,11 @@ extern "C" {
 #define RTC_CLOCK LSI_VALUE
 #endif
 
-/** Read RTC time with subsecond precision.
+/** Read the subsecond register.
  *
- * @return Time is microsecond
+ * @return The remaining time as microseconds (0-999999)
  */
-uint32_t rtc_read_us(void);
+uint32_t rtc_read_subseconds(void);
 
 /** Program a wake up timer event in delta microseconds.
  *

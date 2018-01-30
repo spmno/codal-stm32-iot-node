@@ -50,10 +50,7 @@ template<typename T, uint32_t pool_sz>
 class MemoryPool : private mbed::NonCopyable<MemoryPool<T, pool_sz> > {
 	MBED_STATIC_ASSERT(pool_sz > 0, "Invalid memory pool size. Must be greater than 0.");
 public:
-    /** Create and Initialize a memory pool.
-     *
-     * @note You cannot call this function from ISR context.
-    */
+    /** Create and Initialize a memory pool. */
     MemoryPool() {
         memset(_pool_mem, 0, sizeof(_pool_mem));
         memset(&_obj_mem, 0, sizeof(_obj_mem));
@@ -66,18 +63,13 @@ public:
         MBED_ASSERT(_id);
     }
 
-    /** Destroy a memory pool
-     *
-     * @note You cannot call this function from ISR context.
-    */
+    /** Destroy a memory pool */
     ~MemoryPool() {
         osMemoryPoolDelete(_id);
     }
 
     /** Allocate a memory block of type T from a memory pool.
       @return  address of the allocated memory block or NULL in case of no memory available.
-
-      @note You may call this function from ISR context.
     */
     T* alloc(void) {
         return (T*)osMemoryPoolAlloc(_id, 0);
@@ -85,8 +77,6 @@ public:
 
     /** Allocate a memory block of type T from a memory pool and set memory block to zero.
       @return  address of the allocated memory block or NULL in case of no memory available.
-
-      @note You may call this function from ISR context.
     */
     T* calloc(void) {
         T *item = (T*)osMemoryPoolAlloc(_id, 0);
@@ -102,7 +92,6 @@ public:
                       is NULL or invalid, or osErrorResource if given memory block is in an
                       invalid memory pool state.
 
-      @note You may call this function from ISR context.
     */
     osStatus free(T *block) {
         return osMemoryPoolFree(_id, (void*)block);

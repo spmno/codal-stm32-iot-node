@@ -42,8 +42,3 @@ int FileSystemHandle::mkdir(const char *path, mode_t mode)
 {
     return -ENOSYS;
 }
-
-int FileSystemHandle::statvfs(const char *path, struct statvfs *buf)
-{
-    return -ENOSYS;
-}

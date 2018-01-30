@@ -52,10 +52,7 @@ namespace rtos {
 template<typename T, uint32_t queue_sz>
 class Queue : private mbed::NonCopyable<Queue<T, queue_sz> > {
 public:
-    /** Create and initialize a message Queue.
-     *
-     * @note You cannot call this function from ISR context.
-    */
+    /** Create and initialize a message Queue. */
     Queue() {
         memset(&_obj_mem, 0, sizeof(_obj_mem));
         osMessageQueueAttr_t attr = { 0 };
@@ -66,10 +63,7 @@ public:
         _id = osMessageQueueNew(queue_sz, sizeof(T*), &attr);
         MBED_ASSERT(_id);
     }
-    /** Queue destructor
-     *
-     * @note You cannot call this function from ISR context.
-     */
+
     ~Queue() {
         osMessageQueueDelete(_id);
     }
@@ -77,8 +71,6 @@ public:
     /** Check if the queue is empty
      *
      * @return True if the queue is empty, false if not
-     *
-     * @note You may call this function from ISR context.
      */
     bool empty() const {
         return osMessageQueueGetCount(_id) == 0;
@@ -87,8 +79,6 @@ public:
     /** Check if the queue is full
      *
      * @return True if the queue is full, false if not
-     *
-     * @note You may call this function from ISR context.
      */
     bool full() const {
         return osMessageQueueGetSpace(_id) == 0;
@@ -103,8 +93,6 @@ public:
                @a osErrorTimeout the message could not be put into the queue in the given time.
                @a osErrorResource not enough space in the queue.
                @a osErrorParameter internal error or non-zero timeout specified in an ISR.
-
-      @note You may call this function from ISR context if the millisec parameter is set to 0.
     */
     osStatus put(T* data, uint32_t millisec=0, uint8_t prio=0) {
         return osMessageQueuePut(_id, &data, prio, millisec);
@@ -118,8 +106,6 @@ public:
                @a osOK no message is available in the queue and no timeout was specified.
                @a osEventTimeout no message has arrived during the given timeout period.
                @a osErrorParameter a parameter is invalid or outside of a permitted range.
-
-      @note You may call this function from ISR context if the millisec parameter is set to 0.
     */
     osEvent get(uint32_t millisec=osWaitForever) {
         osEvent event;

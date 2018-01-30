@@ -2,6 +2,8 @@
   ******************************************************************************
   * @file    stm32l4xx_hal_i2c_ex.h
   * @author  MCD Application Team
+  * @version V1.7.1
+  * @date    21-April-2017
   * @brief   Header file of I2C HAL Extended module.
   ******************************************************************************
   * @attention
@@ -38,7 +40,7 @@
 #define __STM32L4xx_HAL_I2C_EX_H
 
 #ifdef __cplusplus
-extern "C" {
+ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -50,7 +52,7 @@ extern "C" {
 
 /** @addtogroup I2CEx
   * @{
-  */
+  */ 
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
@@ -99,7 +101,7 @@ extern "C" {
 
 /**
   * @}
-  */
+  */ 
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
@@ -150,7 +152,7 @@ void HAL_I2CEx_DisableFastModePlus(uint32_t ConfigFastModePlus);
                                           (((__CONFIG__) & (I2C_FASTMODEPLUS_I2C4)) == I2C_FASTMODEPLUS_I2C4)))
 /**
   * @}
-  */
+  */ 
 
 /* Private Functions ---------------------------------------------------------*/
 /** @defgroup I2CEx_Private_Functions I2C Extended Private Functions

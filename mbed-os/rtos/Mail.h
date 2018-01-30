@@ -55,17 +55,12 @@ namespace rtos {
 template<typename T, uint32_t queue_sz>
 class Mail : private mbed::NonCopyable<Mail<T, queue_sz> > {
 public:
-    /** Create and Initialize Mail queue.
-     *
-     * @note You cannot call this function from ISR context.
-    */
+    /** Create and Initialise Mail queue. */
     Mail() { };
 
     /** Check if the mail queue is empty
      *
      * @return True if the mail queue is empty, false if not
-     *
-     * @note You may call this function from ISR context.
      */
     bool empty() const {
         return _queue.empty();
@@ -74,8 +69,6 @@ public:
     /** Check if the mail queue is full
      *
      * @return True if the mail queue is full, false if not
-     *
-     * @note You may call this function from ISR context.
      */
     bool full() const {
         return _queue.full();
@@ -84,8 +77,6 @@ public:
     /** Allocate a memory block of type T
       @param   millisec  timeout value or 0 in case of no time-out. (default: 0).
       @return  pointer to memory block that can be filled with mail or NULL in case error.
-
-      @note You may call this function from ISR context if the millisec parameter is set to 0.
     */
     T* alloc(uint32_t millisec=0) {
         return _pool.alloc();
@@ -94,8 +85,6 @@ public:
     /** Allocate a memory block of type T and set memory block to zero.
       @param   millisec  timeout value or 0 in case of no time-out.  (default: 0).
       @return  pointer to memory block that can be filled with mail or NULL in case error.
-
-      @note You may call this function from ISR context if the millisec parameter is set to 0.
     */
     T* calloc(uint32_t millisec=0) {
         return _pool.calloc();
@@ -104,8 +93,6 @@ public:
     /** Put a mail in the queue.
       @param   mptr  memory block previously allocated with Mail::alloc or Mail::calloc.
       @return  status code that indicates the execution status of the function.
-
-      @note You may call this function from ISR context.
     */
     osStatus put(T *mptr) {
         return _queue.put(mptr);
@@ -114,8 +101,6 @@ public:
     /** Get a mail from a queue.
       @param   millisec  timeout value or 0 in case of no time-out. (default: osWaitForever).
       @return  event that contains mail information or error code.
-
-      @note You may call this function from ISR context if the millisec parameter is set to 0.
     */
     osEvent get(uint32_t millisec=osWaitForever) {
         osEvent evt = _queue.get(millisec);
@@ -128,8 +113,6 @@ public:
     /** Free a memory block from a mail.
       @param   mptr  pointer to the memory block that was obtained with Mail::get.
       @return  status code that indicates the execution status of the function.
-
-      @note You may call this function from ISR context.
     */
     osStatus free(T *mptr) {
         return _pool.free(mptr);

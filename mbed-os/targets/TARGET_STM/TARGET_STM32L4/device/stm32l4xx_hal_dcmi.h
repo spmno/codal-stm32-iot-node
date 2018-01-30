@@ -2,6 +2,8 @@
   ******************************************************************************
   * @file    stm32l4xx_hal_dcmi.h
   * @author  MCD Application Team
+  * @version V1.7.1
+  * @date    21-April-2017
   * @brief   Header file of DCMI HAL module.
   ******************************************************************************
   * @attention
@@ -41,9 +43,7 @@
  extern "C" {
 #endif
 
-#if defined(STM32L496xx) || defined(STM32L4A6xx) || \
-    defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
-
+#if defined(STM32L496xx) || defined(STM32L4A6xx)
 /* Includes ------------------------------------------------------------------*/
 #include "stm32l4xx_hal_def.h"
 
@@ -645,8 +645,7 @@ uint32_t              HAL_DCMI_GetError(DCMI_HandleTypeDef *hdcmi);
   * @}
   */ 
 
-#endif /* STM32L496xx || STM32L4A6xx || */
-       /* STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
+#endif /* STM32L496xx || STM32L4A6xx */
 
 #ifdef __cplusplus
 }
