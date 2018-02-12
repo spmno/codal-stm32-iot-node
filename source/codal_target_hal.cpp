@@ -31,19 +31,19 @@ void target_panic(int statusCode)
 {
     target_disable_irq();
 
-#if DEVICE_DMESG_BUFFER_SIZE > 0
-    DMESG("*** CODAL PANIC : [%d]", statusCode);
-    while (1)
-    {
-    }
-#else
+//#if DEVICE_DMESG_BUFFER_SIZE > 0
+//    DMESG("*** CODAL PANIC : [%d]", statusCode);
+//    while (1)
+//    {
+//    }
+//#else
     Serial pc(USBTX, USBRX);
     while (1)
     {
         pc.printf("*** CODAL PANIC : [%.3d]\n", statusCode);
         wait_ms(500);
     }
-#endif
+//#endif
 }
 
 /**
@@ -76,12 +76,12 @@ PROCESSOR_WORD_TYPE fiber_initial_stack_base()
 {
     uint32_t mbed_stack_base;
 
-#ifdef MBED_CONF_RTOS_PRESENT
-    extern osThreadDef_t os_thread_def_main;
-    mbed_stack_base = (uint32_t)os_thread_def_main.stack_pointer + os_thread_def_main.stacksize;
-#else
+//#ifdef MBED_CONF_RTOS_PRESENT
+//    extern osThreadDef_t os_thread_def_main;
+//    mbed_stack_base = (uint32_t)os_thread_def_main.stack_pointer + os_thread_def_main.stacksize;
+//#else
     mbed_stack_base = DEVICE_STACK_BASE;
-#endif
+//#endif
 
     return mbed_stack_base;
 }
@@ -129,11 +129,11 @@ PROCESSOR_WORD_TYPE tcb_get_stack_base(void* tcb)
 
 PROCESSOR_WORD_TYPE get_current_sp()
 {
-#ifdef MBED_CONF_RTOS_PRESENT
-    return __get_PSP();
-#else
+//#ifdef MBED_CONF_RTOS_PRESENT
+//    return __get_PSP();
+//#else
     return __get_MSP();
-#endif
+//#endif
 }
 
 PROCESSOR_WORD_TYPE tcb_get_sp(void* tcb)
