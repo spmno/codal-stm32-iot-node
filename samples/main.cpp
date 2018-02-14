@@ -32,9 +32,9 @@ main()
     while(1)
     {
         IotNode.io.led.setDigitalValue(1);
-        IotNode.sleep(10);
+        IotNode.sleep(100);
 
         IotNode.io.led.setDigitalValue(0);
-        IotNode.sleep(10);
+        IotNode.sleep(100);
     }
 }
