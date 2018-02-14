@@ -23,7 +23,6 @@ onClick(Event)
 int
 main()
 {
-	printf("Trace 1\n");
     IotNode.init();
     IotNode.serial.printf(" *** STM32_IOT_NODE BLINKY TEST ***\r\n");
 
@@ -35,6 +34,6 @@ main()
         IotNode.sleep(2000);
 
         IotNode.io.led.setDigitalValue(0);
-        IotNode.sleep(100);
+        IotNode.sleep(1000);
     }
 }
