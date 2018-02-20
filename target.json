@@ -45,8 +45,8 @@
         },
         {
             "name":"codal-mbedos-stm32-iot-node",
-            "url":"https://github.com/LabAixBidouille-STM32/codal-mbedos-stm32-iot-node",
-            "branch":"master",
+            "url":"https://github.com/LabAixBidouille-STM32/codal-stm32-iot-node",
+            "branch":"feature/Test1",
             "type":"git"
         }
     ]
