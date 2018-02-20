@@ -28,12 +28,12 @@ main()
 
     IotNode.messageBus.listen(DEVICE_ID_BUTTON_A, DEVICE_BUTTON_EVT_CLICK, onClick);
 
-    uint16_t Data;
+//    uint32_t Data;
 
     while(1)
     {
 //    	IotNode.i2c.readRegister( 0x1, 1, 4, &Data )
-    	IotNode.serial.printf("   Data: 0x%08X\n", Data);
+//    	IotNode.serial.printf("   Data: 0x%08X\n", Data);
 
     	IotNode.io.led.setDigitalValue(1);
         IotNode.sleep(2000);
