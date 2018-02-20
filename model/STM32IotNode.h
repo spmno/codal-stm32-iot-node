@@ -63,8 +63,6 @@ namespace codal
     {
         public:
 
-    	    codal::Pin                  pinSda;
-    	    codal::Pin                  pinScl;
 		    codal::_mbed::I2C           i2c;
             codal::_mbed::Serial        serial;
             codal::_mbed::Timer         timer;
