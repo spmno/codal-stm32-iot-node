@@ -63,6 +63,7 @@ namespace codal
     {
         public:
 
+            codal::_mbed::I2C           i2c;
             codal::_mbed::Serial        serial;
             codal::_mbed::Timer         timer;
             MessageBus                  messageBus;
