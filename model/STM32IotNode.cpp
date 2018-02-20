@@ -37,7 +37,7 @@ static STM32IotNode *device_instance = NULL;
   * that represent various device drivers used to control aspects of the micro:bit.
   */
 STM32IotNode::STM32IotNode() :
-//    i2c( I2C_SDA, I2C_SCL ),
+    i2c( codal::Pin( 0, I2C_SDA, PIN_CAPABILITY_DIGITAL ), codal::Pin( 1, I2C_SCL, PIN_CAPABILITY_DIGITAL ) ),
     serial(SERIAL_TX, SERIAL_RX),
     timer(),
     messageBus(),
