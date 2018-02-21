@@ -30,8 +30,8 @@ main()
 {
     IotNode.init();
     IotNode.serial.printf("*** STM32_IOT_NODE BLINKY TEST ***\r\n");
-    IotNode.serial.printf( "sda: 0x%04X\r\n", i2c.sda.name );
-    IotNode.serial.printf( "scl: 0x%04X\r\n", i2c.scl.name );
+    IotNode.serial.printf( "sda: 0x%04X\r\n", IotNode.i2c.sda.name );
+    IotNode.serial.printf( "scl: 0x%04X\r\n", IotNode.i2c.scl.name );
 
     IotNode.messageBus.listen(DEVICE_ID_BUTTON_A, DEVICE_BUTTON_EVT_CLICK, onClick);
 
