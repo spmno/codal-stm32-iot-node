@@ -35,7 +35,7 @@ main()
 
     IotNode.messageBus.listen(DEVICE_ID_BUTTON_A, DEVICE_BUTTON_EVT_CLICK, onClick);
 
-    IotNode.i2c.setFrequency( 400000 );
+//    IotNode.i2c.setFrequency( 400000 );
 
     while(1)
     {
