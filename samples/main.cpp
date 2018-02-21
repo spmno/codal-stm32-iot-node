@@ -32,7 +32,7 @@ main()
 
     while(1)
     {
-    	IotNode.i2c.readRegister( 0x7, 1, ( uint8* ) &Data, 4 );
+    	IotNode.i2c.readRegister( 0x7, 1, ( uint8_t* ) &Data, 4 );
     	IotNode.serial.printf("   Data: 0x%08X\n", Data);
 
     	IotNode.io.led.setDigitalValue(1);
