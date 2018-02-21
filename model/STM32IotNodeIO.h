@@ -89,8 +89,8 @@ namespace codal
             _mbed::Pin        A5;
             _mbed::Pin        led;
             _mbed::Pin        buttonA;
-//            _mbed::Pin        sda;
-//            _mbed::Pin        scl;
+            _mbed::Pin        sda;
+            _mbed::Pin        scl;
 
             /**
              * Constructor.

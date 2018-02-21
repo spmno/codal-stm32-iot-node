@@ -36,9 +36,9 @@ main()
     while(1)
     {
     	IotNode.io.led.setDigitalValue(1);
-        IotNode.sleep(2000);
+        IotNode.sleep(200);
 
         IotNode.io.led.setDigitalValue(0);
-        IotNode.sleep(2000);
+        IotNode.sleep(200);
     }
 }
