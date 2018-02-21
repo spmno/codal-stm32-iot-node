@@ -41,7 +41,7 @@ STM32IotNode::STM32IotNode() :
     timer(),
     messageBus(),
     io(),
-    buttonA(io.buttonA, DEVICE_ID_BUTTON_A, DEVICE_BUTTON_ALL_EVENTS, ACTIVE_LOW),
+    buttonA(io.buttonA, DEVICE_ID_BUTTON_A, DEVICE_BUTTON_ALL_EVENTS, ACTIVE_LOW)//,
 //    i2c( io.sda, io.scl )
 {
     // Clear our status
