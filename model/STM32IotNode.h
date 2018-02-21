@@ -68,7 +68,7 @@ namespace codal
             MessageBus                  messageBus;
             STM32IotNodeIO              io;
             Button                      buttonA;
-//		    codal::_mbed::I2C           i2c;
+		    codal::_mbed::I2C           i2c;
 
             /**
              * Constructor.
