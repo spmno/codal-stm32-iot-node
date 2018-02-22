@@ -21,7 +21,7 @@ onClick(Event)
 
     uint32_t Data;
 
-	IotNode.i2c.read( 0x2, ( uint8_t* ) &Data, 4 );
+	IotNode.i2c.write( 0x2, 18, 36 );
 	IotNode.serial.printf("   Data: 0x%08X\n", Data);
 }
 
