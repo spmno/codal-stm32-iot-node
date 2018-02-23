@@ -19,7 +19,7 @@ onClick(Event)
 {
     IotNode.serial.printf("CLICK\r\n");
 
-    uint8_t Data;
+    uint8_t Data = 0xFF;
 
     IotNode.i2c.read( 0xD4, 0x0F, &Data, sizeof( Data ) );
 	IotNode.serial.printf("   Data: 0x%08X\n", Data);
