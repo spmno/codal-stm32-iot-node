@@ -19,9 +19,9 @@ onClick(Event)
 {
     IotNode.serial.printf("CLICK\r\n");
 
-    uint32_t Data;
+    uint8_t Data;
 
-	IotNode.i2c.write( 0x2, 18, 36 );
+    IotNode.i2c.read( 0xD4, 0x0F, &Data, sizeof( data ) );
 	IotNode.serial.printf("   Data: 0x%08X\n", Data);
 }
 
@@ -35,7 +35,7 @@ main()
 
     IotNode.messageBus.listen(DEVICE_ID_BUTTON_A, DEVICE_BUTTON_EVT_CLICK, onClick);
 
-    IotNode.i2c.setFrequency( 400000 );
+    IotNode.i2c.setFrequency( 100000 );
 
     while(1)
     {
