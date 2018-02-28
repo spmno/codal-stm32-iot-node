@@ -24,31 +24,23 @@ DEALINGS IN THE SOFTWARE.
 */
 
 /**
-  * Class definition for STM32 IOT node IO.
-  * Represents a collection of all I/O pins on the device.
+  * Class definition for accelerometer.
+  * Represents the accelerometer on the STM IOT node.
   */
 
 #include "CodalConfig.h"
-#include "STM32IotNodeIO.h"
+#include "STM32IotNodeAccelerometer.h"
 
 using namespace codal;
 
 /**
   * Constructor.
   *
-  * Create a representation of all given I/O pins on the edge connector
+  * Create a representation of the accelerometer on the STM32 IOT node
   *
   * Accepts a sequence of unique ID's used to distinguish events raised
   * by MicroBitPin instances on the default EventModel.
   */
-STM32IotNodeIO::STM32IotNodeIO() :
-    A0 (ID_PIN_P0, PA_0, PIN_CAPABILITY_AD),
-    A1 (ID_PIN_P1, PA_1, PIN_CAPABILITY_AD),
-    A2 (ID_PIN_P2, PA_4, PIN_CAPABILITY_AD),
-    A3 (ID_PIN_P3, PB_0, PIN_CAPABILITY_AD),
-    A4 (ID_PIN_P4, PC_1, PIN_CAPABILITY_AD),
-    A5 (ID_PIN_P5, PC_0, PIN_CAPABILITY_AD),
-    led (ID_PIN_P6, LED1, PIN_CAPABILITY_AD),
-    buttonA (DEVICE_ID_BUTTON_A, USER_BUTTON, PIN_CAPABILITY_DIGITAL)
+STM32IotNodeAccelerometer::STM32IotNodeAccelerometer() :
 {
 }

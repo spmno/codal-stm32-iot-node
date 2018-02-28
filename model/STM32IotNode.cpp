@@ -2,6 +2,7 @@
 The MIT License (MIT)
 
 Copyright (c) 2016 Lancaster University, UK.
+Copyright (c) 2018 Paul ADAM, Europe.
 
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the "Software"),
@@ -33,8 +34,8 @@ static STM32IotNode *device_instance = NULL;
 /**
   * Constructor.
   *
-  * Create a representation of a GenuinoZero device, which includes member variables
-  * that represent various device drivers used to control aspects of the micro:bit.
+  * Create a representation of a device, which includes member variables
+  * that represent various device drivers used to control aspects of the STM32 IOT node.
   */
 STM32IotNode::STM32IotNode() :
     serial(SERIAL_TX, SERIAL_RX),

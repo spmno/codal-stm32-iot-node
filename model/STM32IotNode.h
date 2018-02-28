@@ -2,6 +2,7 @@
 The MIT License (MIT)
 
 Copyright (c) 2016 Lancaster University, UK.
+Copyright (c) 2018 Paul ADAM, Europe.
 
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the "Software"),
@@ -52,10 +53,10 @@ DEALINGS IN THE SOFTWARE.
 #define DEVICE_INITIALIZED                    0x01
 
 /**
- * Class definition for a MicroBit device.
+ * Class definition for a STM32 IOT node.
  *
  * Represents the device as a whole, and includes member variables that represent various device drivers
- * used to control aspects of the micro:bit.
+ * used to control aspects of the STM32 IOT node.
  */
 namespace codal
 {
@@ -66,7 +67,8 @@ namespace codal
             codal::_mbed::Serial        serial;
             codal::_mbed::Timer         timer;
             MessageBus                  messageBus;
-            STM32IotNodeIO                  io;
+            STM32IotNodeIO              io;
+            STM32IotNodeAccelerometer   accelerometer;
             Button                      buttonA;
 
             /**
