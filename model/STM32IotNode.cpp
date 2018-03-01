@@ -123,9 +123,9 @@ uint8_t Sensor_IO_Read(void *handle, uint8_t ReadAddr, uint8_t *pBuffer, uint16_
 {
 	device_instance->serial.printf( "Sensor_IO_Read\n", handle );
 	device_instance->serial.printf( " handle        = %08X"\n, handle );
-	device_instance->serial.printf( " WriteAddr     = %02X"\n, WriteAddr );
+	device_instance->serial.printf( " WriteAddr     = %02X"\n, ReadAddr );
 	device_instance->serial.printf( " pBuffer       = %08X"\n, pBuffer );
-	device_instance->serial.printf( " nBytesToWrite = %04X"\n, nBytesToWrite );
+	device_instance->serial.printf( " nBytesToWrite = %04X"\n, nBytesToRead );
 	device_instance->i2c.read( ( ( DrvContextTypeDef* ) handle )->address, ReadAddr | 0x1, pBuffer, nBytesToRead);
 	return 0;
 }
