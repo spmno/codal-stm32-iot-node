@@ -65,8 +65,8 @@ namespace codal
 				0,
 				0,
 				0,
-				&LSM6DSL_Combo_Data[ 0 ],
-				( void * ) &LSM6DSL_X_Drv,
+				&::LSM6DSL_Combo_Data[ 0 ],
+				( void * ) &::LSM6DSL_X_Drv,
 				0,
     	};
     	public:
