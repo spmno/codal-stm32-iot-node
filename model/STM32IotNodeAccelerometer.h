@@ -39,22 +39,6 @@ namespace codal
      */
     class STM32IotNodeAccelerometer
     {
-/*
-    	DrvContextTypeDef DrvContext =
-    	{
-    			.who_am_i      = LSM6DSL_ACC_GYRO_WHO_AM_I,
-				.ifType        = 0,
-				.address       = LSM6DSL_ACC_GYRO_I2C_ADDRESS_HIGH,
-				0,
-				.instance      = 0,
-				.isInitialized = 0,
-				.isEnabled     = 0,
-				.isCombo       = 0,
-				.pData         = &LSM6DSL_Combo_Data[ 0 ],
-				.pVTable       = ( void * ) &LSM6DSL_X_Drv,
-				0,
-    	};
-*/
     	DrvContextTypeDef DrvContext =
     	{
     			LSM6DSL_ACC_GYRO_WHO_AM_I,
