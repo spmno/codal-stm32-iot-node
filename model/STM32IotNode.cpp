@@ -105,8 +105,11 @@ void STM32IotNode::idleCallback()
     codal_dmesg_flush();
 }
 
+extern "C"
+{
 
 uint8_t Sensor_IO_Write(void *handle, uint8_t WriteAddr, uint8_t *pBuffer, uint16_t nBytesToWrite)
+
 {
     if ( nBytesToWrite == 1 )
 		device_instance->i2c.write( ( ( DrvContextTypeDef* ) handle )->address, WriteAddr, *pBuffer );
@@ -119,6 +122,7 @@ uint8_t Sensor_IO_Read(void *handle, uint8_t ReadAddr, uint8_t *pBuffer, uint16_
 	return 0;
 }
 
+};
 
 void STM32IotNode_dmesg_flush()
 {
