@@ -56,7 +56,7 @@ namespace codal
             /**
              * Constructor.
              */
-    		STM32IotNodeAccelerometer();
+    	STM32IotNodeAccelerometer();
     };
 }
 
