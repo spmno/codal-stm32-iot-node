@@ -86,8 +86,6 @@ int STM32IotNode::init()
             CodalComponent::components[i]->init();
     }
 
-    // Seed our random number generator
-    //seedRandom();
 
 //    codal_dmesg_set_flush_fn(STM32IotNode_dmesg_flush);
     status |= DEVICE_COMPONENT_STATUS_IDLE_TICK;
@@ -97,12 +95,22 @@ int STM32IotNode::init()
 
 /**
   * A periodic callback invoked by the fiber scheduler idle thread.
-  * We use this for any low priority, backgrounf housekeeping.
+  * We use this for any low priority, background housekeeping.
   *
   */
 void STM32IotNode::idleCallback()
 {
     codal_dmesg_flush();
+}
+
+Sample3D STM32IotNode::getSample()
+{
+	Sample3D Sample;
+	uint8_t Data;
+    if ( ( ( ACCELERO_Drv_t* ) DrvContext->pVTable )->Get_WhoAmI( DrvContext, Data ) == COMPONENT_OK )
+    {
+    	Sample.x = WhoAmI;
+    }
 }
 
 extern "C"
