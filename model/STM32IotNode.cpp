@@ -117,8 +117,8 @@ uint8_t Sensor_IO_Write(void *handle, uint8_t WriteAddr, uint8_t *pBuffer, uint1
 	device_instance->serial.printf( " pBuffer         = %08X\n", pBuffer );
 	for ( int i = 0; i < nBytesToWrite; i ++ )
 		device_instance->serial.printf( "  pBuffer[ %2d ]  = %02X\n", i, pBuffer[ i ] );
-    if ( nBytesToWrite == 1 )
-    	Return = device_instance->i2c.write( ( ( DrvContextTypeDef* ) handle )->address, WriteAddr, *pBuffer );
+	if ( nBytesToWrite == 1 )
+		Return = device_instance->i2c.write( ( ( DrvContextTypeDef* ) handle )->address, WriteAddr, *pBuffer );
 	device_instance->serial.printf( " Return          = %02X = %d\n", Return, Return );
 	return Return;
 }
