@@ -24,7 +24,7 @@ onClick(Event)
     IotNode.i2c.read( 0xD5, 0x0F, &Data, sizeof( Data ) );
 	IotNode.serial.printf("   Data: 0x%02X\n", Data);
 
-	codam::Sample3D Sample = IotNode.accelerometer.getSample( );
+	codal::Sample3D Sample = IotNode.accelerometer.getSample( );
 	IotNode.serial.printf("   x: 0x%04X = %d\n", Sample.x, Sample.x );
 	IotNode.serial.printf("   y: 0x%04X = %d\n", Sample.y, Sample.y );
 	IotNode.serial.printf("   z: 0x%04X = %d\n", Sample.z, Sample.z );
