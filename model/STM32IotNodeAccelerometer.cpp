@@ -41,6 +41,6 @@ using namespace codal;
   * Accepts a sequence of unique ID's used to distinguish events raised
   * by MicroBitPin instances on the default EventModel.
   */
-STM32IotNodeAccelerometer::STM32IotNodeAccelerometer() :
+STM32IotNodeAccelerometer::STM32IotNodeAccelerometer()
 {
 }
