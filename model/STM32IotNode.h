@@ -68,10 +68,7 @@ namespace codal
             codal::_mbed::Timer         timer;
             MessageBus                  messageBus;
             STM32IotNodeIO              io;
-<<<<<<< HEAD
             STM32IotNodeAccelerometer   accelerometer;
-=======
->>>>>>> 60103a08d4fd6899ba995eca6ec4e8f300ba16da
             Button                      buttonA;
 		    codal::_mbed::I2C           i2c;
 
