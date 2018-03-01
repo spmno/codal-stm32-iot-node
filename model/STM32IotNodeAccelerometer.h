@@ -44,8 +44,8 @@ namespace codal
     	{
     			LSM6DSL_ACC_GYRO_WHO_AM_I,
 				0,
-				0x02,
-//				LSM6DSL_ACC_GYRO_I2C_ADDRESS_LOW,
+//				0x02,
+				LSM6DSL_ACC_GYRO_I2C_ADDRESS_HIGH,
 				0,
 				0,
 				0,

@@ -19,10 +19,10 @@ onClick(Event)
 {
     IotNode.serial.printf("CLICK\r\n");
 
-    uint8_t Data = 0xFF;
-
-    IotNode.i2c.read( 0xD5, 0x0F, &Data, sizeof( Data ) );
-	IotNode.serial.printf("   Data: 0x%02X\n", Data);
+//    uint8_t Data = 0xFF;
+//
+//    IotNode.i2c.read( 0xD5, 0x0F, &Data, sizeof( Data ) );
+//	IotNode.serial.printf("   Data: 0x%02X\n", Data);
 
 	codal::Sample3D Sample = IotNode.accelerometer.getSample( );
 	IotNode.serial.printf("   x: 0x%04X = %d\n", Sample.x, Sample.x );
