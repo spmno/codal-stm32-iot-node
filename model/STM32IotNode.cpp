@@ -109,13 +109,13 @@ void STM32IotNode::idleCallback()
 uint8_t Sensor_IO_Write(void *handle, uint8_t WriteAddr, uint8_t *pBuffer, uint16_t nBytesToWrite)
 {
     if ( nBytesToWrite == 1 )
-		device_instance->i2c.write( ( ( DrvContextTypeDef* ) handle )->address, WriteAddr, pBuffer );
+		device_instance->i2c.write( ( ( DrvContextTypeDef* ) handle )->address, WriteAddr, *pBuffer );
 	return 0;
 }
 
 uint8_t Sensor_IO_Read(void *handle, uint8_t ReadAddr, uint8_t *pBuffer, uint16_t nBytesToRead)
 {
-	device_instance->i2c.read( ( ( DrvContextTypeDef* ) handle )->address, ReadAddr | 0x1, pBuffer, int nBytesToRead);
+	device_instance->i2c.read( ( ( DrvContextTypeDef* ) handle )->address, ReadAddr | 0x1, pBuffer, nBytesToRead);
 	return 0;
 }
 
