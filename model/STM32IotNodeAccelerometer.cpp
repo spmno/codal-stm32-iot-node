@@ -53,4 +53,5 @@ Sample3D STM32IotNodeAccelerometer::getSample()
     {
     	Sample.x = Data;
     }
+    return Sample;
 }
