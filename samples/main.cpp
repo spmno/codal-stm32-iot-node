@@ -26,7 +26,7 @@ onClick(Event)
     Return = IotNode.i2c.write( 0xD7, 0x10, Data );
 	IotNode.serial.printf("   Return: 0x%08X = %d\n", Return, Return);
 
-    Return = IotNode.i2c.read( 0xD7, 0x0F, &Data, sizeof( Data ) );
+    Return = IotNode.i2c.read( 0xD7, 0x0F, &Data, sizeof( Data ), true );
 	IotNode.serial.printf("   Return: 0x%08X = %d\n", Return, Return);
 	IotNode.serial.printf("   Data:   0x%02X\n", Data);
 
