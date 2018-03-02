@@ -21,7 +21,7 @@ onClick(Event)
 
     uint8_t Data = 0xFF;
     int Return = IotNode.i2c.read( 0x6A, 0x0F, &Data, sizeof( Data ) );
-	IotNode.serial.printf("   Return: 0x%08X\n", Return);
+	IotNode.serial.printf("   Return: 0x%08X = %d\n", Return, Return);
 	IotNode.serial.printf("   Data:   0x%02X\n", Data);
 
 //	codal::Sample3D Sample = IotNode.accelerometer.getSample( );
