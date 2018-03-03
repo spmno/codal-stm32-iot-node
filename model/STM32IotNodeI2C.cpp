@@ -1,5 +1,6 @@
 /*
 The MIT License (MIT)
+
 Copyright (c) 2018 Paul ADAM, Europe.
 
 Permission is hereby granted, free of charge, to any person obtaining a
@@ -21,32 +22,16 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef STM32_IOT_NODE_I2C_H
-#define STM32_IOT_NODE_I2C_H
 
-#include "MbedI2C.h"
+#include "CodalConfig.h"
+#include "STM32IotNodeI2C.h"
 
-namespace codal
+int STM32IotNodeI2C::read( uint32_t address, uint8_t reg, uint8_t* data, uint32_t len )
 {
-    /**
-      * Class definition for I2C service, derived from codal.
-      */
-    class STM32IotNodeI2C : protected codal::_mbed::I2C
-    {
-        public:
-
-        I2C(codal::Pin& sda, codal::Pin& scl)
-        : codal::_mbed::I2C::I2C( sda, scl )
-        { }
-
-        using setFrequency;
-
-        int read(  uint32_t address, uint8_t reg, uint8_t* data, uint32_t len );
-
-        int write( uint32_t address, uint8_t reg, const uint8_t* data, uint32_t len );
-
-    };
-
+    return 0;
 }
 
-#endif
+int STM32IotNodeI2C::write( uint32_t address, uint8_t reg, const uint8_t* data, uint32_t len )
+{
+    return 0;
+}
