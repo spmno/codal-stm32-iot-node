@@ -36,7 +36,7 @@ namespace codal
         public:
 
         STM32IotNodeI2C(codal::_mbed::Pin& sda, codal::_mbed::Pin& scl)
-        : codal::_mbed::I2C::I2C( sda, scl )
+        : codal::_mbed::I2C( sda, scl )
         { }
 
         using codal::_mbed::I2C::setFrequency;
