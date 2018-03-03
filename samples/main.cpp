@@ -12,10 +12,8 @@
 
 #include "STM32IotNode.h"
 
-codal::STM32IotNode IotNode;
+STM32IotNode IotNode;
 
-namespace codal
-{
 
 void
 onClick(Event)
@@ -49,6 +47,4 @@ main()
         IotNode.io.led.setDigitalValue(0);
         IotNode.sleep(200);
     }
-}
-
 }
