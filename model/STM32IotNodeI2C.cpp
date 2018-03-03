@@ -26,6 +26,9 @@ DEALINGS IN THE SOFTWARE.
 #include "CodalConfig.h"
 #include "STM32IotNodeI2C.h"
 
+namespace codal
+{
+
 int STM32IotNodeI2C::read( uint32_t address, uint8_t reg, uint8_t* data, uint32_t len )
 {
     return 0;
@@ -34,4 +37,6 @@ int STM32IotNodeI2C::read( uint32_t address, uint8_t reg, uint8_t* data, uint32_
 int STM32IotNodeI2C::write( uint32_t address, uint8_t reg, const uint8_t* data, uint32_t len )
 {
     return 0;
+}
+
 }

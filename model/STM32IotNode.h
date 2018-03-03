@@ -151,10 +151,9 @@ namespace codal
     {
         return system_timer_current_time();
     }
+
 }
 
 void STM32IotNode_dmesg_flush();
-
-using namespace codal;
 
 #endif

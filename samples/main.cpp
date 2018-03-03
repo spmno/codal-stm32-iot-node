@@ -12,7 +12,7 @@
 
 #include "STM32IotNode.h"
 
-STM32IotNode IotNode;
+codal::STM32IotNode IotNode;
 
 void
 onClick(Event)

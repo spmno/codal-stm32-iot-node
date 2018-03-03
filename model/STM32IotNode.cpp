@@ -27,7 +27,8 @@ DEALINGS IN THE SOFTWARE.
 #include "STM32IotNode.h"
 #include "Timer.h"
 
-using namespace codal;
+namespace codal
+{
 
 static STM32IotNode *device_instance = NULL;
 
@@ -154,4 +155,6 @@ void STM32IotNode_dmesg_flush()
     }
 #endif
 #endif
+}
+
 }

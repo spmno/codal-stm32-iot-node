@@ -31,7 +31,8 @@ DEALINGS IN THE SOFTWARE.
 #include "CodalConfig.h"
 #include "STM32IotNodeIO.h"
 
-using namespace codal;
+namespace codal
+{
 
 /**
   * Constructor.
@@ -55,4 +56,6 @@ STM32IotNodeIO::STM32IotNodeIO() :
     sda(ID_PIN_SDA, PB_11, PIN_CAPABILITY_DIGITAL),
     scl(ID_PIN_SCL, PB_10, PIN_CAPABILITY_DIGITAL)
 {
+}
+
 }
