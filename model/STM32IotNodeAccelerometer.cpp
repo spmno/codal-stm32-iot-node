@@ -31,7 +31,8 @@ DEALINGS IN THE SOFTWARE.
 #include "CodalConfig.h"
 #include "STM32IotNodeAccelerometer.h"
 
-using namespace codal;
+namespace codal
+{
 
 /**
   * Constructor.
@@ -54,4 +55,6 @@ Sample3D STM32IotNodeAccelerometer::getSample()
     	Sample.x = Data;
     }
     return Sample;
+}
+
 }
