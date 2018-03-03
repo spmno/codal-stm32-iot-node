@@ -18,22 +18,31 @@ void
 onClick(Event)
 {
     IotNode.serial.printf("CLICK\r\n");
+
+    uint8_t Data = 0xFF;
+
+    IotNode.i2c.read( 0xD5, 0x0F, &Data, sizeof( Data ) );
+	IotNode.serial.printf("   Data: 0x%02X\n", Data);
 }
 
 int
 main()
 {
     IotNode.init();
-    IotNode.serial.printf(" *** STM32_IOT_NODE BLINKY TEST ***\r\n");
+    IotNode.serial.printf("*** STM32_IOT_NODE BLINKY TEST ***\r\n");
+    IotNode.serial.printf( "sda: 0x%04X\r\n", IotNode.io.sda.name );
+    IotNode.serial.printf( "scl: 0x%04X\r\n", IotNode.io.scl.name );
 
     IotNode.messageBus.listen(DEVICE_ID_BUTTON_A, DEVICE_BUTTON_EVT_CLICK, onClick);
 
+    IotNode.i2c.setFrequency( 100000 );
+
     while(1)
     {
-        IotNode.io.led.setDigitalValue(1);
-        IotNode.sleep(2000);
+    	IotNode.io.led.setDigitalValue(1);
+        IotNode.sleep(200);
 
         IotNode.io.led.setDigitalValue(0);
-        IotNode.sleep(100);
+        IotNode.sleep(200);
     }
 }

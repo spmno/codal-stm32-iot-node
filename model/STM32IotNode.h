@@ -70,6 +70,7 @@ namespace codal
             STM32IotNodeIO              io;
             STM32IotNodeAccelerometer   accelerometer;
             Button                      buttonA;
+		    codal::_mbed::I2C           i2c;
 
             /**
              * Constructor.
