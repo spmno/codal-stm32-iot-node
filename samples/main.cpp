@@ -20,9 +20,21 @@ onClick(Event)
     IotNode.serial.printf("CLICK\r\n");
 
     uint8_t Data = 0xFF;
+    int Return;
+    Return = IotNode.i2c.write( 0xD5, 0x10, Data );
+	IotNode.serial.printf("   Return: 0x%08X = %d\n", Return, Return);
+    Return = IotNode.i2c.write( 0xD7, 0x10, Data );
+	IotNode.serial.printf("   Return: 0x%08X = %d\n", Return, Return);
 
-    IotNode.i2c.read( 0xD5, 0x0F, &Data, sizeof( Data ) );
-	IotNode.serial.printf("   Data: 0x%02X\n", Data);
+    Return = IotNode.i2c.read( 0xD7, 0x0F, &Data, sizeof( Data ) );
+	IotNode.serial.printf("   Return: 0x%08X = %d\n", Return, Return);
+	IotNode.serial.printf("   Data:   0x%02X\n", Data);
+
+//	codal::Sample3D Sample = IotNode.accelerometer.getSample( );
+//	IotNode.serial.printf("   x: 0x%04X = %d\n", Sample.x, Sample.x );
+//	IotNode.serial.printf("   y: 0x%04X = %d\n", Sample.y, Sample.y );
+//	IotNode.serial.printf("   z: 0x%04X = %d\n", Sample.z, Sample.z );
+
 }
 
 int
@@ -35,7 +47,7 @@ main()
 
     IotNode.messageBus.listen(DEVICE_ID_BUTTON_A, DEVICE_BUTTON_EVT_CLICK, onClick);
 
-    IotNode.i2c.setFrequency( 100000 );
+    IotNode.i2c.setFrequency( 400000 );
 
     while(1)
     {

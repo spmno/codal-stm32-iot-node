@@ -44,6 +44,7 @@ DEALINGS IN THE SOFTWARE.
 #include "MultiButton.h"
 #include "MbedI2C.h"
 #include "MbedSerial.h"
+#include "STM32IotNodeAccelerometer.h"
 #include "STM32IotNodeIO.h"
 #include "CodalFiber.h"
 #include "MessageBus.h"

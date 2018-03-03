@@ -86,8 +86,6 @@ int STM32IotNode::init()
             CodalComponent::components[i]->init();
     }
 
-    // Seed our random number generator
-    //seedRandom();
 
 //    codal_dmesg_set_flush_fn(STM32IotNode_dmesg_flush);
     status |= DEVICE_COMPONENT_STATUS_IDLE_TICK;
@@ -97,13 +95,51 @@ int STM32IotNode::init()
 
 /**
   * A periodic callback invoked by the fiber scheduler idle thread.
-  * We use this for any low priority, backgrounf housekeeping.
+  * We use this for any low priority, background housekeeping.
   *
   */
 void STM32IotNode::idleCallback()
 {
     codal_dmesg_flush();
 }
+
+extern "C"
+{
+
+uint8_t Sensor_IO_Write(void *handle, uint8_t WriteAddr, uint8_t *pBuffer, uint16_t nBytesToWrite)
+{
+	uint8_t Return = 0;
+	device_instance->serial.printf( "Sensor_IO_Write\n", handle );
+	device_instance->serial.printf( " handle          = %08X\n", handle );
+	device_instance->serial.printf( " handle->address = %08X\n", ( ( DrvContextTypeDef* ) handle )->address );
+	device_instance->serial.printf( " WriteAddr       = %02X\n", WriteAddr );
+	device_instance->serial.printf( " nBytesToWrite   = %04X\n", nBytesToWrite );
+	device_instance->serial.printf( " pBuffer         = %08X\n", pBuffer );
+	for ( int i = 0; i < nBytesToWrite; i ++ )
+		device_instance->serial.printf( "  pBuffer[ %2d ]  = %02X\n", i, pBuffer[ i ] );
+	if ( nBytesToWrite == 1 )
+		Return = device_instance->i2c.write( ( ( DrvContextTypeDef* ) handle )->address, WriteAddr, *pBuffer );
+	device_instance->serial.printf( " Return          = %02X = %d\n", Return, Return );
+	return Return;
+}
+
+uint8_t Sensor_IO_Read(void *handle, uint8_t ReadAddr, uint8_t *pBuffer, uint16_t nBytesToRead)
+{
+	uint8_t Return = 0;
+	device_instance->serial.printf( "Sensor_IO_Read\n", handle );
+	device_instance->serial.printf( " handle          = %08X\n", handle );
+	device_instance->serial.printf( " handle->address = %08X\n", ( ( DrvContextTypeDef* ) handle )->address );
+	device_instance->serial.printf( " ReadAddr        = %02X\n", ReadAddr );
+	device_instance->serial.printf( " nBytesToRead    = %04X\n", nBytesToRead );
+	device_instance->serial.printf( " pBuffer         = %08X\n", pBuffer );
+	Return = device_instance->i2c.read( ( ( DrvContextTypeDef* ) handle )->address, ReadAddr | 0x1, pBuffer, nBytesToRead);
+	device_instance->serial.printf( " Return          = %02X = %d\n", Return, Return );
+	for ( int i = 0; i < nBytesToRead; i ++ )
+		device_instance->serial.printf( "  pBuffer[ %2d ]  = %02X\n", i, pBuffer[ i ] );
+	return Return;
+}
+
+};
 
 void STM32IotNode_dmesg_flush()
 {

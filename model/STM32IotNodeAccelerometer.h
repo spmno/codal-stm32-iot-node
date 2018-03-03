@@ -28,6 +28,7 @@ DEALINGS IN THE SOFTWARE.
 
 #include "mbed.h"
 #include "CodalConfig.h"
+#include "CoordinateSystem.h"
 #include "MbedPin.h"
 
 #include "LSM6DSL_ACC_GYRO_driver_HL.h"
@@ -56,7 +57,14 @@ namespace codal
             /**
              * Constructor.
              */
-            STM32IotNodeSTM32IotNodeAccelerometer();
+    	STM32IotNodeAccelerometer();
+
+        /**
+          * Reads the last accelerometer value stored, and in the coordinate system defined in the constructor.
+          * @return The force measured in each axis, in milli-g.
+          */
+        Sample3D getSample();
+
     };
 }
 
