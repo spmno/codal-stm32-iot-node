@@ -1,7 +1,5 @@
 /*
 The MIT License (MIT)
-
-Copyright (c) 2016 Lancaster University, UK.
 Copyright (c) 2018 Paul ADAM, Europe.
 
 Permission is hereby granted, free of charge, to any person obtaining a
@@ -23,49 +21,32 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef STM32_IOT_NODE_ACCEL_H
-#define STM32_IOT_NODE_ACCEL_H
+#ifndef STM32_IOT_NODE_I2C_H
+#define STM32_IOT_NODE_I2C_H
 
-#include "mbed.h"
-#include "CodalConfig.h"
-#include "CoordinateSystem.h"
-#include "MbedPin.h"
-
-#include "LSM6DSL_ACC_GYRO_driver_HL.h"
+#include "MbedI2C.h"
 
 namespace codal
 {
     /**
-     * Represents a accelerometer on the STM32 IOT node.
-     */
-    class STM32IotNodeAccelerometer
+      * Class definition for I2C service, derived from codal.
+      */
+    class I2C : protected codal::_mbed::I2C
     {
-    	DrvContextTypeDef DrvContext =
-    	{
-    			.who_am_i      = LSM6DSL_ACC_GYRO_WHO_AM_I,
-				.ifType        = 0,
-				.address       = LSM6DSL_ACC_GYRO_I2C_ADDRESS_HIGH,
-				.instance      = 0,
-				.isInitialized = 0,
-				.isEnabled     = 0,
-				.isCombo       = 0,
-				.pData         = &LSM6DSL_Combo_Data[ 0 ],
-				.pVTable       = ( void * ) &LSM6DSL_X_Drv,
-    	};
         public:
 
-            /**
-             * Constructor.
-             */
-    	STM32IotNodeAccelerometer();
+        I2C(codal::Pin& sda, codal::Pin& scl)
+        : codal::_mbed::I2C::I2C( sda, scl )
+        { }
 
-        /**
-          * Reads the last accelerometer value stored, and in the coordinate system defined in the constructor.
-          * @return The force measured in each axis, in milli-g.
-          */
-        Sample3D getSample();
+        using setFrequency;
+
+        int read(  uint32_t address, uint8_t reg, uint8_t* data, uint32_t len);
+
+        int write( uint32_t address, uint8_t reg, const uint8_t* data, uint32_t len);
 
     };
+
 }
 
 #endif

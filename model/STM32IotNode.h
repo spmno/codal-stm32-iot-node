@@ -23,8 +23,8 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef MICROBIT_H
-#define MICROBIT_H
+#ifndef STM32_IOT_NODE_H
+#define STM32_IOT_NODE_H
 
 #include "mbed.h"
 
@@ -42,9 +42,9 @@ DEALINGS IN THE SOFTWARE.
 
 #include "Button.h"
 #include "MultiButton.h"
-#include "MbedI2C.h"
 #include "MbedSerial.h"
 #include "STM32IotNodeAccelerometer.h"
+#include "STM32IotNodeI2C.h"
 #include "STM32IotNodeIO.h"
 #include "CodalFiber.h"
 #include "MessageBus.h"
@@ -69,9 +69,9 @@ namespace codal
             codal::_mbed::Timer         timer;
             MessageBus                  messageBus;
             STM32IotNodeIO              io;
+            STM32IotNodeI2C             i2c;
             STM32IotNodeAccelerometer   accelerometer;
             Button                      buttonA;
-		    codal::_mbed::I2C           i2c;
 
             /**
              * Constructor.
