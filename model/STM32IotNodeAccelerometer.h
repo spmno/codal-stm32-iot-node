@@ -40,24 +40,24 @@ namespace codal
      */
     class STM32IotNodeAccelerometer
     {
-    	DrvContextTypeDef DrvContext =
-    	{
-    			.who_am_i      = LSM6DSL_ACC_GYRO_WHO_AM_I,
-				.ifType        = 0,
-				.address       = LSM6DSL_ACC_GYRO_I2C_ADDRESS_HIGH,
-				.instance      = 0,
-				.isInitialized = 0,
-				.isEnabled     = 0,
-				.isCombo       = 0,
-				.pData         = &LSM6DSL_Combo_Data[ 0 ],
-				.pVTable       = ( void * ) &LSM6DSL_X_Drv,
-    	};
-        public:
-
-            /**
-             * Constructor.
-             */
-    	STM32IotNodeAccelerometer();
+        DrvContextTypeDef DrvContext =
+        {
+            LSM6DSL_ACC_GYRO_WHO_AM_I,
+            0,
+            LSM6DSL_ACC_GYRO_I2C_ADDRESS_HIGH,
+            0,
+            0,
+            0,
+            0,
+            0,
+            &LSM6DSL_Combo_Data[ 0 ],
+            ( void * ) &LSM6DSL_X_Drv,
+            0,
+        };
+        /**
+         * Constructor.
+         */
+        STM32IotNodeAccelerometer();
 
         /**
           * Reads the last accelerometer value stored, and in the coordinate system defined in the constructor.
