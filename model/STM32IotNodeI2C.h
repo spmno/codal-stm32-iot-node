@@ -35,11 +35,11 @@ namespace codal
     {
         public:
 
-        I2C(codal::Pin& sda, codal::Pin& scl)
+        I2C(codal::_mbed::Pin& sda, codal::_mbed::Pin& scl)
         : codal::_mbed::I2C::I2C( sda, scl )
         { }
 
-        using setFrequency;
+        using codal::_mbed::I2C::setFrequency;
 
         int read(  uint32_t address, uint8_t reg, uint8_t* data, uint32_t len );
 
