@@ -35,7 +35,7 @@ namespace codal
     {
         public:
 
-        STM32IotNodeI2C(codal::_mbed::Pin& sda, codal::_mbed::Pin& scl)
+        STM32IotNodeI2C(codal::Pin& sda, codal::Pin& scl)
         : codal::_mbed::I2C( sda, scl )
         { }
 
