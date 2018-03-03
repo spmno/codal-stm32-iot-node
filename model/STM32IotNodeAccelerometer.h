@@ -54,6 +54,8 @@ namespace codal
             ( void * ) &LSM6DSL_X_Drv,
             0,
         };
+
+        public:
         /**
          * Constructor.
          */
