@@ -31,7 +31,7 @@ namespace codal
 
 int STM32IotNodeI2C::read( uint32_t address, uint8_t reg, uint8_t* data, uint32_t len )
 {
- I2C_HandleTypeDef* Handle = ( I2C_HandleTypeDef* ) &codal::mbed::_i2c.handle;
+ I2C_HandleTypeDef* Handle = ( I2C_HandleTypeDef* ) &_i2c.handle;
  if ( HAL_I2C_Mem_Read( Handle, address | 1, ( uint16_t ) reg, I2C_MEMADD_SIZE_8BIT, data, len, 1000 ) == HAL_OK )
   return DEVICE_OK;
  return DEVICE_I2C_ERROR;
