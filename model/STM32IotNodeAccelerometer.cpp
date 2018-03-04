@@ -34,16 +34,17 @@ DEALINGS IN THE SOFTWARE.
 namespace codal
 {
 
+ extern STM32IotNode* device_instance;
+
 /**
   * Constructor.
   *
   * Create a representation of the accelerometer on the STM32 IOT node
   *
-  * Accepts a sequence of unique ID's used to distinguish events raised
-  * by MicroBitPin instances on the default EventModel.
   */
 STM32IotNodeAccelerometer::STM32IotNodeAccelerometer()
 {
+ device_instance->serial.printf( " STM32IotNodeAccelerometer::STM32IotNodeAccelerometer\n" );
  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
 
@@ -51,6 +52,7 @@ STM32IotNodeAccelerometer::STM32IotNodeAccelerometer()
 
 Sample3D STM32IotNodeAccelerometer::getSample()
 {
+ device_instance->serial.printf( " STM32IotNodeAccelerometer::getSample\n" );
  Sample3D Sample;
  SensorAxes_t Data;
  if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_Axes( &DrvContext, &Data ) == COMPONENT_OK )
