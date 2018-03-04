@@ -36,7 +36,7 @@ DEALINGS IN THE SOFTWARE.
 #include "CodalCompat.h"
 #include "CodalComponent.h"
 #include "CodalDmesg.h"
-#include "CoordinateSpace.h"
+#include "CoordinateSystem.h"
 #include "ManagedType.h"
 #include "ManagedString.h"
 #include "NotifyEvents.h"

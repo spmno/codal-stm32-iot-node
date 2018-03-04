@@ -32,8 +32,6 @@ DEALINGS IN THE SOFTWARE.
 #include "CoordinateSystem.h"
 #include "MbedPin.h"
 
-
-            STM32IotNodeI2C             i2c;
 #include "LSM6DSL_ACC_GYRO_driver_HL.h"
 
 namespace codal
