@@ -28,6 +28,7 @@ DEALINGS IN THE SOFTWARE.
 
 #include "mbed.h"
 #include "CodalConfig.h"
+#include "CoordinateSystem.h"
 #include "MbedPin.h"
 
 #include "STM32IotNodeI2C.h"
