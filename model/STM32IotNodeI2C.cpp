@@ -27,10 +27,10 @@ DEALINGS IN THE SOFTWARE.
 #include "STM32IotNode.h"
 #include "STM32IotNodeI2C.h"
 
- extern codal::STM32IotNode* device_instance;
-
 namespace codal
 {
+
+ extern STM32IotNode* device_instance;
 
 int STM32IotNodeI2C::read( uint32_t address, uint8_t reg, uint8_t* data, uint32_t len )
 {
