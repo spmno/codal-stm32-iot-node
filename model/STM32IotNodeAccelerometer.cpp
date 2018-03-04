@@ -31,6 +31,7 @@ DEALINGS IN THE SOFTWARE.
 #include "CodalConfig.h"
 #include "STM32IotNode.h"
 #include "STM32IotNodeAccelerometer.h"
+#include "STM32IotNodeI2C.h"
 
 namespace codal
 {
@@ -43,8 +44,9 @@ namespace codal
   * Create a representation of the accelerometer on the STM32 IOT node
   *
   */
-STM32IotNodeAccelerometer::STM32IotNodeAccelerometer()
-: codal::Accelerometer( SIMPLE_CARTESIAN )
+STM32IotNodeAccelerometer::STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c, CoordinateSpace &coordinateSpace )
+: codal::Accelerometer( coordinateSpace )
+, _i2c( i2c )
 {
 }
 

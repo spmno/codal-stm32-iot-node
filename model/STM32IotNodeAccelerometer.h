@@ -32,6 +32,8 @@ DEALINGS IN THE SOFTWARE.
 #include "CoordinateSystem.h"
 #include "MbedPin.h"
 
+
+            STM32IotNodeI2C             i2c;
 #include "LSM6DSL_ACC_GYRO_driver_HL.h"
 
 namespace codal
@@ -56,19 +58,21 @@ namespace codal
             0,
         };
 
+        STM32IotNodeI2C& _i2c;
+
         public:
         /**
          * Constructor.
          */
-        STM32IotNodeAccelerometer();
+        STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c, CoordinateSpace &coordinateSpace );
 
         /**
           * Reads the last accelerometer value stored, and in the coordinate system defined in the constructor.
           * @return The force measured in each axis, in milli-g.
           */
-        Sample3D getSample();
+        Sample3D getSample( );
 
-        virtual int init();
+        virtual int init( );
 
     };
 }
