@@ -36,7 +36,7 @@ int STM32IotNodeI2C::read( uint32_t address, uint8_t reg, uint8_t* data, uint32_
 {
 
  I2C_HandleTypeDef* Handle = ( I2C_HandleTypeDef* ) &_i2c.i2c.handle;
- device_instance->serial.printf( " STM32IotNodeI2C::read\n" );
+ device_instance->serial.printf( " \nSTM32IotNodeI2C::read\n" );
  device_instance->serial.printf( "  Handle          = %08X\n", Handle );
  device_instance->serial.printf( "  address         = %08X\n", address );
  device_instance->serial.printf( "  reg             = %02X\n", reg );
@@ -54,7 +54,7 @@ int STM32IotNodeI2C::read( uint32_t address, uint8_t reg, uint8_t* data, uint32_
 int STM32IotNodeI2C::write( uint32_t address, uint8_t reg, uint8_t* data, uint32_t len )
 {
  I2C_HandleTypeDef* Handle = ( I2C_HandleTypeDef* ) &_i2c.i2c.handle;
- device_instance->serial.printf( " STM32IotNodeI2C::write\n" );
+ device_instance->serial.printf( " \nSTM32IotNodeI2C::write\n" );
  device_instance->serial.printf( "  Handle          = %08X\n", Handle );
  device_instance->serial.printf( "  address         = %08X\n", address );
  device_instance->serial.printf( "  reg             = %02X\n", reg );
