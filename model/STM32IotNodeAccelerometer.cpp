@@ -36,17 +36,14 @@ DEALINGS IN THE SOFTWARE.
 namespace codal
 {
 
- extern STM32IotNode* device_instance;
-
 /**
   * Constructor.
   *
   * Create a representation of the accelerometer on the STM32 IOT node
   *
   */
-STM32IotNodeAccelerometer::STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c, CoordinateSpace &coordinateSpace )
-: codal::Accelerometer( coordinateSpace )
-, _i2c( i2c )
+STM32IotNodeAccelerometer::STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c )
+: _i2c( i2c )
 {
 }
 
@@ -67,8 +64,8 @@ Sample3D STM32IotNodeAccelerometer::getSample()
 int STM32IotNodeAccelerometer::init()
 {
  device_instance->serial.printf( " STM32IotNodeAccelerometer::init\n" );
-// ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
-// ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
+ ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
+ ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
  return DEVICE_OK;
 }
 

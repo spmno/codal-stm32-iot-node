@@ -42,10 +42,9 @@ STM32IotNode::STM32IotNode() :
     serial(SERIAL_TX, SERIAL_RX),
     timer(),
     messageBus(),
-    coordinateSpace( coordinateSystem ),
     io(),
     i2c( io.sda, io.scl ),
-    accelerometer( i2c, coordinateSpace ),
+    accelerometer( i2c ),
     buttonA(io.buttonA, DEVICE_ID_BUTTON_A, DEVICE_BUTTON_ALL_EVENTS, ACTIVE_LOW)
 {
     // Clear our status
@@ -88,7 +87,7 @@ int STM32IotNode::init()
         if(CodalComponent::components[i])
             CodalComponent::components[i]->init();
     }
-
+    accelerometer.init( );
 
 //    codal_dmesg_set_flush_fn(STM32IotNode_dmesg_flush);
     status |= DEVICE_COMPONENT_STATUS_IDLE_TICK;

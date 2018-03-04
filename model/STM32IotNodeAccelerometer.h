@@ -29,7 +29,6 @@ DEALINGS IN THE SOFTWARE.
 #include "mbed.h"
 #include "CodalConfig.h"
 #include "Accelerometer.h"
-#include "CoordinateSystem.h"
 #include "MbedPin.h"
 
 #include "STM32IotNodeI2C.h"
@@ -64,7 +63,7 @@ namespace codal
         /**
          * Constructor.
          */
-        STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c, CoordinateSpace &coordinateSpace );
+        STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c );
 
         /**
           * Reads the last accelerometer value stored, and in the coordinate system defined in the constructor.
