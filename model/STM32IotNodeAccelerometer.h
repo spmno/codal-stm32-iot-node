@@ -38,7 +38,7 @@ namespace codal
     /**
      * Represents a accelerometer on the STM32 IOT node.
      */
-    class STM32IotNodeAccelerometer
+   class STM32IotNodeAccelerometer : public codal::Accelerometer
     {
         DrvContextTypeDef DrvContext =
         {
@@ -66,6 +66,8 @@ namespace codal
           * @return The force measured in each axis, in milli-g.
           */
         Sample3D getSample();
+
+        virtual int init();
 
     };
 }
