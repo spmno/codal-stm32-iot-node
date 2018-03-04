@@ -69,6 +69,7 @@ namespace codal
             codal::_mbed::Serial        serial;
             codal::_mbed::Timer         timer;
             MessageBus                  messageBus;
+            CoordinateSystem            coordinateSystem;
             CoordinateSpace             coordinateSpace;
             STM32IotNodeIO              io;
             STM32IotNodeI2C             i2c;

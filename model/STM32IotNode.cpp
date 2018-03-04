@@ -42,6 +42,7 @@ STM32IotNode::STM32IotNode() :
     serial(SERIAL_TX, SERIAL_RX),
     timer(),
     messageBus(),
+    coordinateSpace( coordinateSystem ),
     io(),
     i2c( io.sda, io.scl ),
     accelerometer( i2c, coordinateSpace ),
