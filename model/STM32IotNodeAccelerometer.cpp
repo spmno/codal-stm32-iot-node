@@ -31,10 +31,11 @@ DEALINGS IN THE SOFTWARE.
 #include "CodalConfig.h"
 #include "STM32IotNode.h"
 #include "STM32IotNodeAccelerometer.h"
-#include "STM32IotNodeI2C.h"
 
 namespace codal
 {
+
+ extern STM32IotNode* device_instance;
 
 /**
   * Constructor.
