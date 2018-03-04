@@ -64,6 +64,7 @@ Sample3D STM32IotNodeAccelerometer::getSample()
  SensorAxes_t Data;
  if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_Axes( &DrvContext, &Data ) == COMPONENT_OK )
  {
+  device_instance->serial.printf( " Return Get_Axes COMPONENT_OK\n" );
   Sample.x = Data.AXIS_X;
   Sample.y = Data.AXIS_Y;
   Sample.z = Data.AXIS_Z;
