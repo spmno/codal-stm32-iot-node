@@ -48,13 +48,13 @@ STM32IotNodeAccelerometer::STM32IotNodeAccelerometer()
 
 Sample3D STM32IotNodeAccelerometer::getSample()
 {
-	Sample3D Sample;
-	uint8_t Data = 0;
-    if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_WhoAmI( &DrvContext, &Data ) == COMPONENT_OK )
-    {
-    	Sample.x = Data;
-    }
-    return Sample;
+ Sample3D Sample;
+ uint8_t Data = 0;
+ if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_WhoAmI( &DrvContext, &Data ) == COMPONENT_OK )
+ {
+  Sample.x = Data;
+ }
+ return Sample;
 }
 
 }
