@@ -69,3 +69,5 @@ Sample3D STM32IotNodeAccelerometer::getSample()
  }
  return Sample;
 }
+
+}
