@@ -50,7 +50,7 @@ STM32IotNodeAccelerometer::STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c )
 
 Sample3D STM32IotNodeAccelerometer::getSample()
 {
- device_instance->serial.printf( " STM32IotNodeAccelerometer::getSample\n" );
+ device_instance->serial.printf( " \n\nSTM32IotNodeAccelerometer::getSample\n" );
  if ( !DrvContext.isInitialized )
  {
   device_instance->serial.printf( " Initialize\n" );
@@ -69,7 +69,7 @@ Sample3D STM32IotNodeAccelerometer::getSample()
   Sample.y = Data.AXIS_Y;
   Sample.z = Data.AXIS_Z;
  }
- device_instance->serial.printf( " \n\nReturn Sample\n" );
+ device_instance->serial.printf( " \n\nReturn Sample\n\n" );
  return Sample;
 }
 
