@@ -28,7 +28,6 @@ DEALINGS IN THE SOFTWARE.
 
 #include "mbed.h"
 #include "CodalConfig.h"
-#include "Accelerometer.h"
 #include "MbedPin.h"
 
 #include "STM32IotNodeI2C.h"
@@ -40,8 +39,8 @@ namespace codal
     /**
      * Represents a accelerometer on the STM32 IOT node.
      */
-   class STM32IotNodeAccelerometer : public codal::Accelerometer
-    {
+   class STM32IotNodeAccelerometer
+   {
         DrvContextTypeDef DrvContext =
         {
             LSM6DSL_ACC_GYRO_WHO_AM_I,
