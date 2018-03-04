@@ -69,6 +69,7 @@ int STM32IotNodeAccelerometer::init()
  device_instance->serial.printf( " STM32IotNodeAccelerometer::init\n" );
  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
+ return DEVICE_OK;
 }
 
 }
