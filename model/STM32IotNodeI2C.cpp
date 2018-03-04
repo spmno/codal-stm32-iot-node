@@ -24,6 +24,7 @@ DEALINGS IN THE SOFTWARE.
 
 
 #include "CodalConfig.h"
+#include "STM32IotNode.h"
 #include "STM32IotNodeI2C.h"
 
  extern codal::STM32IotNode* device_instance;
