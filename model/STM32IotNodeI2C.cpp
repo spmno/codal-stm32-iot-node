@@ -36,12 +36,12 @@ int STM32IotNodeI2C::read( uint32_t address, uint8_t reg, uint8_t* data, uint32_
 {
 
  I2C_HandleTypeDef* Handle = ( I2C_HandleTypeDef* ) &_i2c.i2c.handle;
- device_instance->serial.printf( "STM32IotNodeI2C::read\n" );
- device_instance->serial.printf( " Handle          = %08X\n", Handle );
- device_instance->serial.printf( " address         = %08X\n", address );
- device_instance->serial.printf( " reg             = %02X\n", reg );
- device_instance->serial.printf( " len             = %04X\n", len );
- device_instance->serial.printf( " data            = %08X\n", data );
+ device_instance->serial.printf( " STM32IotNodeI2C::read\n" );
+ device_instance->serial.printf( "  Handle          = %08X\n", Handle );
+ device_instance->serial.printf( "  address         = %08X\n", address );
+ device_instance->serial.printf( "  reg             = %02X\n", reg );
+ device_instance->serial.printf( "  len             = %04X\n", len );
+ device_instance->serial.printf( "  data            = %08X\n", data );
 
  if ( HAL_I2C_Mem_Read( Handle, address | 1, ( uint16_t ) reg, I2C_MEMADD_SIZE_8BIT, data, len, 1000 ) == HAL_OK )
   return DEVICE_OK;
