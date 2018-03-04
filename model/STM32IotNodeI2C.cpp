@@ -47,7 +47,7 @@ int STM32IotNodeI2C::read( uint32_t address, uint8_t reg, uint8_t* data, uint32_
  return DEVICE_I2C_ERROR;
 }
 
-int STM32IotNodeI2C::write( uint32_t address, uint8_t reg, const uint8_t* data, uint32_t len )
+int STM32IotNodeI2C::write( uint32_t address, uint8_t reg, uint8_t* data, uint32_t len )
 {
  I2C_HandleTypeDef* Handle = ( I2C_HandleTypeDef* ) &_i2c.i2c.handle;
  device_instance->serial.printf( " STM32IotNodeI2C::write\n" );
