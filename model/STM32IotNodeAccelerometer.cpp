@@ -51,7 +51,7 @@ STM32IotNodeAccelerometer::STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c )
 Sample3D STM32IotNodeAccelerometer::getSample()
 {
  device_instance->serial.printf( " STM32IotNodeAccelerometer::getSample\n" );
- if ( !( DrvContext.isInitialized )
+ if ( !DrvContext.isInitialized )
  {
   ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
   ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
