@@ -71,8 +71,6 @@ namespace codal
           */
         Sample3D getSample( );
 
-        virtual int init( );
-
     };
 }
 

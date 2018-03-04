@@ -87,7 +87,6 @@ int STM32IotNode::init()
         if(CodalComponent::components[i])
             CodalComponent::components[i]->init();
     }
-    accelerometer.init( );
 
 //    codal_dmesg_set_flush_fn(STM32IotNode_dmesg_flush);
     status |= DEVICE_COMPONENT_STATUS_IDLE_TICK;

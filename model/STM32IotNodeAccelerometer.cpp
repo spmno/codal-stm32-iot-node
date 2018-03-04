@@ -51,6 +51,14 @@ STM32IotNodeAccelerometer::STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c )
 Sample3D STM32IotNodeAccelerometer::getSample()
 {
  device_instance->serial.printf( " STM32IotNodeAccelerometer::getSample\n" );
+ if ( !( ( ACCELERO_Drv_t* ) DrvContext.isInitialized ) )
+ {
+  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
+  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
+  ( ( ACCELERO_Drv_t* ) DrvContext.isInitialized ) = 1;
+ }
+
+
  Sample3D Sample;
  SensorAxes_t Data;
  if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_Axes( &DrvContext, &Data ) == COMPONENT_OK )
@@ -60,14 +68,4 @@ Sample3D STM32IotNodeAccelerometer::getSample()
   Sample.z = Data.AXIS_Z;
  }
  return Sample;
-}
-
-int STM32IotNodeAccelerometer::init()
-{
- device_instance->serial.printf( " STM32IotNodeAccelerometer::init\n" );
- ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
- ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
- return DEVICE_OK;
-}
-
 }
