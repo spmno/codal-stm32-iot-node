@@ -68,6 +68,7 @@ Sample3D STM32IotNodeAccelerometer::getSample()
   Sample.y = Data.AXIS_Y;
   Sample.z = Data.AXIS_Z;
  }
+ device_instance->serial.printf( " Return Sample\n" );
  return Sample;
 }
 
