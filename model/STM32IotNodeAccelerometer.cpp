@@ -54,8 +54,8 @@ Sample3D STM32IotNodeAccelerometer::getSample()
  if ( !DrvContext.isInitialized )
  {
   device_instance->serial.printf( " Init\n" );
-  printf( "STM32IotNodeAccelerometer::STM32IotNodeAccelerometer: DrvContext.comboData = 0x%08x\n", (unsigned int) DrvContext.comboData );
-  printf( "STM32IotNodeAccelerometer::STM32IotNodeAccelerometer: DrvContext.handle    = 0x%08x\n", (unsigned int) DrvContext.handle );
+  printf( "STM32IotNodeAccelerometer::STM32IotNodeAccelerometer: DrvContext.pData   = 0x%08x\n", (unsigned int) DrvContext.pData );
+  printf( "STM32IotNodeAccelerometer::STM32IotNodeAccelerometer: DrvContext.pVTable = 0x%08x\n", (unsigned int) DrvContext.pVTable );
   ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
   device_instance->serial.printf( " Set_ODR_Value\n" );
   ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, 100 );
