@@ -26,9 +26,7 @@ DEALINGS IN THE SOFTWARE.
 #ifndef STM32_IOT_NODE_ACCEL_H
 #define STM32_IOT_NODE_ACCEL_H
 
-#include "mbed.h"
 #include "CodalConfig.h"
-#include "CoordinateSystem.h"
 #include "MbedPin.h"
 
 #include "STM32IotNodeI2C.h"
