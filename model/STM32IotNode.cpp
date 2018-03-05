@@ -119,7 +119,7 @@ uint8_t Sensor_IO_Write(void *handle, uint8_t WriteAddr, uint8_t *pBuffer, uint1
 // for ( int i = 0; i < nBytesToWrite; i ++ )
 //  device_instance->serial.printf( "  pBuffer[ %2d ]  = %02X\n", i, pBuffer[ i ] );
  Return = device_instance->i2c.write( ( ( DrvContextTypeDef* ) handle )->address, WriteAddr, pBuffer, nBytesToWrite );
- device_instance->serial.printf( " Return          = %02X = %d\n", Return, Return );
+// device_instance->serial.printf( " Return          = %02X = %d\n", Return, Return );
  return Return;
 }
 
@@ -133,7 +133,7 @@ uint8_t Sensor_IO_Read(void *handle, uint8_t ReadAddr, uint8_t *pBuffer, uint16_
 // device_instance->serial.printf( " nBytesToRead    = %04X\n", nBytesToRead );
 // device_instance->serial.printf( " pBuffer         = %08X\n", pBuffer );
  Return = device_instance->i2c.read( ( ( DrvContextTypeDef* ) handle )->address, ReadAddr, pBuffer, nBytesToRead);
- device_instance->serial.printf( " Return          = %02X = %d\n", Return, Return );
+// device_instance->serial.printf( " Return          = %02X = %d\n", Return, Return );
 // for ( int i = 0; i < nBytesToRead; i ++ )
 //  device_instance->serial.printf( "  pBuffer[ %2d ]  = %02X\n", i, pBuffer[ i ] );
  return Return;

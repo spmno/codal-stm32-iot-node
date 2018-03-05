@@ -54,33 +54,33 @@ Sample3D STM32IotNodeAccelerometer::getSample()
  if ( !DrvContext.isInitialized )
  {
   device_instance->serial.printf( " Init\n" );
-  printf( "STM32IotNodeAccelerometer::STM32IotNodeAccelerometer: LSM6DSL_Combo_Data  = 0x%08x\n", (unsigned int) LSM6DSL_Combo_Data );
-  printf( "STM32IotNodeAccelerometer::STM32IotNodeAccelerometer: LSM6DSL_Combo_Data  = 0x%08x\n", (unsigned int) LSM6DSL_Combo_Data );
-  printf( "STM32IotNodeAccelerometer::STM32IotNodeAccelerometer: &LSM6DSL_X_Drv      = 0x%08x\n", (unsigned int) &LSM6DSL_X_Drv );
-
-  printf( "STM32IotNodeAccelerometer::STM32IotNodeAccelerometer: DrvContext.pData   = 0x%08x\n", (unsigned int) DrvContext.pData );
-  printf( "STM32IotNodeAccelerometer::STM32IotNodeAccelerometer: DrvContext.pVTable = 0x%08x\n", (unsigned int) DrvContext.pVTable );
+//  printf( "STM32IotNodeAccelerometer::STM32IotNodeAccelerometer: LSM6DSL_Combo_Data  = 0x%08x\n", (unsigned int) LSM6DSL_Combo_Data );
+//  printf( "STM32IotNodeAccelerometer::STM32IotNodeAccelerometer: LSM6DSL_Combo_Data  = 0x%08x\n", (unsigned int) LSM6DSL_Combo_Data );
+//  printf( "STM32IotNodeAccelerometer::STM32IotNodeAccelerometer: &LSM6DSL_X_Drv      = 0x%08x\n", (unsigned int) &LSM6DSL_X_Drv );
+//
+//  printf( "STM32IotNodeAccelerometer::STM32IotNodeAccelerometer: DrvContext.pData   = 0x%08x\n", (unsigned int) DrvContext.pData );
+//  printf( "STM32IotNodeAccelerometer::STM32IotNodeAccelerometer: DrvContext.pVTable = 0x%08x\n", (unsigned int) DrvContext.pVTable );
   ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
-  device_instance->serial.printf( " Set_ODR_Value\n" );
+//  device_instance->serial.printf( " Set_ODR_Value\n" );
   ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, 100 );
-  device_instance->serial.printf( " Set_FS_Value\n" );
+//  device_instance->serial.printf( " Set_FS_Value\n" );
   ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_FS_Value( &DrvContext, 4 );
-  device_instance->serial.printf( " Sensor_Enable\n" );
+//  device_instance->serial.printf( " Sensor_Enable\n" );
   ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
   DrvContext.isInitialized = 1;
  }
 
- device_instance->serial.printf( " \n\nRead Sample\n" );
+// device_instance->serial.printf( " \n\nRead Sample\n" );
  Sample3D Sample;
  SensorAxes_t Data;
  if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_Axes( &DrvContext, &Data ) == COMPONENT_OK )
  {
-  device_instance->serial.printf( " Return Get_Axes COMPONENT_OK\n" );
+//  device_instance->serial.printf( " Return Get_Axes COMPONENT_OK\n" );
   Sample.x = Data.AXIS_X;
   Sample.y = Data.AXIS_Y;
   Sample.z = Data.AXIS_Z;
  }
- device_instance->serial.printf( " \n\nReturn Sample\n\n" );
+// device_instance->serial.printf( " \n\nReturn Sample\n\n" );
  return Sample;
 }
 
