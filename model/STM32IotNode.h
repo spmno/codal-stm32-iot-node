@@ -26,8 +26,6 @@ DEALINGS IN THE SOFTWARE.
 #ifndef STM32_IOT_NODE_H
 #define STM32_IOT_NODE_H
 
-#include "mbed.h"
-
 #include "CodalHeapAllocator.h"
 #include "codal-core/inc/types/Event.h"
 #include "CodalDevice.h"
@@ -41,7 +39,6 @@ DEALINGS IN THE SOFTWARE.
 #include "NotifyEvents.h"
 
 #include "Button.h"
-#include "MultiButton.h"
 #include "MbedSerial.h"
 #include "STM32IotNodeAccelerometer.h"
 #include "STM32IotNodeI2C.h"
