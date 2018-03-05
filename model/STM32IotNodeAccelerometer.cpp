@@ -44,18 +44,14 @@ namespace codal
 STM32IotNodeAccelerometer::STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c )
 : _i2c( i2c )
 {
+ ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
+ ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, 100 );
+ ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_FS_Value( &DrvContext, 4 );
+ ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
 }
 
 Sample3D STM32IotNodeAccelerometer::getSample()
 {
- if ( !DrvContext.isInitialized )
- {
-  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
-  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, 100 );
-  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_FS_Value( &DrvContext, 4 );
-  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
-  DrvContext.isInitialized = 1;
- }
  Sample3D Sample;
  SensorAxes_t Data;
  if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_Axes( &DrvContext, &Data ) == COMPONENT_OK )
