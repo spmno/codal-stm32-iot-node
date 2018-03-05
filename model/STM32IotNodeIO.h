@@ -1,7 +1,8 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2017 Lancaster University.
+Copyright (c) 2016 Lancaster University, UK.
+Copyright (c) 2018 Paul ADAM, Europe.
 
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the "Software"),
@@ -22,8 +23,8 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef STM32_IOT_NODE_IO
-#define STM32_IOT_NODE_IO
+#ifndef STM32_IOT_NODE_IO_H
+#define STM32_IOT_NODE_IO_H
 
 #include "mbed.h"
 #include "CodalConfig.h"
@@ -45,9 +46,9 @@ DEALINGS IN THE SOFTWARE.
 #define ID_PIN_P4        (DEVICE_ID_IO_P0 + 4)
 #define ID_PIN_P5        (DEVICE_ID_IO_P0 + 5)
 #define ID_PIN_P6        (DEVICE_ID_IO_P0 + 6)
-#define ID_PIN_P7        (DEVICE_ID_IO_P0 + 7)
-#define ID_PIN_P8        (DEVICE_ID_IO_P0 + 8)
-#define ID_PIN_P9        (DEVICE_ID_IO_P0 + 9)
+#define ID_PIN_BUTTONA   (DEVICE_ID_IO_P0 + 7)
+#define ID_PIN_SDA       (DEVICE_ID_IO_P0 + 8)
+#define ID_PIN_SCL       (DEVICE_ID_IO_P0 + 9)
 #define ID_PIN_P10       (DEVICE_ID_IO_P0 + 10)
 #define ID_PIN_P11       (DEVICE_ID_IO_P0 + 11)
 #define ID_PIN_P12       (DEVICE_ID_IO_P0 + 12)
@@ -89,6 +90,8 @@ namespace codal
             _mbed::Pin        A5;
             _mbed::Pin        led;
             _mbed::Pin        buttonA;
+            _mbed::Pin        sda;
+            _mbed::Pin        scl;
 
             /**
              * Constructor.

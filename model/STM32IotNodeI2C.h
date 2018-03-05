@@ -1,7 +1,5 @@
 /*
 The MIT License (MIT)
-
-Copyright (c) 2016 Lancaster University, UK.
 Copyright (c) 2018 Paul ADAM, Europe.
 
 Permission is hereby granted, free of charge, to any person obtaining a
@@ -23,39 +21,32 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-/**
-  * Class definition for STM32 IOT node IO.
-  * Represents a collection of all I/O pins on the device.
-  */
+#ifndef STM32_IOT_NODE_I2C_H
+#define STM32_IOT_NODE_I2C_H
 
-#include "CodalConfig.h"
-#include "STM32IotNodeIO.h"
+#include "MbedI2C.h"
 
 namespace codal
 {
+    /**
+      * Class definition for I2C service, derived from codal.
+      */
+    class STM32IotNodeI2C : protected codal::_mbed::I2C
+    {
+        public:
 
-/**
-  * Constructor.
-  *
-  * Create a representation of all given I/O pins on the edge connector
-  *
-  * Accepts a sequence of unique ID's used to distinguish events raised
-  * by MicroBitPin instances on the default EventModel.
-  */
-STM32IotNodeIO::STM32IotNodeIO() :
-    A0 (ID_PIN_P0, PA_0, PIN_CAPABILITY_AD),
-    A1 (ID_PIN_P1, PA_1, PIN_CAPABILITY_AD),
-    A2 (ID_PIN_P2, PA_4, PIN_CAPABILITY_AD),
-    A3 (ID_PIN_P3, PB_0, PIN_CAPABILITY_AD),
-    A4 (ID_PIN_P4, PC_1, PIN_CAPABILITY_AD),
-    A5 (ID_PIN_P5, PC_0, PIN_CAPABILITY_AD),
-    led (ID_PIN_P6, LED1, PIN_CAPABILITY_AD),
-    buttonA (ID_PIN_BUTTONA, USER_BUTTON, PIN_CAPABILITY_DIGITAL),
-//    sda(ID_PIN_SDA, PB_9, PIN_CAPABILITY_DIGITAL),
-//    scl(ID_PIN_SCL, PB_8, PIN_CAPABILITY_DIGITAL)
-    sda(ID_PIN_SDA, PB_11, PIN_CAPABILITY_DIGITAL),
-    scl(ID_PIN_SCL, PB_10, PIN_CAPABILITY_DIGITAL)
-{
-}
+        STM32IotNodeI2C(codal::Pin& sda, codal::Pin& scl)
+        : codal::_mbed::I2C( sda, scl )
+        { }
+
+        using codal::_mbed::I2C::setFrequency;
+
+        int read(  uint32_t address, uint8_t reg, uint8_t* data, uint32_t len );
+
+        int write( uint32_t address, uint8_t reg, uint8_t* data, uint32_t len );
+
+    };
 
 }
+
+#endif

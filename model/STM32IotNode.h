@@ -2,6 +2,7 @@
 The MIT License (MIT)
 
 Copyright (c) 2016 Lancaster University, UK.
+Copyright (c) 2018 Paul ADAM, Europe.
 
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the "Software"),
@@ -22,8 +23,8 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef MICROBIT_H
-#define MICROBIT_H
+#ifndef STM32_IOT_NODE_H
+#define STM32_IOT_NODE_H
 
 #include "mbed.h"
 
@@ -41,8 +42,9 @@ DEALINGS IN THE SOFTWARE.
 
 #include "Button.h"
 #include "MultiButton.h"
-#include "MbedI2C.h"
 #include "MbedSerial.h"
+#include "STM32IotNodeAccelerometer.h"
+#include "STM32IotNodeI2C.h"
 #include "STM32IotNodeIO.h"
 #include "CodalFiber.h"
 #include "MessageBus.h"
@@ -52,10 +54,10 @@ DEALINGS IN THE SOFTWARE.
 #define DEVICE_INITIALIZED                    0x01
 
 /**
- * Class definition for a MicroBit device.
+ * Class definition for a STM32 IOT node.
  *
  * Represents the device as a whole, and includes member variables that represent various device drivers
- * used to control aspects of the micro:bit.
+ * used to control aspects of the STM32 IOT node.
  */
 namespace codal
 {
@@ -66,7 +68,9 @@ namespace codal
             codal::_mbed::Serial        serial;
             codal::_mbed::Timer         timer;
             MessageBus                  messageBus;
-            STM32IotNodeIO                  io;
+            STM32IotNodeIO              io;
+            STM32IotNodeI2C             i2c;
+            STM32IotNodeAccelerometer   accelerometer;
             Button                      buttonA;
 
             /**

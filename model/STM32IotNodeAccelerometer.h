@@ -23,39 +23,67 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-/**
-  * Class definition for STM32 IOT node IO.
-  * Represents a collection of all I/O pins on the device.
-  */
+#ifndef STM32_IOT_NODE_ACCEL_H
+#define STM32_IOT_NODE_ACCEL_H
 
+#include "mbed.h"
 #include "CodalConfig.h"
-#include "STM32IotNodeIO.h"
+#include "CoordinateSystem.h"
+#include "MbedPin.h"
+
+#include "STM32IotNodeI2C.h"
+
+#include "LSM6DSL_ACC_GYRO_driver_HL.h"
 
 namespace codal
 {
+  /**
+   * Represents a accelerometer on the STM32 IOT node.
+   */
+ class STM32IotNodeAccelerometer
+ {
+   LSM6DSL_X_Data_t LSM6DSL_X_Data =
+   {
+    &LSM6DSL_Combo_Data[ 0 ],
+    0.0,
+   };
 
-/**
-  * Constructor.
-  *
-  * Create a representation of all given I/O pins on the edge connector
-  *
-  * Accepts a sequence of unique ID's used to distinguish events raised
-  * by MicroBitPin instances on the default EventModel.
-  */
-STM32IotNodeIO::STM32IotNodeIO() :
-    A0 (ID_PIN_P0, PA_0, PIN_CAPABILITY_AD),
-    A1 (ID_PIN_P1, PA_1, PIN_CAPABILITY_AD),
-    A2 (ID_PIN_P2, PA_4, PIN_CAPABILITY_AD),
-    A3 (ID_PIN_P3, PB_0, PIN_CAPABILITY_AD),
-    A4 (ID_PIN_P4, PC_1, PIN_CAPABILITY_AD),
-    A5 (ID_PIN_P5, PC_0, PIN_CAPABILITY_AD),
-    led (ID_PIN_P6, LED1, PIN_CAPABILITY_AD),
-    buttonA (ID_PIN_BUTTONA, USER_BUTTON, PIN_CAPABILITY_DIGITAL),
-//    sda(ID_PIN_SDA, PB_9, PIN_CAPABILITY_DIGITAL),
-//    scl(ID_PIN_SCL, PB_8, PIN_CAPABILITY_DIGITAL)
-    sda(ID_PIN_SDA, PB_11, PIN_CAPABILITY_DIGITAL),
-    scl(ID_PIN_SCL, PB_10, PIN_CAPABILITY_DIGITAL)
-{
+   ACCELERO_Data_t ACCELERO_Data =
+   {
+    ( void * ) &LSM6DSL_X_Data,
+    0,
+   };
+
+   DrvContextTypeDef DrvContext =
+   {
+    LSM6DSL_ACC_GYRO_WHO_AM_I,
+    0,
+    LSM6DSL_ACC_GYRO_I2C_ADDRESS_LOW,
+    0,
+    0,
+    0,
+    0,
+    0,
+    &ACCELERO_Data,
+    ( void * ) &LSM6DSL_X_Drv,
+    0,
+   };
+
+   STM32IotNodeI2C& _i2c;
+
+        public:
+        /**
+         * Constructor.
+         */
+        STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c );
+
+        /**
+          * Reads the last accelerometer value stored, and in the coordinate system defined in the constructor.
+          * @return The force measured in each axis, in milli-g.
+          */
+        Sample3D getSample( );
+
+    };
 }
 
-}
+#endif

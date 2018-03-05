@@ -2,6 +2,7 @@
 The MIT License (MIT)
 
 Copyright (c) 2016 Lancaster University, UK.
+Copyright (c) 2018 Paul ADAM, Europe.
 
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the "Software"),
@@ -26,21 +27,24 @@ DEALINGS IN THE SOFTWARE.
 #include "STM32IotNode.h"
 #include "Timer.h"
 
-using namespace codal;
+namespace codal
+{
 
-static STM32IotNode *device_instance = NULL;
+STM32IotNode *device_instance = NULL;
 
 /**
   * Constructor.
   *
-  * Create a representation of a GenuinoZero device, which includes member variables
-  * that represent various device drivers used to control aspects of the micro:bit.
+  * Create a representation of a device, which includes member variables
+  * that represent various device drivers used to control aspects of the STM32 IOT node.
   */
 STM32IotNode::STM32IotNode() :
     serial(SERIAL_TX, SERIAL_RX),
     timer(),
     messageBus(),
     io(),
+    i2c( io.sda, io.scl ),
+    accelerometer( i2c ),
     buttonA(io.buttonA, DEVICE_ID_BUTTON_A, DEVICE_BUTTON_ALL_EVENTS, ACTIVE_LOW)
 {
     // Clear our status
@@ -84,9 +88,6 @@ int STM32IotNode::init()
             CodalComponent::components[i]->init();
     }
 
-    // Seed our random number generator
-    //seedRandom();
-
 //    codal_dmesg_set_flush_fn(STM32IotNode_dmesg_flush);
     status |= DEVICE_COMPONENT_STATUS_IDLE_TICK;
 
@@ -95,13 +96,50 @@ int STM32IotNode::init()
 
 /**
   * A periodic callback invoked by the fiber scheduler idle thread.
-  * We use this for any low priority, backgrounf housekeeping.
+  * We use this for any low priority, background housekeeping.
   *
   */
 void STM32IotNode::idleCallback()
 {
     codal_dmesg_flush();
 }
+
+extern "C"
+{
+
+uint8_t Sensor_IO_Write(void *handle, uint8_t WriteAddr, uint8_t *pBuffer, uint16_t nBytesToWrite)
+{
+ uint8_t Return = 0;
+// device_instance->serial.printf( "Sensor_IO_Write\n", handle );
+// device_instance->serial.printf( " handle          = %08X\n", handle );
+// device_instance->serial.printf( " handle->address = %08X\n", ( ( DrvContextTypeDef* ) handle )->address );
+// device_instance->serial.printf( " WriteAddr       = %02X\n", WriteAddr );
+// device_instance->serial.printf( " nBytesToWrite   = %04X\n", nBytesToWrite );
+// device_instance->serial.printf( " pBuffer         = %08X\n", pBuffer );
+// for ( int i = 0; i < nBytesToWrite; i ++ )
+//  device_instance->serial.printf( "  pBuffer[ %2d ]  = %02X\n", i, pBuffer[ i ] );
+ Return = device_instance->i2c.write( ( ( DrvContextTypeDef* ) handle )->address, WriteAddr, pBuffer, nBytesToWrite );
+// device_instance->serial.printf( " Return          = %02X = %d\n", Return, Return );
+ return Return;
+}
+
+uint8_t Sensor_IO_Read(void *handle, uint8_t ReadAddr, uint8_t *pBuffer, uint16_t nBytesToRead)
+{
+ uint8_t Return = 0;
+// device_instance->serial.printf( "Sensor_IO_Read\n", handle );
+// device_instance->serial.printf( " handle          = %08X\n", handle );
+// device_instance->serial.printf( " handle->address = %08X\n", ( ( DrvContextTypeDef* ) handle )->address );
+// device_instance->serial.printf( " ReadAddr        = %02X\n", ReadAddr );
+// device_instance->serial.printf( " nBytesToRead    = %04X\n", nBytesToRead );
+// device_instance->serial.printf( " pBuffer         = %08X\n", pBuffer );
+ Return = device_instance->i2c.read( ( ( DrvContextTypeDef* ) handle )->address, ReadAddr, pBuffer, nBytesToRead);
+// device_instance->serial.printf( " Return          = %02X = %d\n", Return, Return );
+// for ( int i = 0; i < nBytesToRead; i ++ )
+//  device_instance->serial.printf( "  pBuffer[ %2d ]  = %02X\n", i, pBuffer[ i ] );
+ return Return;
+}
+
+};
 
 void STM32IotNode_dmesg_flush()
 {
@@ -116,4 +154,6 @@ void STM32IotNode_dmesg_flush()
     }
 #endif
 #endif
+}
+
 }
