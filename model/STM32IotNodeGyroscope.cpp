@@ -60,9 +60,9 @@ Sample3D STM32IotNodeGyroscope::getSample()
  SensorAxes_t Data;
  if ( ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Get_Axes( &DrvContext, &Data ) == COMPONENT_OK )
  {
-  Sample.x = Data.AXIS_X / 10000;
-  Sample.y = Data.AXIS_Y / 10000;
-  Sample.z = Data.AXIS_Z / 10000;
+  Sample.x = Data.AXIS_X / 1000;
+  Sample.y = Data.AXIS_Y / 1000;
+  Sample.z = Data.AXIS_Z / 1000;
  }
  return Sample;
 }
