@@ -70,17 +70,17 @@ namespace codal
 
    STM32IotNodeI2C& _i2c;
 
-        public:
-        /**
-         * Constructor.
-         */
-        STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c );
+   public:
+   /**
+    * Constructor.
+    */
+   STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c );
 
-        /**
-          * Reads the last accelerometer value stored, and in the coordinate system defined in the constructor.
-          * @return The force measured in each axis, in milli-g.
-          */
-        Sample3D getSample( );
+   /**
+     * Reads the last accelerometer value stored, and in the coordinate system defined in the constructor.
+     * @return The force measured in each axis, in milli-g.
+     */
+   Sample3D getSample( );
 
     };
 }
