@@ -443,6 +443,8 @@ static DrvStatusTypeDef LSM6DSL_X_Init( DrvContextTypeDef *handle )
   }
 
   printf( "LSM6DSL_X_Init: END\n" );
+  printf( "LSM6DSL_X_Init: comboData = 0x%08x\n", comboData );
+  printf( "LSM6DSL_X_Init: handle    = 0x%08x\n", handle );
  comboData->isAccInitialized = 1;
 
   handle->isInitialized = 1;

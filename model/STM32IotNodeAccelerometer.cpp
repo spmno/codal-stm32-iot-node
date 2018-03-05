@@ -46,6 +46,9 @@ namespace codal
 STM32IotNodeAccelerometer::STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c )
 : _i2c( i2c )
 {
+ printf( "STM32IotNodeAccelerometer::STM32IotNodeAccelerometer: DrvContext.comboData = 0x%08x\n", comboData );
+ printf( "STM32IotNodeAccelerometer::STM32IotNodeAccelerometer: DrvContext.handle    = 0x%08x\n", handle );
+
 }
 
 Sample3D STM32IotNodeAccelerometer::getSample()
