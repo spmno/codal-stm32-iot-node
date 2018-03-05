@@ -37,27 +37,39 @@ DEALINGS IN THE SOFTWARE.
 
 namespace codal
 {
-    /**
-     * Represents a accelerometer on the STM32 IOT node.
-     */
-   class STM32IotNodeAccelerometer
+  /**
+   * Represents a accelerometer on the STM32 IOT node.
+   */
+ class STM32IotNodeAccelerometer
+ {
+   LSM6DSL_X_Data_t LSM6DSL_X_Data =
    {
-        DrvContextTypeDef DrvContext =
-        {
-            LSM6DSL_ACC_GYRO_WHO_AM_I,
-            0,
-            LSM6DSL_ACC_GYRO_I2C_ADDRESS_LOW,
-            0,
-            0,
-            0,
-            0,
-            0,
-            &LSM6DSL_Combo_Data[ 0 ],
-            ( void * ) &LSM6DSL_X_Drv,
-            0,
-        };
+    &LSM6DSL_Combo_Data[ 0 ],
+    0.0,
+   };
 
-        STM32IotNodeI2C& _i2c;
+   ACCELERO_Data_t ACCELERO_Data =
+   {
+    ( void * ) &LSM6DSL_X_Data,
+    0,
+   };
+
+   DrvContextTypeDef DrvContext =
+   {
+    LSM6DSL_ACC_GYRO_WHO_AM_I,
+    0,
+    LSM6DSL_ACC_GYRO_I2C_ADDRESS_LOW,
+    0,
+    0,
+    0,
+    0,
+    0,
+    &ACCELERO_Data,
+    ( void * ) &LSM6DSL_X_Drv,
+    0,
+   };
+
+   STM32IotNodeI2C& _i2c;
 
         public:
         /**

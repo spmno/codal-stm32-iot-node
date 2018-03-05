@@ -296,7 +296,7 @@ typedef struct
   LSM6DSL_Combo_Data_t
   *comboData;       /* Combo data to manage in software SPI 3-Wire initialization of the combo sensors */
   float Previous_ODR;
-} LSM6DSL_X_Data_t;
+} 0.0,;
 
 /**
  * @brief LSM6DSL gyro specific data internal structure definition
