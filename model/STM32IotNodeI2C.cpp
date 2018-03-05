@@ -42,7 +42,7 @@ int STM32IotNodeI2C::read( uint32_t address, uint8_t reg, uint8_t* data, uint32_
  if ( HAL_I2C_Mem_Read( Handle, address | 1, ( uint16_t ) reg, I2C_MEMADD_SIZE_8BIT, data, len, 1000 ) == HAL_OK )
  {
   for ( uint32_t i = 0; i < len; i ++ )
-   printf( "   data[ %2u ]     = 0x%02X\n", i, ( unsigned int ) data[ i ] );
+   printf( "   data[ %2u ]     = 0x%02X\n", ( unsigned int ) i, ( unsigned int ) data[ i ] );
   return DEVICE_OK;
  }
  return DEVICE_I2C_ERROR;
@@ -58,7 +58,7 @@ int STM32IotNodeI2C::write( uint32_t address, uint8_t reg, uint8_t* data, uint32
  printf( "  len             = 0x%04X\n", ( unsigned int ) len );
  printf( "  data            = 0x%08X\n", ( unsigned int ) data );
  for ( uint32_t i = 0; i < len; i ++ )
-  printf( "   data[ %2u ]     = 0x%02X\n", i, ( unsigned int ) data[ i ] );
+  printf( "   data[ %2u ]     = 0x%02X\n", ( unsigned int ) i, ( unsigned int ) data[ i ] );
  if ( HAL_I2C_Mem_Write( Handle, address, ( uint16_t ) reg, I2C_MEMADD_SIZE_8BIT, data, len, 1000 ) == HAL_OK )
   return DEVICE_OK;
  return DEVICE_I2C_ERROR;
