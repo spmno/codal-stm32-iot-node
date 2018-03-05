@@ -45,6 +45,7 @@ STM32IotNode::STM32IotNode() :
     io(),
     i2c( io.sda, io.scl ),
     accelerometer( i2c ),
+    gyroscope( i2c ),
     buttonA(io.buttonA, DEVICE_ID_BUTTON_A, DEVICE_BUTTON_ALL_EVENTS, ACTIVE_LOW)
 {
     // Clear our status

@@ -41,6 +41,7 @@ DEALINGS IN THE SOFTWARE.
 #include "Button.h"
 #include "MbedSerial.h"
 #include "STM32IotNodeAccelerometer.h"
+#include "STM32IotNodeGyroscope.h"
 #include "STM32IotNodeI2C.h"
 #include "STM32IotNodeIO.h"
 #include "CodalFiber.h"
@@ -68,6 +69,7 @@ namespace codal
             STM32IotNodeIO              io;
             STM32IotNodeI2C             i2c;
             STM32IotNodeAccelerometer   accelerometer;
+            STM32IotNodeGyroscope       gyroscope;
             Button                      buttonA;
 
             /**
