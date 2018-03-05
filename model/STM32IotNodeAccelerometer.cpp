@@ -53,9 +53,13 @@ Sample3D STM32IotNodeAccelerometer::getSample()
  device_instance->serial.printf( " \n\nSTM32IotNodeAccelerometer::getSample\n" );
  if ( !DrvContext.isInitialized )
  {
-  device_instance->serial.printf( " Initialize\n" );
+  device_instance->serial.printf( " Init\n" );
   ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
-  device_instance->serial.printf( " Enable\n" );
+  device_instance->serial.printf( " Set_ODR_Value\n" );
+  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, 100 );
+  device_instance->serial.printf( " Set_FS_Value\n" );
+  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_FS_Value( &DrvContext, 4 );
+  device_instance->serial.printf( " Sensor_Enable\n" );
   ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
   DrvContext.isInitialized = 1;
  }
