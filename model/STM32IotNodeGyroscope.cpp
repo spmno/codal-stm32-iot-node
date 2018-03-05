@@ -44,14 +44,17 @@ namespace codal
 STM32IotNodeGyroscope::STM32IotNodeGyroscope( STM32IotNodeI2C& i2c )
 : _i2c( i2c )
 {
- ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
- ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, 100 );
- ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Set_FS_Value( &DrvContext, 2000 );
- ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
 }
 
 Sample3D STM32IotNodeGyroscope::getSample()
 {
+ if ( !DrvContext.isInitialized )
+ {
+  ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
+  ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, 100 );
+  ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Set_FS_Value( &DrvContext, 2000 );
+  ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
+ }
  Sample3D Sample;
  SensorAxes_t Data;
  if ( ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Get_Axes( &DrvContext, &Data ) == COMPONENT_OK )
