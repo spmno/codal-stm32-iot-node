@@ -52,7 +52,7 @@ Sample3D STM32IotNodeGyroscope::getSample()
  {
   ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
   ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, 100 );
-  ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Set_FS_Value( &DrvContext, 4 );
+  ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Set_FS_Value( &DrvContext, 250 );
   ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
   DrvContext.isInitialized = 1;
  }
