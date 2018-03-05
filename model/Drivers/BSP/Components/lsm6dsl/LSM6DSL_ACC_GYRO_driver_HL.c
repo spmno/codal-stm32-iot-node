@@ -38,6 +38,8 @@
 
 /* Includes ------------------------------------------------------------------*/
 
+#include "STM32IotNode.h"
+
 #include "LSM6DSL_ACC_GYRO_driver_HL.h"
 #include <math.h>
 
@@ -372,7 +374,6 @@ LSM6DSL_Combo_Data_t LSM6DSL_Combo_Data[LSM6DSL_SENSORS_MAX_NUM];
  */
 
 
-#include "STM32IotNode.h"
 extern codal::STM32IotNode* device_instance;
 
 
