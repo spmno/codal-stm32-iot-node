@@ -442,10 +442,12 @@ static DrvStatusTypeDef LSM6DSL_X_Init( DrvContextTypeDef *handle )
     return COMPONENT_ERROR;
   }
 
-  comboData->isAccInitialized = 1;
+  printf( "LSM6DSL_X_Init: END\n" );
+ comboData->isAccInitialized = 1;
 
   handle->isInitialized = 1;
 
+  printf( "LSM6DSL_X_Init: RETURN\n" );
   return COMPONENT_OK;
 }
 
