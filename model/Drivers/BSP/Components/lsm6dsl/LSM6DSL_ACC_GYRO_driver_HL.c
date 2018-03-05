@@ -371,6 +371,11 @@ LSM6DSL_Combo_Data_t LSM6DSL_Combo_Data[LSM6DSL_SENSORS_MAX_NUM];
  * @}
  */
 
+
+#include "STM32IotNode.h"
+extern codal::STM32IotNode* device_instance;
+
+
 /** @addtogroup LSM6DSL_Callable_Private_Functions Callable private functions
  * @{
  */
@@ -388,10 +393,13 @@ static DrvStatusTypeDef LSM6DSL_X_Init( DrvContextTypeDef *handle )
   LSM6DSL_X_Data_t *pComponentData = ( LSM6DSL_X_Data_t * )pData->pComponentData;
   LSM6DSL_Combo_Data_t *comboData = pComponentData->comboData;
 
+  device_instance->serial.printf( "LSM6DSL_X_Init: LSM6DSL_Check_WhoAmI\n" );
   if ( LSM6DSL_Check_WhoAmI( handle ) == COMPONENT_ERROR )
   {
     return COMPONENT_ERROR;
   }
+
+  device_instance->serial.printf( "LSM6DSL_X_Init: LSM6DSL_ACC_GYRO_W_SW_RESET\n" );
 
 /* SW reset */
   if ( LSM6DSL_ACC_GYRO_W_SW_RESET( (void *)handle, LSM6DSL_ACC_GYRO_SW_RESET_RESET_DEVICE) == MEMS_ERROR )
@@ -401,18 +409,21 @@ static DrvStatusTypeDef LSM6DSL_X_Init( DrvContextTypeDef *handle )
   
   /* Enable register address automatically incremented during a multiple byte
      access with a serial interface. */
+  device_instance->serial.printf( "LSM6DSL_X_Init: LSM6DSL_ACC_GYRO_W_IF_Addr_Incr\n" );
   if ( LSM6DSL_ACC_GYRO_W_IF_Addr_Incr( (void *)handle, LSM6DSL_ACC_GYRO_IF_INC_ENABLED ) == MEMS_ERROR )
   {
     return COMPONENT_ERROR;
   }
 
   /* Enable BDU */
+  device_instance->serial.printf( "LSM6DSL_X_Init: LSM6DSL_ACC_GYRO_W_BDU\n" );
   if ( LSM6DSL_ACC_GYRO_W_BDU( (void *)handle, LSM6DSL_ACC_GYRO_BDU_BLOCK_UPDATE ) == MEMS_ERROR )
   {
     return COMPONENT_ERROR;
   }
 
   /* FIFO mode selection */
+  device_instance->serial.printf( "LSM6DSL_X_Init: LSM6DSL_ACC_GYRO_W_FIFO_MODE\n" );
   if ( LSM6DSL_ACC_GYRO_W_FIFO_MODE( (void *)handle, LSM6DSL_ACC_GYRO_FIFO_MODE_BYPASS ) == MEMS_ERROR )
   {
     return COMPONENT_ERROR;
@@ -422,12 +433,14 @@ static DrvStatusTypeDef LSM6DSL_X_Init( DrvContextTypeDef *handle )
   pComponentData->Previous_ODR = 104.0f;
 
   /* Output data rate selection - power down. */
+  device_instance->serial.printf( "LSM6DSL_X_Init: LSM6DSL_ACC_GYRO_W_ODR_XL\n" );
   if ( LSM6DSL_ACC_GYRO_W_ODR_XL( (void *)handle, LSM6DSL_ACC_GYRO_ODR_XL_POWER_DOWN ) == MEMS_ERROR )
   {
     return COMPONENT_ERROR;
   }
 
   /* Full scale selection. */
+  device_instance->serial.printf( "LSM6DSL_X_Init: LSM6DSL_X_Set_FS\n" );
   if ( LSM6DSL_X_Set_FS( handle, FS_LOW ) == COMPONENT_ERROR )
   {
     return COMPONENT_ERROR;
