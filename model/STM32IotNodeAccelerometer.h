@@ -27,6 +27,7 @@ DEALINGS IN THE SOFTWARE.
 #define STM32_IOT_NODE_ACCEL_H
 
 #include "CodalConfig.h"
+#include "Accelerometer.h"
 #include "CoordinateSystem.h"
 #include "MbedPin.h"
 
@@ -39,7 +40,7 @@ namespace codal
   /**
    * Represents a accelerometer on the STM32 IOT node.
    */
- class STM32IotNodeAccelerometer
+ class STM32IotNodeAccelerometer : codal::Accelerometer
  {
    LSM6DSL_X_Data_t LSM6DSL_X_Data =
    {
