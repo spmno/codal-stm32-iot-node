@@ -47,22 +47,6 @@ STM32IotNodeAccelerometer::STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c, coda
 {
 }
 
-//int STM32IotNodeAccelerometer::getPeriod()
-//{
-// float Value;
-// if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_ODR( &DrvContext, &Value ) == COMPONENT_OK )
-//  return DEVICE_I2C_ERROR;
-// return ( int ) ( 1000.0f / ( float ) Value );
-//}
-//
-//int STM32IotNodeAccelerometer::getRange()
-//{
-// float Value;
-// if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_FS( &DrvContext, &Value ) == COMPONENT_OK )
-//  return DEVICE_I2C_ERROR;
-// return ( int ) ( 1000.0f / ( float ) Value );
-//}
-
 /**
  * Configures the accelerometer for G range and sample rate defined
  * in this object. The nearest values are chosen to those defined
@@ -124,61 +108,5 @@ int STM32IotNodeAccelerometer::requestUpdate()
  }
  return DEVICE_I2C_ERROR;
 }
-
-//Sample3D STM32IotNodeAccelerometer::getSample()
-//{
-// if ( !DrvContext.isInitialized )
-// {
-//  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
-//  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, 100 );
-//  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_FS_Value( &DrvContext, 4 );
-//  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
-// }
-// Sample3D Sample;
-// SensorAxes_t Data;
-// if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_Axes( &DrvContext, &Data ) == COMPONENT_OK )
-// {
-//  Sample.x = Data.AXIS_X;
-//  Sample.y = Data.AXIS_Y;
-//  Sample.z = Data.AXIS_Z;
-// }
-// return Sample;
-//}
-//
-//int STM32IotNodeAccelerometer::getX()
-//{
-// return STM32IotNodeAccelerometer::getSample().x;
-//}
-//
-//int STM32IotNodeAccelerometer::getY()
-//{
-// return STM32IotNodeAccelerometer::getSample().y;
-//}
-//
-//int STM32IotNodeAccelerometer::getZ()
-//{
-// return STM32IotNodeAccelerometer::getSample().z;
-//}
-//
-//int STM32IotNodeAccelerometer::setPeriod(int period)
-//{
-// if ( !period )
-//  return DEVICE_INVALID_PARAMETER;
-// float Value = 1000.0f / ( float ) period;
-// if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, Value ) == COMPONENT_OK )
-//  return DEVICE_OK;
-// return DEVICE_I2C_ERROR;
-//}
-//
-//int STM32IotNodeAccelerometer::setRange(int range)
-//{
-// if ( !range )
-//  return DEVICE_INVALID_PARAMETER;
-// float Value = ( float ) range;
-// if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, Value ) == COMPONENT_OK )
-//  return DEVICE_OK;
-// return DEVICE_I2C_ERROR;
-//}
-
 
 }
