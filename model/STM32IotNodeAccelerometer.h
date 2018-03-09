@@ -147,10 +147,10 @@ namespace codal
      */
     virtual int setRange(int range);
 
-    using getPitch;
-    using getPitchRadians;
-    using getRoll;
-    using getRollRadians;
+    using codal::Accelerometer::getPitch;
+    using codal::Accelerometer::getPitchRadians;
+    using codal::Accelerometer::getRoll;
+    using codal::Accelerometer::getRollRadians;
 
     };
 }
