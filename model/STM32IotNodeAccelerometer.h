@@ -28,7 +28,6 @@ DEALINGS IN THE SOFTWARE.
 
 #include "CodalConfig.h"
 #include "Accelerometer.h"
-#include "CoordinateSystem.h"
 #include "MbedPin.h"
 
 #include "STM32IotNodeI2C.h"
@@ -70,13 +69,12 @@ namespace codal
    };
 
    STM32IotNodeI2C& _i2c;
-   CoordinateSpace  _coordinateSpace;
 
    public:
    /**
     * Constructor.
     */
-   STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c );
+   STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c, codal::CoordinateSpace& coordinateSpace );
 
    /**
      * Reads the last accelerometer value stored, and in the coordinate system defined in the constructor.

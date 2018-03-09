@@ -41,10 +41,9 @@ namespace codal
   * Create a representation of the accelerometer on the STM32 IOT node
   *
   */
-STM32IotNodeAccelerometer::STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c )
-: _i2c( i2c )
-, _coordinateSpace( SIMPLE_CARTESIAN )
-, codal::Accelerometer( _coordinateSpace )
+STM32IotNodeAccelerometer::STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c, codal::CoordinateSpace& coordinateSpace )
+: codal::Accelerometer( coordinateSpace )
+, _i2c( i2c )
 {
 }
 

@@ -34,6 +34,7 @@ DEALINGS IN THE SOFTWARE.
 #include "CodalCompat.h"
 #include "CodalComponent.h"
 #include "CodalDmesg.h"
+#include "CoordinateSystem.h"
 #include "ManagedType.h"
 #include "ManagedString.h"
 #include "NotifyEvents.h"
@@ -65,6 +66,7 @@ namespace codal
 
             codal::_mbed::Serial        serial;
             codal::_mbed::Timer         timer;
+            codal::CoordinateSpace      coordinateSpace;
             MessageBus                  messageBus;
             STM32IotNodeIO              io;
             STM32IotNodeI2C             i2c;

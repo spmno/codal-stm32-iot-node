@@ -41,10 +41,11 @@ STM32IotNode *device_instance = NULL;
 STM32IotNode::STM32IotNode() :
     serial(SERIAL_TX, SERIAL_RX),
     timer(),
+    coordinateSpace( SIMPLE_CARTESIAN ),
     messageBus(),
     io(),
     i2c( io.sda, io.scl ),
-    accelerometer( i2c ),
+    accelerometer( i2c, coordinateSpace ),
     gyroscope( i2c ),
     buttonA(io.buttonA, DEVICE_ID_BUTTON_A, DEVICE_BUTTON_ALL_EVENTS, ACTIVE_LOW)
 {
