@@ -47,7 +47,7 @@ STM32IotNodeAccelerometer::STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c, coda
 {
 }
 
-virtual int STM32IotNodeAccelerometer::getPeriod()
+int STM32IotNodeAccelerometer::getPeriod()
 {
  float Value;
  if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_ODR_Value( &DrvContext, &Value ) == COMPONENT_OK )
@@ -55,7 +55,7 @@ virtual int STM32IotNodeAccelerometer::getPeriod()
  return ( int ) ( 1000.0f / ( float ) Value );
 }
 
-virtual int STM32IotNodeAccelerometer::getRange()
+int STM32IotNodeAccelerometer::getRange()
 {
  float Value;
  if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_FS_Value( &DrvContext, &Value ) == COMPONENT_OK )
@@ -98,7 +98,7 @@ int STM32IotNodeAccelerometer::getZ()
  return STM32IotNodeAccelerometer::getSample().z;
 }
 
-virtual int STM32IotNodeAccelerometer::setPeriod(int period)
+int STM32IotNodeAccelerometer::setPeriod(int period)
 {
  if ( !period )
   return DEVICE_INVALID_PARAMETER;
@@ -108,7 +108,7 @@ virtual int STM32IotNodeAccelerometer::setPeriod(int period)
  return DEVICE_I2C_ERROR;
 }
 
-virtual int STM32IotNodeAccelerometer::setRange(int range)
+int STM32IotNodeAccelerometer::setRange(int range)
 {
  if ( !range )
   return DEVICE_INVALID_PARAMETER;
