@@ -85,6 +85,21 @@ namespace codal
     using codal::Accelerometer::getRoll;
     using codal::Accelerometer::getRollRadians;
 
+   protected:
+
+    /**
+     * Configures the accelerometer for G range and sample rate defined
+     * in this object. The nearest values are chosen to those defined
+     * that are supported by the hardware. The instance variables are then
+     * updated to reflect reality.
+     *
+     * @return DEVICE_OK on success, DEVICE_I2C_ERROR if the accelerometer could not be configured.
+     *
+     * @note This method should be overidden by the hardware driver to implement the requested
+     * changes in hardware.
+     */
+    virtual int configure();
+
     /**
      * Poll to see if new data is available from the hardware. If so, update it.
      * n.b. it is not necessary to explicitly call this funciton to update data
@@ -96,7 +111,8 @@ namespace codal
      * @note This method should be overidden by the hardware driver to implement the requested
      * changes in hardware.
      */
-    int STM32IotNodeAccelerometer::requestUpdate();
+    virtual int requestUpdate();
+
 
 //   /**
 //     * Reads the currently configured sample range of the accelerometer.
