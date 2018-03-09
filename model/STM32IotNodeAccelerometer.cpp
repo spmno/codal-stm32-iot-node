@@ -80,9 +80,9 @@ int STM32IotNodeAccelerometer::configure()
   sampleRange = 1;
  if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, ( float ) sampleRange ) != COMPONENT_OK )
   return DEVICE_I2C_ERROR;
- if ( !period )
-  period = 1;
- if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_FS_Value( &DrvContext, 1000.0f / ( float ) period ) != COMPONENT_OK )
+ if ( !samplePeriod )
+  samplePeriod = 1;
+ if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_FS_Value( &DrvContext, 1000.0f / ( float ) samplePeriod ) != COMPONENT_OK )
   return DEVICE_I2C_ERROR;
  return DEVICE_OK;
 }
