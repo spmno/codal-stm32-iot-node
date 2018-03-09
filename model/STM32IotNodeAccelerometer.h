@@ -69,6 +69,7 @@ namespace codal
     0,
    };
 
+   CoordinateSpace  _coordinateSpace;
    STM32IotNodeI2C& _i2c;
 
    public:
