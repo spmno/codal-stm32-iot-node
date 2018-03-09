@@ -77,10 +77,75 @@ namespace codal
    STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c, codal::CoordinateSpace& coordinateSpace );
 
    /**
+     * Reads the currently configured sample range of the accelerometer.
+     *
+     * @return The sample range, in g.
+     */
+   virtual int getRange();
+
+   /**
      * Reads the last accelerometer value stored, and in the coordinate system defined in the constructor.
      * @return The force measured in each axis, in milli-g.
      */
    Sample3D getSample( );
+
+   /**
+     * Reads the currently configured sample rate of the accelerometer.
+     *
+     * @return The time between samples, in milliseconds.
+     */
+   virtual int getPeriod();
+
+   /**
+     * reads the value of the x axis from the latest update retrieved from the accelerometer,
+     * using the default coordinate system as specified in the constructor.
+     *
+     * @return the force measured in the x axis, in milli-g.
+     */
+   int getX();
+
+   /**
+     * reads the value of the y axis from the latest update retrieved from the accelerometer,
+     * using the default coordinate system as specified in the constructor.
+     *
+     * @return the force measured in the y axis, in milli-g.
+     */
+   int getY();
+
+   /**
+     * reads the value of the z axis from the latest update retrieved from the accelerometer,
+     * using the default coordinate system as specified in the constructor.
+     *
+     * @return the force measured in the z axis, in milli-g.
+     */
+   int getZ();
+
+   /**
+     * Attempts to set the sample rate of the accelerometer to the specified value (in ms).
+     *
+     * @param period the requested time between samples, in milliseconds.
+     * @return DEVICE_OK on success, DEVICE_I2C_ERROR is the request fails.
+     *
+     * @note The requested rate may not be possible on the hardware. In this case, the
+     * nearest lower rate is chosen.
+     *
+     * @note This method should be overriden (if supported) by specific accelerometer device drivers.
+     */
+   virtual int setPeriod(int period);
+
+   /**
+     * Attempts to set the sample range of the accelerometer to the specified value (in g).
+     *
+     * @param range The requested sample range of samples, in g.
+     *
+     * @return DEVICE_OK on success, DEVICE_I2C_ERROR is the request fails.
+     *
+     * @note The requested range may not be possible on the hardware. In this case, the
+     * nearest lower range is chosen.
+     *
+     * @note This method should be overriden (if supported) by specific accelerometer device drivers.
+     */
+   virtual int setRange(int range);
 
     };
 }
