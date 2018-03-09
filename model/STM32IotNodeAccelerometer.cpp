@@ -110,9 +110,9 @@ int STM32IotNodeAccelerometer::requestUpdate()
  SensorAxes_t Data;
  if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_Axes( &DrvContext, &Data ) == COMPONENT_OK )
  {
-  sampleENU.x = Data.AXIS_X;
-  sampleENU.y = Data.AXIS_Y;
-  sampleENU.z = Data.AXIS_Z;
+  sample.x = Data.AXIS_X;
+  sample.y = Data.AXIS_Y;
+  sample.z = Data.AXIS_Z;
   return DEVICE_OK;
  }
  return DEVICE_I2C_ERROR;
