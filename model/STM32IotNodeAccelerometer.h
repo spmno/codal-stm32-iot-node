@@ -39,7 +39,7 @@ namespace codal
   /**
    * Represents a accelerometer on the STM32 IOT node.
    */
- class STM32IotNodeAccelerometer : codal::Accelerometer
+ class STM32IotNodeAccelerometer : protected codal::Accelerometer
  {
    LSM6DSL_X_Data_t LSM6DSL_X_Data =
    {
@@ -74,27 +74,27 @@ namespace codal
    /**
     * Constructor.
     */
-   STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c, codal::CoordinateSpace& coordinateSpace );
+    STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c, codal::CoordinateSpace& coordinateSpace );
 
    /**
      * Reads the currently configured sample range of the accelerometer.
      *
      * @return The sample range, in g.
      */
-   virtual int getRange();
+    virtual int getRange();
 
    /**
      * Reads the last accelerometer value stored, and in the coordinate system defined in the constructor.
      * @return The force measured in each axis, in milli-g.
      */
-   Sample3D getSample( );
+    Sample3D getSample( );
 
    /**
      * Reads the currently configured sample rate of the accelerometer.
      *
      * @return The time between samples, in milliseconds.
      */
-   virtual int getPeriod();
+    virtual int getPeriod();
 
    /**
      * reads the value of the x axis from the latest update retrieved from the accelerometer,
@@ -102,7 +102,7 @@ namespace codal
      *
      * @return the force measured in the x axis, in milli-g.
      */
-   int getX();
+    int getX();
 
    /**
      * reads the value of the y axis from the latest update retrieved from the accelerometer,
@@ -110,7 +110,7 @@ namespace codal
      *
      * @return the force measured in the y axis, in milli-g.
      */
-   int getY();
+    int getY();
 
    /**
      * reads the value of the z axis from the latest update retrieved from the accelerometer,
@@ -118,7 +118,7 @@ namespace codal
      *
      * @return the force measured in the z axis, in milli-g.
      */
-   int getZ();
+    int getZ();
 
    /**
      * Attempts to set the sample rate of the accelerometer to the specified value (in ms).
@@ -131,7 +131,7 @@ namespace codal
      *
      * @note This method should be overriden (if supported) by specific accelerometer device drivers.
      */
-   virtual int setPeriod(int period);
+    virtual int setPeriod(int period);
 
    /**
      * Attempts to set the sample range of the accelerometer to the specified value (in g).
@@ -145,7 +145,12 @@ namespace codal
      *
      * @note This method should be overriden (if supported) by specific accelerometer device drivers.
      */
-   virtual int setRange(int range);
+    virtual int setRange(int range);
+
+    using getPitch;
+    using getPitchRadians;
+    using getRoll;
+    using getRollRadians;
 
     };
 }
