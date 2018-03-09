@@ -113,7 +113,9 @@ int STM32IotNodeAccelerometer::requestUpdate()
   sampleENU.x = Data.AXIS_X;
   sampleENU.y = Data.AXIS_Y;
   sampleENU.z = Data.AXIS_Z;
+  return DEVICE_OK;
  }
+ return DEVICE_I2C_ERROR;
 }
 
 //Sample3D STM32IotNodeAccelerometer::getSample()
