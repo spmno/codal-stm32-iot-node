@@ -44,7 +44,7 @@ namespace codal
 STM32IotNodeAccelerometer::STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c )
 : _i2c( i2c )
 , _coordinateSpace( SIMPLE_CARTESIAN )
-, codal::Accelerometer( _coordinateSpace )
+, codal::Accelerometer( codal::CoordinateSpace( SIMPLE_CARTESIAN )
 {
 }
 
