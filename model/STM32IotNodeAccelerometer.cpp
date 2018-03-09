@@ -78,12 +78,20 @@ int STM32IotNodeAccelerometer::configure()
 {
  if ( !sampleRange )
   sampleRange = 1;
- if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, ( float ) sampleRange ) != COMPONENT_OK )
+ float Value = sampleRange;
+ if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_FS_Value( &DrvContext, Value ) != COMPONENT_OK )
   return DEVICE_I2C_ERROR;
+ if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_FS( &DrvContext, &Value ) != COMPONENT_OK )
+  return DEVICE_I2C_ERROR;
+ sampleRange = ( int ) Value;
  if ( !samplePeriod )
   samplePeriod = 1;
- if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_FS_Value( &DrvContext, 1000.0f / ( float ) samplePeriod ) != COMPONENT_OK )
+ Value = 1000.0f / ( float ) samplePeriod;
+ if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, Value ) != COMPONENT_OK )
   return DEVICE_I2C_ERROR;
+ if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_ODR( &DrvContext, &Value ) != COMPONENT_OK )
+  return DEVICE_I2C_ERROR;
+ samplePeriod = 1000.0f / ( float ) Value;
  return DEVICE_OK;
 }
 
@@ -103,8 +111,7 @@ int STM32IotNodeAccelerometer::requestUpdate()
  if ( !DrvContext.isInitialized )
  {
   ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
-  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, 100 );
-  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_FS_Value( &DrvContext, 4 );
+  STM32IotNodeAccelerometer::configure();
   ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
  }
  SensorAxes_t Data;
