@@ -101,9 +101,9 @@ int STM32IotNodeGyroscope::requestUpdate()
  SensorAxes_t Data;
  if ( ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Get_Axes( &DrvContext, &Data ) == COMPONENT_OK )
  {
-  sample.x = Data.AXIS_X;
-  sample.y = Data.AXIS_Y;
-  sample.z = Data.AXIS_Z;
+  sample.x = Data.AXIS_X / 1000;
+  sample.y = Data.AXIS_Y / 1000;
+  sample.z = Data.AXIS_Z / 1000;
   return DEVICE_OK;
  }
  return DEVICE_I2C_ERROR;
