@@ -41,29 +41,72 @@ namespace codal
   * Create a representation of the accelerometer on the STM32 IOT node
   *
   */
-STM32IotNodeGyroscope::STM32IotNodeGyroscope( STM32IotNodeI2C& i2c )
-: _i2c( i2c )
+STM32IotNodeGyroscope::STM32IotNodeGyroscope( STM32IotNodeI2C& i2c, codal::CoordinateSpace& coordinateSpace )
+: codal::Gyroscope( coordinateSpace )
+, _i2c( i2c )
 {
 }
 
-Sample3D STM32IotNodeGyroscope::getSample()
+/**
+ * Configures the accelerometer for G range and sample rate defined
+ * in this object. The nearest values are chosen to those defined
+ * that are supported by the hardware. The instance variables are then
+ * updated to reflect reality.
+ *
+ * @return DEVICE_OK on success, DEVICE_I2C_ERROR if the accelerometer could not be configured.
+ *
+ * @note This method should be overidden by the hardware driver to implement the requested
+ * changes in hardware.
+ */
+int STM32IotNodeGyroscope::configure( )
+{
+ if ( !sampleRange )
+  sampleRange = 1;
+ float Value = sampleRange;
+ if ( ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Set_FS_Value( &DrvContext, Value ) != COMPONENT_OK )
+  return DEVICE_I2C_ERROR;
+ if ( ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Get_FS( &DrvContext, &Value ) != COMPONENT_OK )
+  return DEVICE_I2C_ERROR;
+ sampleRange = ( int ) Value;
+ if ( !samplePeriod )
+  samplePeriod = 1;
+ Value = 1000.0f / ( float ) samplePeriod;
+ if ( ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, Value ) != COMPONENT_OK )
+  return DEVICE_I2C_ERROR;
+ if ( ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Get_ODR( &DrvContext, &Value ) != COMPONENT_OK )
+  return DEVICE_I2C_ERROR;
+ samplePeriod = 1000.0f / ( float ) Value;
+ return DEVICE_OK;
+}
+
+/**
+ * Poll to see if new data is available from the hardware. If so, update it.
+ * n.b. it is not necessary to explicitly call this funciton to update data
+ * (it normally happens in the background when the scheduler is idle), but a check is performed
+ * if the user explicitly requests up to date data.
+ *
+ * @return DEVICE_OK on success, DEVICE_I2C_ERROR if the update fails.
+ *
+ * @note This method should be overidden by the hardware driver to implement the requested
+ * changes in hardware.
+ */
+int STM32IotNodeGyroscope::requestUpdate()
 {
  if ( !DrvContext.isInitialized )
  {
   ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
-  ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, 100 );
-  ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Set_FS_Value( &DrvContext, 2000 );
+  STM32IotNodeGyroscope::configure();
   ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
  }
- Sample3D Sample;
  SensorAxes_t Data;
  if ( ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Get_Axes( &DrvContext, &Data ) == COMPONENT_OK )
  {
-  Sample.x = Data.AXIS_X > SHRT_MAX ? SHRT_MAX : ( Data.AXIS_X < SHRT_MIN ? SHRT_MIN : Data.AXIS_X);
-  Sample.y = Data.AXIS_Y > SHRT_MAX ? SHRT_MAX : ( Data.AXIS_Y < SHRT_MIN ? SHRT_MIN : Data.AXIS_Y);
-  Sample.z = Data.AXIS_Z > SHRT_MAX ? SHRT_MAX : ( Data.AXIS_Z < SHRT_MIN ? SHRT_MIN : Data.AXIS_Z);
+  sample.x = Data.AXIS_X;
+  sample.y = Data.AXIS_Y;
+  sample.z = Data.AXIS_Z;
+  return DEVICE_OK;
  }
- return Sample;
+ return DEVICE_I2C_ERROR;
 }
 
 }

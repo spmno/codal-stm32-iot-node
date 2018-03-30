@@ -27,7 +27,7 @@ DEALINGS IN THE SOFTWARE.
 #define STM32_IOT_NODE_GYRO_H
 
 #include "CodalConfig.h"
-#include "CoordinateSystem.h"
+#include "Gyroscope.h"
 #include "MbedPin.h"
 
 #include "STM32IotNodeI2C.h"
@@ -37,9 +37,9 @@ DEALINGS IN THE SOFTWARE.
 namespace codal
 {
   /**
-   * Represents a accelerometer on the STM32 IOT node.
+   * Represents the gyroscope on the STM32 IOT node.
    */
- class STM32IotNodeGyroscope
+ class STM32IotNodeGyroscope : protected codal::Gyroscope
  {
    LSM6DSL_G_Data_t LSM6DSL_G_Data =
    {
@@ -74,13 +74,40 @@ namespace codal
    /**
     * Constructor.
     */
-   STM32IotNodeGyroscope( STM32IotNodeI2C& i2c );
+    STM32IotNodeGyroscope( STM32IotNodeI2C& i2c, codal::CoordinateSpace& coordinateSpace );
 
-   /**
-     * Reads the last accelerometer value stored, and in the coordinate system defined in the constructor.
-     * @return The force measured in each axis, in milli-g.
+    using codal::Gyroscope::getSample;
+    using codal::Gyroscope::getX;
+    using codal::Gyroscope::getY;
+    using codal::Gyroscope::getZ;
+
+   protected:
+
+    /**
+     * Configures the gyroscope for G range and sample rate defined
+     * in this object. The nearest values are chosen to those defined
+     * that are supported by the hardware. The instance variables are then
+     * updated to reflect reality.
+     *
+     * @return DEVICE_OK on success, DEVICE_I2C_ERROR if the gyroscope could not be configured.
+     *
+     * @note This method should be overidden by the hardware driver to implement the requested
+     * changes in hardware.
      */
-   Sample3D getSample( );
+    virtual int configure();
+
+    /**
+     * Poll to see if new data is available from the hardware. If so, update it.
+     * n.b. it is not necessary to explicitly call this funciton to update data
+     * (it normally happens in the background when the scheduler is idle), but a check is performed
+     * if the user explicitly requests up to date data.
+     *
+     * @return DEVICE_OK on success, DEVICE_I2C_ERROR if the update fails.
+     *
+     * @note This method should be overidden by the hardware driver to implement the requested
+     * changes in hardware.
+     */
+    virtual int requestUpdate();
 
     };
 }
