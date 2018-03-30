@@ -58,7 +58,7 @@ STM32IotNodeAccelerometer::STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c, coda
  * @note This method should be overidden by the hardware driver to implement the requested
  * changes in hardware.
  */
-int STM32IotNodeAccelerometer::configure()
+int STM32IotNodeAccelerometer::configure( )
 {
  if ( !sampleRange )
   sampleRange = 1;
