@@ -83,10 +83,6 @@ int STM32IotNodeTemperature::configure( )
  * changes in hardware.
  */
 
-#include "STM32IotNode.h"
-using namespace codal;
-extern codal::STM32IotNode codal::IotNode;
-
 int STM32IotNodeTemperature::requestUpdate()
 {
  if ( !DrvContext.isInitialized )
@@ -98,8 +94,6 @@ int STM32IotNodeTemperature::requestUpdate()
  float Data;
  if ( ( ( TEMPERATURE_Drv_t* ) DrvContext.pVTable )->Get_Temp( &DrvContext, &Data ) == COMPONENT_OK )
  {
-  codal::IotNode.serial.printf("%f\n", Data );
-
   sample = ( uint16_t ) ( Data * 10.0 );
   return DEVICE_OK;
  }
