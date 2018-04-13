@@ -95,8 +95,6 @@ int STM32IotNodeTemperature::requestUpdate()
  if ( ( ( TEMPERATURE_Drv_t* ) DrvContext.pVTable )->Get_Temp( &DrvContext, &Data ) == COMPONENT_OK )
  {
   sample = ( uint16_t ) ( Data * 10.0 );
-  if ( Data > 15 )
-   sample = 12;
   return DEVICE_OK;
  }
  return DEVICE_I2C_ERROR;
