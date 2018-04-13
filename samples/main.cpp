@@ -38,7 +38,7 @@ main()
 
  while(1)
  {
-  int16_t Sample = IotNode.temperature.getPeriode( );
+  int16_t Sample = IotNode.temperature.getPeriod( );
   IotNode.serial.printf("%d\n", Sample );
 //  codal::Sample3D Sample = IotNode.gyroscope.getSample( );
 //  IotNode.serial.printf("%d, %d, %d\n", Sample.x, Sample.y, Sample.z );
