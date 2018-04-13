@@ -62,10 +62,10 @@ int STM32IotNodeTemperature::configure( )
 {
  if ( !samplePeriod )
   samplePeriod = 1;
- Value = 1000.0f / ( float ) samplePeriod;
- if ( ( ( TEMP_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, Value ) != COMPONENT_OK )
+ float Value = 1000.0f / ( float ) samplePeriod;
+ if ( ( ( TEMPERATURE_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, Value ) != COMPONENT_OK )
   return DEVICE_I2C_ERROR;
- if ( ( ( TEMP_Drv_t* ) DrvContext.pVTable )->Get_ODR( &DrvContext, &Value ) != COMPONENT_OK )
+ if ( ( ( TEMPERATURE_Drv_t* ) DrvContext.pVTable )->Get_ODR( &DrvContext, &Value ) != COMPONENT_OK )
   return DEVICE_I2C_ERROR;
  samplePeriod = 1000.0f / ( float ) Value;
  return DEVICE_OK;
@@ -86,9 +86,9 @@ int STM32IotNodeTemperature::requestUpdate()
 {
  if ( !DrvContext.isInitialized )
  {
-  ( ( TEMP_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
+  ( ( TEMPERATURE_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
   STM32IotNodeTemperature::configure();
-  ( ( TEMP_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
+  ( ( TEMPERATURE_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
  }
 // SensorAxes_t Data;
 // if ( ( ( TEMP_Drv_t* ) DrvContext.pVTable )->Get_Axes( &DrvContext, &Data ) == COMPONENT_OK )
