@@ -44,26 +44,28 @@ namespace codal
 
    HTS221_T_Data_t HTS221_T_Data =
    {
-    .comboData    = &HTS221_Combo_Data[ 0 ],
+    &HTS221_Combo_Data[ 0 ],
    };
 
    TEMPERATURE_Data_t TEMP_Data =
    {
-    .pComponentData = ( void * ) &HTS221_T_Data,
-    .pExtData       = 0,
+    ( void * ) &HTS221_T_Data,
+    0,
    };
 
    DrvContextTypeDef DrvContext =
    {
-    .who_am_i      = HTS221_WHO_AM_I_VAL,
-    .ifType        = 0,
-    .address       = HTS221_ADDRESS_DEFAULT,
-    .instance      = 0,
-    .isInitialized = 0,
-    .isEnabled     = 0,
-    .isCombo       = 0,
-    .pData         = ( void * ) &TEMP_Data,
-    .pVTable       = ( void * ) &HTS221_T_Drv,
+    HTS221_WHO_AM_I_VAL,
+    0,
+    HTS221_ADDRESS_DEFAULT,
+    0,
+    0,
+    0,
+    0,
+    0,
+    ( void * ) &TEMP_Data,
+    ( void * ) &HTS221_T_Drv,
+    0,
    };
 
    STM32IotNodeI2C& _i2c;
