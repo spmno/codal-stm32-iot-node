@@ -84,6 +84,7 @@ int STM32IotNodeTemperature::configure( )
  */
 
 #include "STM32IotNode.h"
+using namespace codal;
 extern codal::STM32IotNode IotNode;
 
 int STM32IotNodeTemperature::requestUpdate()
