@@ -76,6 +76,8 @@ namespace codal
     */
     STM32IotNodeGyroscope( STM32IotNodeI2C& i2c, codal::CoordinateSpace& coordinateSpace );
 
+    using codal::Gyroscope::getPeriod;
+    using codal::Gyroscope::getRange;
     using codal::Gyroscope::getSample;
     using codal::Gyroscope::getX;
     using codal::Gyroscope::getY;

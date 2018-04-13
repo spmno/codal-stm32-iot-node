@@ -76,6 +76,8 @@ namespace codal
     */
     STM32IotNodeTemperature( STM32IotNodeI2C& i2c );
 
+    using codal::Temperature::getPeriod;
+    using codal::Temperature::getRange;
     using codal::Temperature::getSample;
 
    protected:

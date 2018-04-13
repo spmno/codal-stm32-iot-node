@@ -76,6 +76,8 @@ namespace codal
     */
     STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c, codal::CoordinateSpace& coordinateSpace );
 
+    using codal::Accelerometer::getPeriod;
+    using codal::Accelerometer::getRange;
     using codal::Accelerometer::getSample;
     using codal::Accelerometer::getX;
     using codal::Accelerometer::getY;
