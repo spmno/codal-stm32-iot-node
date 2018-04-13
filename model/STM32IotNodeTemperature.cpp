@@ -90,14 +90,12 @@ int STM32IotNodeTemperature::requestUpdate()
   STM32IotNodeTemperature::configure();
   ( ( TEMPERATURE_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
  }
-// SensorAxes_t Data;
-// if ( ( ( TEMP_Drv_t* ) DrvContext.pVTable )->Get_Axes( &DrvContext, &Data ) == COMPONENT_OK )
-// {
-//  sample.x = Data.AXIS_X / 100;
-//  sample.y = Data.AXIS_Y / 100;
-//  sample.z = Data.AXIS_Z / 100;
-//  return DEVICE_OK;
-// }
+ float Data;
+ if ( ( ( TEMP_Drv_t* ) DrvContext.pVTable )->Get_Axes( &DrvContext, &Data ) == COMPONENT_OK )
+ {
+  sample = Data * 10;
+  return DEVICE_OK;
+ }
  return DEVICE_I2C_ERROR;
 }
 
