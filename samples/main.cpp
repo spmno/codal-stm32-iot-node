@@ -38,8 +38,10 @@ main()
 
  while(1)
  {
-  codal::Sample3D Sample = IotNode.gyroscope.getSample( );
-  IotNode.serial.printf("%d, %d, %d\n", Sample.x, Sample.y, Sample.z );
+  int16_t Sample = IotNode.temperature.getSample( );
+  IotNode.serial.printf("%d\n", Sample );
+//  codal::Sample3D Sample = IotNode.gyroscope.getSample( );
+//  IotNode.serial.printf("%d, %d, %d\n", Sample.x, Sample.y, Sample.z );
 //  IotNode.io.led.setDigitalValue(1);
 //  IotNode.sleep(200);
 //  IotNode.io.led.setDigitalValue(0);

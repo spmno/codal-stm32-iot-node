@@ -32,7 +32,7 @@ DEALINGS IN THE SOFTWARE.
 
 #include "STM32IotNodeI2C.h"
 
-#include "HTS221_driver_HL.h"
+#include "HTS221_Driver_HL.h"
 
 namespace codal
 {
