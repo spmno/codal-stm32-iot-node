@@ -91,7 +91,7 @@ int STM32IotNodeTemperature::requestUpdate()
   ( ( TEMPERATURE_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
  }
  float Data;
- if ( ( ( TEMPERATURE_Drv_t* ) DrvContext.pVTable )->Get_Axes( &DrvContext, &Data ) == COMPONENT_OK )
+ if ( ( ( TEMPERATURE_Drv_t* ) DrvContext.pVTable )->Get_Temp( &DrvContext, &Data ) == COMPONENT_OK )
  {
   sample = Data * 10;
   return DEVICE_OK;
