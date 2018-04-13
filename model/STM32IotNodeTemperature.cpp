@@ -47,34 +47,27 @@ STM32IotNodeTemperature::STM32IotNodeTemperature( STM32IotNodeI2C& i2c )
 }
 
 /**
- * Configures the accelerometer for G range and sample rate defined
+ * Configures the temperature for celsius range defined
  * in this object. The nearest values are chosen to those defined
  * that are supported by the hardware. The instance variables are then
  * updated to reflect reality.
  *
- * @return DEVICE_OK on success, DEVICE_I2C_ERROR if the accelerometer could not be configured.
+ * @return DEVICE_OK on success, DEVICE_I2C_ERROR if the temperature could not be configured.
  *
  * @note This method should be overidden by the hardware driver to implement the requested
  * changes in hardware.
  */
+
 int STM32IotNodeTemperature::configure( )
 {
-// if ( !sampleRange )
-//  sampleRange = 1;
-// float Value = sampleRange;
-// if ( ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Set_FS_Value( &DrvContext, Value ) != COMPONENT_OK )
-//  return DEVICE_I2C_ERROR;
-// if ( ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Get_FS( &DrvContext, &Value ) != COMPONENT_OK )
-//  return DEVICE_I2C_ERROR;
-// sampleRange = ( int ) Value;
-// if ( !samplePeriod )
-//  samplePeriod = 1;
-// Value = 1000.0f / ( float ) samplePeriod;
-// if ( ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, Value ) != COMPONENT_OK )
-//  return DEVICE_I2C_ERROR;
-// if ( ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Get_ODR( &DrvContext, &Value ) != COMPONENT_OK )
-//  return DEVICE_I2C_ERROR;
-// samplePeriod = 1000.0f / ( float ) Value;
+ if ( !samplePeriod )
+  samplePeriod = 1;
+ Value = 1000.0f / ( float ) samplePeriod;
+ if ( ( ( TEMP_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, Value ) != COMPONENT_OK )
+  return DEVICE_I2C_ERROR;
+ if ( ( ( TEMP_Drv_t* ) DrvContext.pVTable )->Get_ODR( &DrvContext, &Value ) != COMPONENT_OK )
+  return DEVICE_I2C_ERROR;
+ samplePeriod = 1000.0f / ( float ) Value;
  return DEVICE_OK;
 }
 
@@ -91,14 +84,14 @@ int STM32IotNodeTemperature::configure( )
  */
 int STM32IotNodeTemperature::requestUpdate()
 {
-// if ( !DrvContext.isInitialized )
-// {
-//  ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
-//  STM32IotNodeTemperature::configure();
-//  ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
-// }
+ if ( !DrvContext.isInitialized )
+ {
+  ( ( TEMP_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
+  STM32IotNodeTemperature::configure();
+  ( ( TEMP_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
+ }
 // SensorAxes_t Data;
-// if ( ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Get_Axes( &DrvContext, &Data ) == COMPONENT_OK )
+// if ( ( ( TEMP_Drv_t* ) DrvContext.pVTable )->Get_Axes( &DrvContext, &Data ) == COMPONENT_OK )
 // {
 //  sample.x = Data.AXIS_X / 100;
 //  sample.y = Data.AXIS_Y / 100;
