@@ -40,13 +40,13 @@
         {
             "name":"codal-core",
             "url":"https://github.com/LabAixBidouille-STM32/codal-core",
-            "branch":"feature/Test1",
+            "branch":"master",
             "type":"git"
         },
         {
             "name":"codal-mbedos",
             "url":"https://github.com/LabAixBidouille-STM32/codal-mbedos",
-            "branch":"feature/Test1",
+            "branch":"master",
             "type":"git"
         }
     ]
