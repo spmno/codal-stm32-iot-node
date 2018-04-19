@@ -1,0 +1,16 @@
+language: python
+python:
+    - "2.7"
+before_install:
+    - echo -e "machine github.com\n  login $CI_TOKEN" >> ~/.netrc
+    - docker build -t codal-build --build-arg AUTH_TOKEN=$CI_TOKEN https://github.com/lancaster-university/codal-docker.git
+    - docker run -itd -w /home/codal/codal --name codal-running codal-build:latest /bin/bash
+script:
+    - docker exec codal-running python build.py codal-stm32-iot-node
+notifications:
+    email:
+        recipients:
+            - codal-build@labaixbidouille.com
+        on_success: never
+        on_failure: always
+        
