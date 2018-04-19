@@ -43,12 +43,12 @@
             "branch": "ffa6603c513b964dc79d0bd4ea04fbe733fb6eb3", 
             "name": "codal-mbedos", 
             "type": "git", 
-            "url": "https://github.com/LabAixBidouille-STM32/codal-mbedos"
+            "url": "https://github.com/LabAixBidouille-STM32/codal-mbedos-stm32-iot-node"
         }
     ], 
     "linker_flags": "-Wl,--no-wchar-size-warning -Wl,-wrap,main -Wl,--gc-sections -Wl,--wrap,exit -Wl,--wrap,atexit -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=softfp ", 
     "post_process": "", 
     "processor": "STM32L4", 
-    "snapshot_version": "v0.0.4", 
+    "snapshot_version": "v0.0.5", 
     "toolchain": "ARM_GCC"
 }
