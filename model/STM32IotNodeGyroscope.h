@@ -27,7 +27,7 @@ DEALINGS IN THE SOFTWARE.
 #define STM32_IOT_NODE_GYRO_H
 
 #include "CodalConfig.h"
-#include "Gyroscope.h"
+#include "codal-core/inc/driver-models/Gyroscope.h"
 #include "MbedPin.h"
 
 #include "STM32IotNodeI2C.h"
