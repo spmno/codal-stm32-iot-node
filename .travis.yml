@@ -6,7 +6,7 @@ before_install:
     - docker build -t codal-build --build-arg AUTH_TOKEN=$CI_TOKEN --build-arg GIT_COMMIT="af5166d7c6d2b1d056b13929800c11395b3b34a0" --build-arg GIT_URL="https://github.com/LabAixBidouille-STM32/codal.git" https://github.com/LabAixBidouille-STM32/codal-docker.git
     - docker run -itd -w /home/codal/codal --name codal-running codal-build:latest /bin/bash
 script:
-    - docker exec codal-running python build.py https://github.com/LabAixBidouille-STM32/codal-stm32-iot-node#${$TRAVIS_COMMIT}
+    - docker exec codal-running python build.py https://github.com/LabAixBidouille-STM32/codal-stm32-iot-node#${TRAVIS_COMMIT}
 notifications:
     email:
         recipients:
