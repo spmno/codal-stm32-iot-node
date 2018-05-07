@@ -39,11 +39,7 @@ namespace codal
         : _mbed::I2C( sda, scl )
         { }
 
-        I2C_HandleTypeDef* getHandle( )
-        {
-         return &_mbed::I2C._i2c.i2c.handle;
-        }
-
+        I2C_HandleTypeDef* getHandle( );
 
         using _mbed::I2C::setFrequency;
 

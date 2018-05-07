@@ -27,8 +27,16 @@ DEALINGS IN THE SOFTWARE.
 #include "CodalConfig.h"
 #include "STM32IotNodeI2C.h"
 
+#include "codal-core/inc/driver-models/I2C.h"
+//#include "common_objects.h"
+
 namespace codal
 {
+
+I2C_HandleTypeDef* STM32IotNodeI2C::getHandle( )
+{
+ return &_mbed::I2C._i2c.i2c.handle;
+}
 
 int STM32IotNodeI2C::read( uint32_t address, uint8_t reg, uint8_t* data, uint32_t len )
 {
