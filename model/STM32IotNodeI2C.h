@@ -39,6 +39,12 @@ namespace codal
         : _mbed::I2C( sda, scl )
         { }
 
+        I2C_HandleTypeDef* getHandle( )
+        {
+         return 0;
+        }
+
+
         using _mbed::I2C::setFrequency;
 
         int read(  uint32_t address, uint8_t reg, uint8_t* data, uint32_t len );
