@@ -46,6 +46,7 @@ STM32IotNode::STM32IotNode() :
     io(),
     i2c( io.sda, io.scl ),
     accelerometer( i2c, coordinateSpace ),
+    distance( i2c ),
     gyroscope( i2c, coordinateSpace ),
     humidity( i2c ),
     pressure( i2c ),
