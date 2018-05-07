@@ -36,7 +36,7 @@ namespace codal
 
 I2C_HandleTypeDef* STM32IotNodeI2C::getHandle( )
 {
- return ( ( mbed::I2C* ) &_mbed::I2C )->_i2c.i2c.handle;
+ return ( I2C_HandleTypeDef* ) &_i2c.i2c.handle;
 }
 
 int STM32IotNodeI2C::read( uint32_t address, uint8_t reg, uint8_t* data, uint32_t len )
