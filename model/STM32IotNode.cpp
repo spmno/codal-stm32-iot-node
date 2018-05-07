@@ -120,6 +120,12 @@ int Sensor_IO_I2CRead( uint8_t Addr, uint8_t *pdata, uint32_t count)
 {
  int status;
  int i2c_time_out = I2C_TIME_OUT_BASE+ count* I2C_TIME_OUT_BYTE;
+ device_instance->serial.printf( "Sensor_IO_I2CRead\n" );
+ device_instance->serial.printf( " handle          = %08X\n", device_instance->i2c.getHandle( ) );
+ device_instance->serial.printf( " handle->address = %08X\n", device_instance->i2c.getHandle( )->address );
+ device_instance->serial.printf( " Addr            = %02X\n", Addr | 1 );
+ device_instance->serial.printf( " count           = %04X\n", count );
+ device_instance->serial.printf( " pdata           = %08X\n", pdata );
  status = HAL_I2C_Master_Receive( device_instance->i2c.getHandle( ), Addr | 1, pdata, count, i2c_time_out);
  return status;
 }
@@ -128,6 +134,12 @@ int Sensor_IO_I2CWrite( uint8_t Addr, uint8_t *pdata, uint32_t count)
 {
  int status;
  int i2c_time_out = I2C_TIME_OUT_BASE+ count* I2C_TIME_OUT_BYTE;
+ device_instance->serial.printf( "Sensor_IO_I2CWrite\n" );
+ device_instance->serial.printf( " handle          = %08X\n", device_instance->i2c.getHandle( ) );
+ device_instance->serial.printf( " handle->address = %08X\n", device_instance->i2c.getHandle( )->address );
+ device_instance->serial.printf( " Addr            = %02X\n", Addr );
+ device_instance->serial.printf( " count           = %04X\n", count );
+ device_instance->serial.printf( " pdata           = %08X\n", pdata );
  status = HAL_I2C_Master_Transmit( device_instance->i2c.getHandle( ), Addr, pdata, count, i2c_time_out);
  return status;
 }
@@ -135,7 +147,7 @@ int Sensor_IO_I2CWrite( uint8_t Addr, uint8_t *pdata, uint32_t count)
 uint8_t Sensor_IO_Write(void *handle, uint8_t WriteAddr, uint8_t *pBuffer, uint16_t nBytesToWrite)
 {
  uint8_t Return = 0;
-// device_instance->serial.printf( "Sensor_IO_Write\n", handle );
+// device_instance->serial.printf( "Sensor_IO_Write\n" );
 // device_instance->serial.printf( " handle          = %08X\n", handle );
 // device_instance->serial.printf( " handle->address = %08X\n", ( ( DrvContextTypeDef* ) handle )->address );
 // device_instance->serial.printf( " WriteAddr       = %02X\n", WriteAddr );
@@ -151,7 +163,7 @@ uint8_t Sensor_IO_Write(void *handle, uint8_t WriteAddr, uint8_t *pBuffer, uint1
 uint8_t Sensor_IO_Read(void *handle, uint8_t ReadAddr, uint8_t *pBuffer, uint16_t nBytesToRead)
 {
  uint8_t Return = 0;
-// device_instance->serial.printf( "Sensor_IO_Read\n", handle );
+// device_instance->serial.printf( "Sensor_IO_Read\n" );
 // device_instance->serial.printf( " handle          = %08X\n", handle );
 // device_instance->serial.printf( " handle->address = %08X\n", ( ( DrvContextTypeDef* ) handle )->address );
 // device_instance->serial.printf( " ReadAddr        = %02X\n", ReadAddr );
