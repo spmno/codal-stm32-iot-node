@@ -113,6 +113,25 @@ void STM32IotNode::idleCallback()
 extern "C"
 {
 
+#define I2C_TIME_OUT_BASE   10
+#define I2C_TIME_OUT_BYTE   1
+
+int Sensor_IO_I2CRead( uint8_t Addr, uint8_t *pdata, uint32_t count)
+{
+ int status;
+ int i2c_time_out = I2C_TIME_OUT_BASE+ count* I2C_TIME_OUT_BYTE;
+ status = HAL_I2C_Master_Receive( ( I2C_HandleTypeDef* ) &ItDevice_I2C_SensorHandle, Addr | 1, pdata, count, i2c_time_out);
+ return status;
+}
+
+int Sensor_IO_I2CWrite( uint8_t Addr, uint8_t *pdata, uint32_t count)
+{
+ int status;
+ int i2c_time_out = I2C_TIME_OUT_BASE+ count* I2C_TIME_OUT_BYTE;
+ status = HAL_I2C_Master_Transmit( ( I2C_HandleTypeDef* ) &ItDevice_I2C_SensorHandle, Addr, pdata, count, i2c_time_out);
+ return status;
+}
+
 uint8_t Sensor_IO_Write(void *handle, uint8_t WriteAddr, uint8_t *pBuffer, uint16_t nBytesToWrite)
 {
  uint8_t Return = 0;
