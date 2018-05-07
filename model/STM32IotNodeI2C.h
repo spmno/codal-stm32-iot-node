@@ -41,7 +41,7 @@ namespace codal
 
         I2C_HandleTypeDef* getHandle( )
         {
-         return 0;
+         return &_mbed::I2C._i2c.i2c.handle;
         }
 
 
