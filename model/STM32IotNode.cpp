@@ -122,7 +122,6 @@ int Sensor_IO_I2CRead( uint8_t Addr, uint8_t *pdata, uint32_t count)
  int i2c_time_out = I2C_TIME_OUT_BASE+ count* I2C_TIME_OUT_BYTE;
  device_instance->serial.printf( "Sensor_IO_I2CRead\n" );
  device_instance->serial.printf( " handle          = %08X\n", device_instance->i2c.getHandle( ) );
- device_instance->serial.printf( " handle->address = %08X\n", device_instance->i2c.getHandle( )->address );
  device_instance->serial.printf( " Addr            = %02X\n", Addr | 1 );
  device_instance->serial.printf( " count           = %04X\n", count );
  device_instance->serial.printf( " pdata           = %08X\n", pdata );
@@ -136,7 +135,6 @@ int Sensor_IO_I2CWrite( uint8_t Addr, uint8_t *pdata, uint32_t count)
  int i2c_time_out = I2C_TIME_OUT_BASE+ count* I2C_TIME_OUT_BYTE;
  device_instance->serial.printf( "Sensor_IO_I2CWrite\n" );
  device_instance->serial.printf( " handle          = %08X\n", device_instance->i2c.getHandle( ) );
- device_instance->serial.printf( " handle->address = %08X\n", device_instance->i2c.getHandle( )->address );
  device_instance->serial.printf( " Addr            = %02X\n", Addr );
  device_instance->serial.printf( " count           = %04X\n", count );
  device_instance->serial.printf( " pdata           = %08X\n", pdata );
