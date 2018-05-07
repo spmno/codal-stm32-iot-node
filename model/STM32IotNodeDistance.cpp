@@ -46,7 +46,7 @@ STM32IotNodeDistance::STM32IotNodeDistance( STM32IotNodeI2C& i2c )
 , _i2c( i2c )
 {
     VL53L0X_Dev.I2cDevAddr = VL53L0X_ADDRESS_DEFAULT;
-//    updateSample( );
+    updateSample( );
 }
 
 /**
@@ -89,7 +89,6 @@ int STM32IotNodeDistance::readValue()
    ( ( DISTANCE_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
   STM32IotNodeDistance::configure();
   ( ( DISTANCE_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
-  updateSample( );
  }
  float Data = 0.0;
 // if ( ( ( DISTANCE_Drv_t* ) DrvContext.pVTable )->Get_Distance( &DrvContext, &Data ) == COMPONENT_OK )
