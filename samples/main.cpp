@@ -27,12 +27,13 @@ main()
 
  while(1)
  {
+  int16_t SampleDistance    = IotNode.distance.getValue( );
   int16_t SampleHumidity    = IotNode.humidity.getValue( );
   int16_t SamplePressure    = IotNode.pressure.getValue( );
   int16_t SampleTemperature = IotNode.temperature.getValue( );
-  IotNode.serial.printf("%d, %d, %d\n", SampleHumidity, SamplePressure, SampleTemperature );
+  IotNode.serial.printf("%d, %d, %d, %d\n", SampleDistance, SampleHumidity, SamplePressure, SampleTemperature );
 //  Sample3D Sample = IotNode.gyroscope.getSample( );
-//  IotNode.serial.printf("%d, %d, %d\n", Sample.x, Sample.y, Sample.z );
+//  IotNode.serial.printf("%d, %d, %d, %d\n", Sample.x, Sample.y, Sample.z, 0 );
 //  IotNode.io.led.setDigitalValue(1);
 //  IotNode.sleep(200);
 //  IotNode.io.led.setDigitalValue(0);
