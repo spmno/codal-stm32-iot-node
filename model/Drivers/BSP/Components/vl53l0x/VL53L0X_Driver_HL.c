@@ -133,13 +133,13 @@ void STM32IotNode_Trace( const char* Format );
  */
 static DrvStatusTypeDef VL53L0X_Init( DrvContextTypeDef *handle )
 {
-// STM32IotNode_Trace( "VL53L0X_Init 0\n" );
+ STM32IotNode_Trace( "VL53L0X_Init 0\n" );
 
  if ( VL53L0X_Check_WhoAmI( handle ) == COMPONENT_ERROR )
  {
    return COMPONENT_ERROR;
  }
-// STM32IotNode_Trace( "VL53L0X_Init 1\n" );
+ STM32IotNode_Trace( "VL53L0X_Init 1\n" );
 
  uint8_t  VhvSettings;
  uint8_t  PhaseCal;

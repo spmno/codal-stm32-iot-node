@@ -104,7 +104,7 @@ int STM32IotNodeDistance::readValue()
  }
 // STM32IotNode_Trace( "STM32IotNodeDistance::readValue 2\n" );
  float Data = 0.0;
- if ( ( ( DISTANCE_Drv_t* ) DrvContext.pVTable )->Get_Distance( &DrvContext, &Data ) == COMPONENT_OK )
+// if ( ( ( DISTANCE_Drv_t* ) DrvContext.pVTable )->Get_Distance( &DrvContext, &Data ) == COMPONENT_OK )
   return ( int ) ( Data );
  return DEVICE_I2C_ERROR;
 }
