@@ -46,7 +46,6 @@ STM32IotNodeDistance::STM32IotNodeDistance( STM32IotNodeI2C& i2c )
 , _i2c( i2c )
 {
     VL53L0X_Dev.I2cDevAddr = VL53L0X_ADDRESS_DEFAULT;
-    updateSample( );
 }
 
 /**
