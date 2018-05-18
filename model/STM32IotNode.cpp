@@ -113,6 +113,11 @@ void STM32IotNode::idleCallback()
 extern "C"
 {
 
+void STM32IotNode_Trace( const char* Text )
+{
+ device_instance->serial.printf( Text );
+}
+
 #define I2C_TIME_OUT_BASE   10
 #define I2C_TIME_OUT_BYTE   1
 

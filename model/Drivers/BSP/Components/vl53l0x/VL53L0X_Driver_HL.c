@@ -122,8 +122,7 @@ VL53L0X_Combo_Data_t VL53L0X_Combo_Data[VL53L0X_SENSORS_MAX_NUM];
  * @{
  */
 
-#include "STM32IotNode.h"
-extern codal::STM32IotNode *device_instance;
+void STM32IotNode_Trace( const char* Text );
 
 
 /**
@@ -134,12 +133,13 @@ extern codal::STM32IotNode *device_instance;
  */
 static DrvStatusTypeDef VL53L0X_Init( DrvContextTypeDef *handle )
 {
- device_instance->serial.printf( "VL53L0X_Init\n" );
+ STM32IotNode_Trace( "VL53L0X_Init 0\n" );
 
  if ( VL53L0X_Check_WhoAmI( handle ) == COMPONENT_ERROR )
  {
    return COMPONENT_ERROR;
  }
+ STM32IotNode_Trace( "VL53L0X_Init 1\n" );
 
  uint8_t  VhvSettings;
  uint8_t  PhaseCal;
