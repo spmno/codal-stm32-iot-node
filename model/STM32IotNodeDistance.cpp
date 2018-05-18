@@ -80,6 +80,7 @@ int STM32IotNodeDistance::configure( )
 int STM32IotNodeDistance::init()
 {
     updateSample();
+    return DEVICE_OK;
 }
 /**
  * Poll to see if new data is available from the hardware. If so, update it.
