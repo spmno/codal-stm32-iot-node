@@ -92,6 +92,12 @@ namespace codal
     virtual int configure();
 
     /**
+      * Implement this function to receive a function call after the devices'
+      * device model has been instantiated.
+      */
+    virtual int init();
+
+    /**
      * Read the value from underlying hardware.
      */
     virtual int readValue();
