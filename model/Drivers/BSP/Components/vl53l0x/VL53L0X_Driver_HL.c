@@ -122,7 +122,7 @@ VL53L0X_Combo_Data_t VL53L0X_Combo_Data[VL53L0X_SENSORS_MAX_NUM];
  * @{
  */
 
-extern "C" void STM32IotNode_Trace( const char* Format );
+void STM32IotNode_Trace( const char* Format );
 
 
 /**
