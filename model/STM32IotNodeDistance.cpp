@@ -95,12 +95,13 @@ extern "C" void STM32IotNode_Trace( const char* Text );
 
 int STM32IotNodeDistance::readValue()
 {
-// STM32IotNode_Trace( "STM32IotNodeDistance::readValue 0\n" );
+ STM32IotNode_Trace( "STM32IotNodeDistance::readValue 0\n" );
  if ( !DrvContext.isInitialized )
  {
-//  STM32IotNode_Trace( "STM32IotNodeDistance::readValue 1\n" );
+  STM32IotNode_Trace( "STM32IotNodeDistance::readValue 1\n" );
    ( ( DISTANCE_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
-  STM32IotNodeDistance::configure();
+  while ( 1 );
+   STM32IotNodeDistance::configure();
   ( ( DISTANCE_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
  }
 // STM32IotNode_Trace( "STM32IotNodeDistance::readValue 2\n" );

@@ -164,11 +164,11 @@ static DrvStatusTypeDef VL53L0X_Init( DrvContextTypeDef *handle )
   }
   if ( VL53L0X_PerformRefCalibration( Dev, &VhvSettings, &PhaseCal ) )
   {
-//   return COMPONENT_ERROR;
+   return COMPONENT_ERROR;
   }
   if ( VL53L0X_PerformRefSpadManagement( Dev, &refSpadCount, &isApertureSpads ) )
   {
-//   return COMPONENT_ERROR;
+   return COMPONENT_ERROR;
   }
   STM32IotNode_Trace( "VL53L0X_Init 4\n" );
   if ( VL53L0X_SetDeviceMode( Dev, VL53L0X_DEVICEMODE_SINGLE_RANGING ) )
