@@ -130,6 +130,7 @@ void STM32IotNode_TraceU16( const char* Format, uint16_t Value )
 
 int Sensor_IO_I2CRead( uint8_t Addr, uint8_t *pdata, uint32_t count)
 {
+ STM32IotNode_TraceU16( "Sensor_IO_I2CRead, Addr: %02X\n", Addr );
  int status = HAL_OK;
  int i2c_time_out = I2C_TIME_OUT_BASE+ count* I2C_TIME_OUT_BYTE;
 // device_instance->serial.printf( "Sensor_IO_I2CRead\n" );
@@ -143,6 +144,7 @@ int Sensor_IO_I2CRead( uint8_t Addr, uint8_t *pdata, uint32_t count)
 
 int Sensor_IO_I2CWrite( uint8_t Addr, uint8_t *pdata, uint32_t count)
 {
+ STM32IotNode_TraceU16( "Sensor_IO_I2CWrite, Addr: %02X\n", Addr );
  int status = HAL_OK;
  int i2c_time_out = I2C_TIME_OUT_BASE+ count* I2C_TIME_OUT_BYTE;
 // device_instance->serial.printf( "Sensor_IO_I2CWrite\n" );

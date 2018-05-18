@@ -14,16 +14,16 @@ onClick(Event)
  IotNode.serial.printf("   z: 0x%04X = %d\n", Sample.z, Sample.z );
 }
 
-extern "C" void STM32IotNode_Trace( const char* Text );
+extern "C" void STM32IotNode_Trace( const char* Format );
 
 int
 main()
 {
+ STM32IotNode_Trace( "main\n" );
  IotNode.init();
  IotNode.serial.printf("*** STM32_IOT_NODE BLINKY TEST ***\r\n");
  IotNode.serial.printf( "sda: 0x%04X\r\n", IotNode.io.sda.name );
  IotNode.serial.printf( "scl: 0x%04X\r\n", IotNode.io.scl.name );
- STM32IotNode_Trace( "main\n" );
  IotNode.messageBus.listen(DEVICE_ID_BUTTON_A, DEVICE_BUTTON_EVT_CLICK, onClick);
  IotNode.i2c.setFrequency( 100000 );
 
