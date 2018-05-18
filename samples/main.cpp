@@ -25,7 +25,7 @@ main()
  IotNode.messageBus.listen(DEVICE_ID_BUTTON_A, DEVICE_BUTTON_EVT_CLICK, onClick);
  IotNode.i2c.setFrequency( 100000 );
 
- while(1)
+// while(1)
  {
   int16_t SampleDistance    = IotNode.distance.getValue( );
   int16_t SampleHumidity    = IotNode.humidity.getValue( );
