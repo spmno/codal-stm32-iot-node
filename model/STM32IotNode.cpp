@@ -115,7 +115,7 @@ extern "C"
 
 void STM32IotNode_Trace( const char* Format )
 {
-// device_instance->serial.printf( Format );
+ device_instance->serial.printf( Format );
 }
 
 #define I2C_TIME_OUT_BASE   10
