@@ -42,7 +42,7 @@ namespace codal
   *
   */
 STM32IotNodeDistance::STM32IotNodeDistance( STM32IotNodeI2C& i2c )
-:  Sensor(DEVICE_ID_DISTANCE)
+: Sensor(DEVICE_ID_DISTANCE)
 , _i2c( i2c )
 {
     VL53L0X_Dev.I2cDevAddr = VL53L0X_ADDRESS_DEFAULT;
@@ -86,7 +86,7 @@ extern "C" void STM32IotNode_Trace( const char* Text );
 
 int STM32IotNodeDistance::readValue()
 {
- STM32IotNode_Trace( "STM32IotNodeDistance::readValue\n" );
+// STM32IotNode_Trace( "STM32IotNodeDistance::readValue\n" );
  if ( !DrvContext.isInitialized )
  {
    ( ( DISTANCE_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
