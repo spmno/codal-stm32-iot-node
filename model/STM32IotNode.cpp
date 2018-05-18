@@ -30,8 +30,7 @@ DEALINGS IN THE SOFTWARE.
 namespace codal
 {
 
-// STM32IotNode *device_instance = NULL;
- extern STM32IotNode *device_instance;
+ STM32IotNode *device_instance = NULL;
 
 /**
   * Constructor.

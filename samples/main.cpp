@@ -2,7 +2,6 @@
 #include "STM32IotNode.h"
 
 STM32IotNode IotNode;
-STM32IotNode *device_instance = &IotNode;
 
 
 void
