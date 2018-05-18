@@ -82,7 +82,7 @@ int STM32IotNodeDistance::configure( )
  *
  */
 
-void STM32IotNode_Trace( const char* Text );
+extern "C" void STM32IotNode_Trace( const char* Text );
 
 int STM32IotNodeDistance::readValue()
 {
