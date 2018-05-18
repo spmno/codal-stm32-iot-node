@@ -45,7 +45,8 @@ STM32IotNodeDistance::STM32IotNodeDistance( STM32IotNodeI2C& i2c )
 : Sensor(DEVICE_ID_DISTANCE)
 , _i2c( i2c )
 {
-    VL53L0X_Dev.I2cDevAddr = VL53L0X_ADDRESS_DEFAULT;
+ memset( &VL53L0X_Dev, 0, sizeof ( VL53L0X_Dev ) );
+ VL53L0X_Dev.I2cDevAddr = VL53L0X_ADDRESS_DEFAULT;
 }
 
 /**
