@@ -34,6 +34,7 @@ DEALINGS IN THE SOFTWARE.
 
 namespace codal
 {
+ extern "C" void STM32IotNode_Trace( const char* Text );
 
 /**
   * Constructor.
@@ -45,6 +46,7 @@ STM32IotNodeHumidity::STM32IotNodeHumidity( STM32IotNodeI2C& i2c )
 :  Sensor(DEVICE_ID_HUMIDITY)
 , _i2c( i2c )
 {
+ STM32IotNode_Trace( "STM32IotNodeHumidity::STM32IotNodeHumidity" );
     updateSample( );
 }
 
