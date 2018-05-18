@@ -349,7 +349,8 @@ static DrvStatusTypeDef VL53L0X_Sensor_Disable( DrvContextTypeDef *handle )
  * @retval COMPONENT_ERROR in case of failure
  */
 
-void STM32IotNode_Trace( const char* Text );
+void STM32IotNode_Trace( const char* Format );
+void STM32IotNode_TraceU16( const char* Format, uint16 Value );
 
 static DrvStatusTypeDef VL53L0X_Check_WhoAmI( DrvContextTypeDef *handle )
 {
@@ -358,6 +359,7 @@ static DrvStatusTypeDef VL53L0X_Check_WhoAmI( DrvContextTypeDef *handle )
  if (VL53L0X_ERROR_NONE == VL53L0X_RdWord( handle->pData, VL53L0X_REG_IDENTIFICATION_MODEL_ID, (uint16_t *) &who_am_i))
  {
   STM32IotNode_Trace( "VL53L0X_Check_WhoAmI 1\n" );
+  STM32IotNode_TraceU16( "VL53L0X_Check_WhoAmI %04X\n", who_am_i );
   if ( who_am_i == 0xEEAA )
   {
    STM32IotNode_Trace( "VL53L0X_Check_WhoAmI 2\n" );

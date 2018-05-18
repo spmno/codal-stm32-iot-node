@@ -119,6 +119,12 @@ void STM32IotNode_Trace( const char* Format )
   device_instance->serial.printf( Format );
 }
 
+void STM32IotNode_TraceU16( const char* Format, uint16 Value )
+{
+ if ( device_instance )
+  device_instance->serial.printf( Format, Value );
+}
+
 #define I2C_TIME_OUT_BASE   10
 #define I2C_TIME_OUT_BYTE   1
 
@@ -131,7 +137,7 @@ int Sensor_IO_I2CRead( uint8_t Addr, uint8_t *pdata, uint32_t count)
 // device_instance->serial.printf( " Addr            = %02X\n", Addr | 1 );
 // device_instance->serial.printf( " count           = %04X\n", count );
 // device_instance->serial.printf( " pdata           = %08X\n", pdata );
-// status = HAL_I2C_Master_Receive( device_instance->i2c.getHandle( ), Addr | 1, pdata, count, i2c_time_out);
+ status = HAL_I2C_Master_Receive( device_instance->i2c.getHandle( ), Addr | 1, pdata, count, i2c_time_out);
  return status;
 }
 
@@ -144,7 +150,7 @@ int Sensor_IO_I2CWrite( uint8_t Addr, uint8_t *pdata, uint32_t count)
 // device_instance->serial.printf( " Addr            = %02X\n", Addr );
 // device_instance->serial.printf( " count           = %04X\n", count );
 // device_instance->serial.printf( " pdata           = %08X\n", pdata );
-// status = HAL_I2C_Master_Transmit( device_instance->i2c.getHandle( ), Addr, pdata, count, i2c_time_out);
+ status = HAL_I2C_Master_Transmit( device_instance->i2c.getHandle( ), Addr, pdata, count, i2c_time_out);
  return status;
 }
 
