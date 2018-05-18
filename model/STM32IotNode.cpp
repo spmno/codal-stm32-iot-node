@@ -119,7 +119,7 @@ void STM32IotNode_Trace( const char* Format )
   device_instance->serial.printf( Format );
 }
 
-void STM32IotNode_TraceU16( const char* Format, uint16 Value )
+void STM32IotNode_TraceU16( const char* Format, uint16_t Value )
 {
  if ( device_instance )
   device_instance->serial.printf( Format, Value );
