@@ -153,6 +153,7 @@ static DrvStatusTypeDef VL53L0X_Init( DrvContextTypeDef *handle )
  VL53L0X_Dev_t* Dev = ( VL53L0X_Dev_t* ) handle->pData;
  Dev->Present = 1;
  {
+  STM32IotNode_Trace( "VL53L0X_Init 2\n" );
   if ( VL53L0X_DataInit( Dev ) )
   {
    return COMPONENT_ERROR;
@@ -169,6 +170,7 @@ static DrvStatusTypeDef VL53L0X_Init( DrvContextTypeDef *handle )
   {
 //   return COMPONENT_ERROR;
   }
+  STM32IotNode_Trace( "VL53L0X_Init 4\n" );
   if ( VL53L0X_SetDeviceMode( Dev, VL53L0X_DEVICEMODE_SINGLE_RANGING ) )
   {
    return COMPONENT_ERROR;
@@ -188,6 +190,7 @@ static DrvStatusTypeDef VL53L0X_Init( DrvContextTypeDef *handle )
   preRangeVcselPeriod   = 18;
   finalRangeVcselPeriod = 14;
 
+  STM32IotNode_Trace( "VL53L0X_Init 8\n" );
   if ( VL53L0X_SetLimitCheckValue( Dev, VL53L0X_CHECKENABLE_SIGNAL_RATE_FINAL_RANGE, signalLimit ) )
   {
    return COMPONENT_ERROR;
@@ -204,6 +207,7 @@ static DrvStatusTypeDef VL53L0X_Init( DrvContextTypeDef *handle )
   {
 //   return COMPONENT_ERROR;
   }
+  STM32IotNode_Trace( "VL53L0X_Init 12\n" );
   if ( VL53L0X_SetVcselPulsePeriod( Dev, VL53L0X_VCSEL_PERIOD_FINAL_RANGE, finalRangeVcselPeriod ) )
   {
 //   return COMPONENT_ERROR;
@@ -231,6 +235,7 @@ static DrvStatusTypeDef VL53L0X_Init( DrvContextTypeDef *handle )
 //    return COMPONENT_ERROR;
 //  }
 
+ STM32IotNode_Trace( "VL53L0X_Init 20\n" );
   handle->isInitialized = 1;
 
   return COMPONENT_OK;
