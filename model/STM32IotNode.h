@@ -2,7 +2,7 @@
 The MIT License (MIT)
 
 Copyright (c) 2016 Lancaster University, UK.
-Copyright (c) 2018 Paul ADAM, Europe.
+Copyright (c) 2018 Paul ADAM, inidinn.com
 
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the "Software"),
@@ -26,8 +26,6 @@ DEALINGS IN THE SOFTWARE.
 #ifndef STM32_IOT_NODE_H
 #define STM32_IOT_NODE_H
 
-#include "mbed.h"
-
 #include "CodalHeapAllocator.h"
 #include "codal-core/inc/types/Event.h"
 #include "CodalDevice.h"
@@ -36,16 +34,21 @@ DEALINGS IN THE SOFTWARE.
 #include "CodalCompat.h"
 #include "CodalComponent.h"
 #include "CodalDmesg.h"
+#include "CoordinateSystem.h"
 #include "ManagedType.h"
 #include "ManagedString.h"
 #include "NotifyEvents.h"
 
 #include "Button.h"
-#include "MultiButton.h"
 #include "MbedSerial.h"
 #include "STM32IotNodeAccelerometer.h"
+#include "STM32IotNodeDistance.h"
+#include "STM32IotNodeGyroscope.h"
 #include "STM32IotNodeI2C.h"
 #include "STM32IotNodeIO.h"
+#include "STM32IotNodeHumidity.h"
+#include "STM32IotNodePressure.h"
+#include "STM32IotNodeTemperature.h"
 #include "CodalFiber.h"
 #include "MessageBus.h"
 
@@ -67,10 +70,16 @@ namespace codal
 
             codal::_mbed::Serial        serial;
             codal::_mbed::Timer         timer;
+            codal::CoordinateSpace      coordinateSpace;
             MessageBus                  messageBus;
             STM32IotNodeIO              io;
             STM32IotNodeI2C             i2c;
             STM32IotNodeAccelerometer   accelerometer;
+            STM32IotNodeDistance        distance;
+            STM32IotNodeGyroscope       gyroscope;
+            STM32IotNodeHumidity        humidity;
+            STM32IotNodePressure        pressure;
+            STM32IotNodeTemperature     temperature;
             Button                      buttonA;
 
             /**

@@ -23,49 +23,49 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef STM32_IOT_NODE_ACCEL_H
-#define STM32_IOT_NODE_ACCEL_H
+#ifndef STM32_IOT_NODE_TEMP_H
+#define STM32_IOT_NODE_TEMP_H
 
 #include "CodalConfig.h"
-#include "codal-core/inc/driver-models/Accelerometer.h"
+#include "Sensor.h"
 #include "MbedPin.h"
 
 #include "STM32IotNodeI2C.h"
 
-#include "LSM6DSL_ACC_GYRO_driver_HL.h"
+#include "HTS221_Driver_HL.h"
 
 namespace codal
 {
   /**
-   * Represents the accelerometer on the STM32 IOT node.
+   * Represents the gyroscope on the STM32 IOT node.
    */
- class STM32IotNodeAccelerometer : protected Accelerometer
+ class STM32IotNodeTemperature : public codal::Sensor
  {
-   LSM6DSL_X_Data_t LSM6DSL_X_Data =
+
+   HTS221_T_Data_t HTS221_T_Data =
    {
-    &LSM6DSL_Combo_Data[ 0 ],
-    0.0,
+    .comboData = &HTS221_Combo_Data[ 0 ],
    };
 
-   ACCELERO_Data_t ACCELERO_Data =
+   TEMPERATURE_Data_t TEMPERATURE_Data =
    {
-    ( void * ) &LSM6DSL_X_Data,
-    0,
+    .pComponentData = ( void * ) &HTS221_T_Data,
+    .pExtData       = 0,
    };
 
    DrvContextTypeDef DrvContext =
    {
-    LSM6DSL_ACC_GYRO_WHO_AM_I,
-    0,
-    LSM6DSL_ACC_GYRO_I2C_ADDRESS_LOW,
-    0,
-    0,
-    0,
-    0,
-    0,
-    &ACCELERO_Data,
-    ( void * ) &LSM6DSL_X_Drv,
-    0,
+    .who_am_i      = HTS221_WHO_AM_I_VAL,
+    .ifType        = 0,
+    .address       = HTS221_ADDRESS_DEFAULT,
+    .spiDevice     = 0,
+    .instance      = 0,
+    .isInitialized = 0,
+    .isEnabled     = 0,
+    .isCombo       = 0,
+    .pData         = ( void * ) &TEMPERATURE_Data,
+    .pVTable       = ( void * ) &HTS221_T_Drv,
+    .pExtVTable    = 0,
    };
 
    STM32IotNodeI2C& _i2c;
@@ -74,28 +74,17 @@ namespace codal
    /**
     * Constructor.
     */
-    STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c, CoordinateSpace& coordinateSpace );
-
-    using Accelerometer::getPeriod;
-    using Accelerometer::getRange;
-    using Accelerometer::getSample;
-    using Accelerometer::getX;
-    using Accelerometer::getY;
-    using Accelerometer::getZ;
-    using Accelerometer::getPitch;
-    using Accelerometer::getPitchRadians;
-    using Accelerometer::getRoll;
-    using Accelerometer::getRollRadians;
+    STM32IotNodeTemperature( STM32IotNodeI2C& i2c );
 
    protected:
 
     /**
-     * Configures the accelerometer for G range and sample rate defined
+     * Configures the temperature for celsuiu range and sample rate defined
      * in this object. The nearest values are chosen to those defined
      * that are supported by the hardware. The instance variables are then
      * updated to reflect reality.
      *
-     * @return DEVICE_OK on success, DEVICE_I2C_ERROR if the accelerometer could not be configured.
+     * @return DEVICE_OK on success, DEVICE_I2C_ERROR if the temperature could not be configured.
      *
      * @note This method should be overidden by the hardware driver to implement the requested
      * changes in hardware.
@@ -103,17 +92,10 @@ namespace codal
     virtual int configure();
 
     /**
-     * Poll to see if new data is available from the hardware. If so, update it.
-     * n.b. it is not necessary to explicitly call this function to update data
-     * (it normally happens in the background when the scheduler is idle), but a check is performed
-     * if the user explicitly requests up to date data.
-     *
-     * @return DEVICE_OK on success, DEVICE_I2C_ERROR if the update fails.
-     *
-     * @note This method should be overidden by the hardware driver to implement the requested
-     * changes in hardware.
+     * Read the value from underlying hardware.
      */
-    virtual int requestUpdate();
+    virtual int readValue();
+
 
     };
 }

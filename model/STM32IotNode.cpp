@@ -2,7 +2,7 @@
 The MIT License (MIT)
 
 Copyright (c) 2016 Lancaster University, UK.
-Copyright (c) 2018 Paul ADAM, Europe.
+Copyright (c) 2018 Paul ADAM, inidinn.com
 
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the "Software"),
@@ -30,7 +30,7 @@ DEALINGS IN THE SOFTWARE.
 namespace codal
 {
 
-STM32IotNode *device_instance = NULL;
+ STM32IotNode *device_instance = NULL;
 
 /**
   * Constructor.
@@ -41,10 +41,16 @@ STM32IotNode *device_instance = NULL;
 STM32IotNode::STM32IotNode() :
     serial(SERIAL_TX, SERIAL_RX),
     timer(),
+    coordinateSpace( SIMPLE_CARTESIAN ),
     messageBus(),
     io(),
     i2c( io.sda, io.scl ),
-    accelerometer( i2c ),
+    accelerometer( i2c, coordinateSpace ),
+    distance( i2c ),
+    gyroscope( i2c, coordinateSpace ),
+    humidity( i2c ),
+    pressure( i2c ),
+    temperature( i2c ),
     buttonA(io.buttonA, DEVICE_ID_BUTTON_A, DEVICE_BUTTON_ALL_EVENTS, ACTIVE_LOW)
 {
     // Clear our status
@@ -107,10 +113,55 @@ void STM32IotNode::idleCallback()
 extern "C"
 {
 
+void STM32IotNode_Trace( const char* Format )
+{
+ if ( device_instance )
+  device_instance->serial.printf( Format );
+}
+
+void STM32IotNode_TraceU16( const char* Format, uint16_t Value )
+{
+ if ( device_instance )
+  device_instance->serial.printf( Format, Value );
+}
+
+#define I2C_TIME_OUT_BASE   10
+#define I2C_TIME_OUT_BYTE   1
+
+int Sensor_IO_I2CRead( uint8_t Addr, uint8_t *pdata, uint32_t count)
+{
+ STM32IotNode_TraceU16( "Sensor_IO_I2CRead, Addr:   %02X\n", Addr );
+ int status = HAL_OK;
+ int i2c_time_out = I2C_TIME_OUT_BASE+ count* I2C_TIME_OUT_BYTE;
+// device_instance->serial.printf( "Sensor_IO_I2CRead\n" );
+// device_instance->serial.printf( " handle          = %08X\n", device_instance->i2c.getHandle( ) );
+// device_instance->serial.printf( " Addr            = %02X\n", Addr | 1 );
+// device_instance->serial.printf( " count           = %04X\n", count );
+// device_instance->serial.printf( " pdata           = %08X\n", pdata );
+ status = HAL_I2C_Master_Receive( device_instance->i2c.getHandle( ), Addr | 1, pdata, count, i2c_time_out);
+ STM32IotNode_TraceU16( "Sensor_IO_I2CRead, status: %04X\n", status );
+ return status;
+}
+
+int Sensor_IO_I2CWrite( uint8_t Addr, uint8_t *pdata, uint32_t count)
+{
+ STM32IotNode_TraceU16( "Sensor_IO_I2CWrite, Addr: %02X\n", Addr );
+ int status = HAL_OK;
+ int i2c_time_out = I2C_TIME_OUT_BASE+ count* I2C_TIME_OUT_BYTE;
+// device_instance->serial.printf( "Sensor_IO_I2CWrite\n" );
+// device_instance->serial.printf( " handle          = %08X\n", device_instance->i2c.getHandle( ) );
+// device_instance->serial.printf( " Addr            = %02X\n", Addr );
+// device_instance->serial.printf( " count           = %04X\n", count );
+// device_instance->serial.printf( " pdata           = %08X\n", pdata );
+ status = HAL_I2C_Master_Transmit( device_instance->i2c.getHandle( ), Addr, pdata, count, i2c_time_out);
+ STM32IotNode_TraceU16( "Sensor_IO_I2CWrite, status: %04X\n", status );
+ return status;
+}
+
 uint8_t Sensor_IO_Write(void *handle, uint8_t WriteAddr, uint8_t *pBuffer, uint16_t nBytesToWrite)
 {
  uint8_t Return = 0;
-// device_instance->serial.printf( "Sensor_IO_Write\n", handle );
+// device_instance->serial.printf( "Sensor_IO_Write\n" );
 // device_instance->serial.printf( " handle          = %08X\n", handle );
 // device_instance->serial.printf( " handle->address = %08X\n", ( ( DrvContextTypeDef* ) handle )->address );
 // device_instance->serial.printf( " WriteAddr       = %02X\n", WriteAddr );
@@ -126,7 +177,7 @@ uint8_t Sensor_IO_Write(void *handle, uint8_t WriteAddr, uint8_t *pBuffer, uint1
 uint8_t Sensor_IO_Read(void *handle, uint8_t ReadAddr, uint8_t *pBuffer, uint16_t nBytesToRead)
 {
  uint8_t Return = 0;
-// device_instance->serial.printf( "Sensor_IO_Read\n", handle );
+// device_instance->serial.printf( "Sensor_IO_Read\n" );
 // device_instance->serial.printf( " handle          = %08X\n", handle );
 // device_instance->serial.printf( " handle->address = %08X\n", ( ( DrvContextTypeDef* ) handle )->address );
 // device_instance->serial.printf( " ReadAddr        = %02X\n", ReadAddr );

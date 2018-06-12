@@ -24,13 +24,13 @@ DEALINGS IN THE SOFTWARE.
 */
 
 /**
-  * Class definition for accelerometer.
-  * Represents the accelerometer on the STM IOT node.
+  * Class definition for pressure.
+  * Represents the pressure on the STM IOT node.
   */
 
 #include "CodalConfig.h"
 #include "STM32IotNode.h"
-#include "STM32IotNodeAccelerometer.h"
+#include "STM32IotNodePressure.h"
 
 namespace codal
 {
@@ -38,40 +38,34 @@ namespace codal
 /**
   * Constructor.
   *
-  * Create a representation of the accelerometer on the STM32 IOT node
+  * Create a representation of the pressure on the STM32 IOT node
   *
   */
-STM32IotNodeAccelerometer::STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c, CoordinateSpace& coordinateSpace )
-: Accelerometer( coordinateSpace )
+STM32IotNodePressure::STM32IotNodePressure( STM32IotNodeI2C& i2c )
+:  codal::Sensor(DEVICE_ID_PRESSURE)
 , _i2c( i2c )
 {
+    updateSample( );
 }
 
 /**
- * Configures the accelerometer for G range and sample rate defined
+ * Configures the pressure range defined
  * in this object. The nearest values are chosen to those defined
  * that are supported by the hardware. The instance variables are then
  * updated to reflect reality.
  *
- * @return DEVICE_OK on success, DEVICE_I2C_ERROR if the accelerometer could not be configured.
+ * @return DEVICE_OK on success, DEVICE_I2C_ERROR if the pressure could not be configured.
  *
  */
-int STM32IotNodeAccelerometer::configure( )
+
+int STM32IotNodePressure::configure( )
 {
- if ( !sampleRange )
-  sampleRange = 1;
- float Value = sampleRange;
- if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_FS_Value( &DrvContext, Value ) != COMPONENT_OK )
-  return DEVICE_I2C_ERROR;
- if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_FS( &DrvContext, &Value ) != COMPONENT_OK )
-  return DEVICE_I2C_ERROR;
- sampleRange = ( int ) Value;
  if ( !samplePeriod )
   samplePeriod = 1;
- Value = 1000.0f / ( float ) samplePeriod;
- if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, Value ) != COMPONENT_OK )
+ float Value = 1000.0f / ( float ) samplePeriod;
+ if ( ( ( HUMIDITY_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, Value ) != COMPONENT_OK )
   return DEVICE_I2C_ERROR;
- if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_ODR( &DrvContext, &Value ) != COMPONENT_OK )
+ if ( ( ( HUMIDITY_Drv_t* ) DrvContext.pVTable )->Get_ODR( &DrvContext, &Value ) != COMPONENT_OK )
   return DEVICE_I2C_ERROR;
  samplePeriod = 1000.0f / ( float ) Value;
  return DEVICE_OK;
@@ -83,25 +77,21 @@ int STM32IotNodeAccelerometer::configure( )
  * (it normally happens in the background when the scheduler is idle), but a check is performed
  * if the user explicitly requests up to date data.
  *
- * @return DEVICE_OK on success, DEVICE_I2C_ERROR if the update fails.
+ * @return The value on success, DEVICE_I2C_ERROR if the update fails.
  *
  */
-int STM32IotNodeAccelerometer::requestUpdate()
+
+int STM32IotNodePressure::readValue()
 {
  if ( !DrvContext.isInitialized )
  {
-  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
-  STM32IotNodeAccelerometer::configure();
-  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
+   ( ( HUMIDITY_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
+  STM32IotNodePressure::configure();
+  ( ( HUMIDITY_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
  }
- SensorAxes_t Data;
- if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_Axes( &DrvContext, &Data ) == COMPONENT_OK )
- {
-  sample.x = Data.AXIS_X;
-  sample.y = Data.AXIS_Y;
-  sample.z = Data.AXIS_Z;
-  return DEVICE_OK;
- }
+ float Data;
+ if ( ( ( HUMIDITY_Drv_t* ) DrvContext.pVTable )->Get_Hum( &DrvContext, &Data ) == COMPONENT_OK )
+  return ( int ) ( Data );
  return DEVICE_I2C_ERROR;
 }
 

@@ -30,7 +30,7 @@ DEALINGS IN THE SOFTWARE.
 
 #include "CodalConfig.h"
 #include "STM32IotNode.h"
-#include "STM32IotNodeAccelerometer.h"
+#include "STM32IotNodeGyroscope.h"
 
 namespace codal
 {
@@ -41,8 +41,8 @@ namespace codal
   * Create a representation of the accelerometer on the STM32 IOT node
   *
   */
-STM32IotNodeAccelerometer::STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c, CoordinateSpace& coordinateSpace )
-: Accelerometer( coordinateSpace )
+STM32IotNodeGyroscope::STM32IotNodeGyroscope( STM32IotNodeI2C& i2c, CoordinateSpace& coordinateSpace )
+: Gyroscope( coordinateSpace )
 , _i2c( i2c )
 {
 }
@@ -56,22 +56,22 @@ STM32IotNodeAccelerometer::STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c, Coor
  * @return DEVICE_OK on success, DEVICE_I2C_ERROR if the accelerometer could not be configured.
  *
  */
-int STM32IotNodeAccelerometer::configure( )
+int STM32IotNodeGyroscope::configure( )
 {
  if ( !sampleRange )
   sampleRange = 1;
  float Value = sampleRange;
- if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_FS_Value( &DrvContext, Value ) != COMPONENT_OK )
+ if ( ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Set_FS_Value( &DrvContext, Value ) != COMPONENT_OK )
   return DEVICE_I2C_ERROR;
- if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_FS( &DrvContext, &Value ) != COMPONENT_OK )
+ if ( ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Get_FS( &DrvContext, &Value ) != COMPONENT_OK )
   return DEVICE_I2C_ERROR;
  sampleRange = ( int ) Value;
  if ( !samplePeriod )
   samplePeriod = 1;
  Value = 1000.0f / ( float ) samplePeriod;
- if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, Value ) != COMPONENT_OK )
+ if ( ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, Value ) != COMPONENT_OK )
   return DEVICE_I2C_ERROR;
- if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_ODR( &DrvContext, &Value ) != COMPONENT_OK )
+ if ( ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Get_ODR( &DrvContext, &Value ) != COMPONENT_OK )
   return DEVICE_I2C_ERROR;
  samplePeriod = 1000.0f / ( float ) Value;
  return DEVICE_OK;
@@ -86,20 +86,20 @@ int STM32IotNodeAccelerometer::configure( )
  * @return DEVICE_OK on success, DEVICE_I2C_ERROR if the update fails.
  *
  */
-int STM32IotNodeAccelerometer::requestUpdate()
+int STM32IotNodeGyroscope::requestUpdate()
 {
  if ( !DrvContext.isInitialized )
  {
-  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
-  STM32IotNodeAccelerometer::configure();
-  ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
+  ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
+  STM32IotNodeGyroscope::configure();
+  ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
  }
  SensorAxes_t Data;
- if ( ( ( ACCELERO_Drv_t* ) DrvContext.pVTable )->Get_Axes( &DrvContext, &Data ) == COMPONENT_OK )
+ if ( ( ( GYRO_Drv_t* ) DrvContext.pVTable )->Get_Axes( &DrvContext, &Data ) == COMPONENT_OK )
  {
-  sample.x = Data.AXIS_X;
-  sample.y = Data.AXIS_Y;
-  sample.z = Data.AXIS_Z;
+  sample.x = Data.AXIS_X / 100;
+  sample.y = Data.AXIS_Y / 100;
+  sample.z = Data.AXIS_Z / 100;
   return DEVICE_OK;
  }
  return DEVICE_I2C_ERROR;

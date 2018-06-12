@@ -23,11 +23,11 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef STM32_IOT_NODE_ACCEL_H
-#define STM32_IOT_NODE_ACCEL_H
+#ifndef STM32_IOT_NODE_GYRO_H
+#define STM32_IOT_NODE_GYRO_H
 
 #include "CodalConfig.h"
-#include "codal-core/inc/driver-models/Accelerometer.h"
+#include "codal-core/inc/driver-models/Gyroscope.h"
 #include "MbedPin.h"
 
 #include "STM32IotNodeI2C.h"
@@ -37,19 +37,19 @@ DEALINGS IN THE SOFTWARE.
 namespace codal
 {
   /**
-   * Represents the accelerometer on the STM32 IOT node.
+   * Represents the gyroscope on the STM32 IOT node.
    */
- class STM32IotNodeAccelerometer : protected Accelerometer
+ class STM32IotNodeGyroscope : protected Gyroscope
  {
-   LSM6DSL_X_Data_t LSM6DSL_X_Data =
+   LSM6DSL_G_Data_t LSM6DSL_G_Data =
    {
     &LSM6DSL_Combo_Data[ 0 ],
     0.0,
    };
 
-   ACCELERO_Data_t ACCELERO_Data =
+   GYRO_Data_t GYRO_Data =
    {
-    ( void * ) &LSM6DSL_X_Data,
+    ( void * ) &LSM6DSL_G_Data,
     0,
    };
 
@@ -63,8 +63,8 @@ namespace codal
     0,
     0,
     0,
-    &ACCELERO_Data,
-    ( void * ) &LSM6DSL_X_Drv,
+    &GYRO_Data,
+    ( void * ) &LSM6DSL_G_Drv,
     0,
    };
 
@@ -74,28 +74,24 @@ namespace codal
    /**
     * Constructor.
     */
-    STM32IotNodeAccelerometer( STM32IotNodeI2C& i2c, CoordinateSpace& coordinateSpace );
+    STM32IotNodeGyroscope( STM32IotNodeI2C& i2c, CoordinateSpace& coordinateSpace );
 
-    using Accelerometer::getPeriod;
-    using Accelerometer::getRange;
-    using Accelerometer::getSample;
-    using Accelerometer::getX;
-    using Accelerometer::getY;
-    using Accelerometer::getZ;
-    using Accelerometer::getPitch;
-    using Accelerometer::getPitchRadians;
-    using Accelerometer::getRoll;
-    using Accelerometer::getRollRadians;
+    using Gyroscope::getPeriod;
+    using Gyroscope::getRange;
+    using Gyroscope::getSample;
+    using Gyroscope::getX;
+    using Gyroscope::getY;
+    using Gyroscope::getZ;
 
    protected:
 
     /**
-     * Configures the accelerometer for G range and sample rate defined
+     * Configures the gyroscope for G range and sample rate defined
      * in this object. The nearest values are chosen to those defined
      * that are supported by the hardware. The instance variables are then
      * updated to reflect reality.
      *
-     * @return DEVICE_OK on success, DEVICE_I2C_ERROR if the accelerometer could not be configured.
+     * @return DEVICE_OK on success, DEVICE_I2C_ERROR if the gyroscope could not be configured.
      *
      * @note This method should be overidden by the hardware driver to implement the requested
      * changes in hardware.
