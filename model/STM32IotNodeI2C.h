@@ -35,8 +35,7 @@ namespace codal
     {
         public:
 
-        STM32IotNodeI2C(Pin& sda, Pin& scl)
-        : _mbed::I2C( sda, scl )
+        STM32IotNodeI2C(Pin& sda, Pin& scl): _mbed::I2C( sda, scl )
         { }
 
         I2C_HandleTypeDef* getHandle( );
