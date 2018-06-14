@@ -2,7 +2,7 @@
 The MIT License (MIT)
 
 Copyright (c) 2016 Lancaster University, UK.
-Copyright (c) 2018 Paul ADAM, inidinn.com
+
 
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the "Software"),
@@ -27,7 +27,7 @@ DEALINGS IN THE SOFTWARE.
 #define STM32_IOT_NODE_DISTANCE_H
 
 #include "CodalConfig.h"
-#include "Sensor.h"
+#include "codal-core/inc/drivers/Sensor.h"
 #include "MbedPin.h"
 
 #include "STM32IotNodeI2C.h"
