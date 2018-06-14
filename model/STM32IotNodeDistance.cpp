@@ -101,7 +101,7 @@ int STM32IotNodeDistance::readValue()
  {
   STM32IotNode_Trace( "STM32IotNodeDistance::readValue 1\n" );
    ( ( DISTANCE_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
-  while ( 1 );
+  //while ( 1 );
    STM32IotNodeDistance::configure();
   ( ( DISTANCE_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
  }
