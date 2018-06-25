@@ -1,14 +1,12 @@
 {
     "architecture": "CORTEX_M4F",
     "asm_flags": "-fno-exceptions -fno-unwind-tables",
-    "c_flags": "-std=c99 -Warray-bounds",
-    "cmake_definitions": {
-        "MBED_LEGACY_TOOLCHAIN": "GCC_ARM;"
-    },
+    "c_flags": "-std=c99 -fwrapv -Warray-bounds",
+    "cmake_definitions": {},
     "config": {
         "CODAL_DEBUG": "CODAL_DEBUG_DISABLED",
         "CODAL_TIMESTAMP": "uint64_t",
-        "DEVICE_COMPONENT_COUNT": 60,
+        "DEVICE_COMPONENT_COUNT": 90,
         "DEVICE_DEFAULT_PULLMODE": "PullMode::None",
         "DEVICE_DEFAULT_SERIAL_MODE": "SYNC_SLEEP",
         "DEVICE_DMESG_BUFFER_SIZE": 1024,
@@ -46,9 +44,9 @@
             "url": "https://github.com/LabAixBidouille-STM32/codal-mbedos"
         }
     ],
-    "linker_flags": "-Wl,--no-wchar-size-warning -Wl,-wrap,main -Wl,--gc-sections -Wl,--wrap,exit -Wl,--wrap,atexit -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=softfp ",
+    "linker_flags": "-Wl,--no-wchar-size-warning -Wl,--gc-sections -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=softfp",
     "post_process": "",
     "processor": "STM32L4",
-    "snapshot_version": "v0.0.16",
+    "snapshot_version": "v0.0.17",
     "toolchain": "ARM_GCC"
 }
