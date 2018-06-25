@@ -1,11 +1,11 @@
 
 #include "STM32IotNode.h"
 
+using namespace codal;
 STM32IotNode IotNode;
 
 int main()
 {
-    STM32IotNode_Trace("main\n");
     IotNode.init();
     IotNode.serial.printf("*** STM32_IOT_NODE BLINKY TEST ***\r\n");
 

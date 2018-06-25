@@ -27,10 +27,10 @@ DEALINGS IN THE SOFTWARE.
 #include "STM32IotNode.h"
 #include "Timer.h"
 
-namespace codal
-{
+using namespace codal;
+void STM32IotNode_dmesg_flush();
 
- STM32IotNode *device_instance = NULL;
+static STM32IotNode *device_instance = NULL;
 
 /**
   * Constructor.
@@ -58,7 +58,7 @@ STM32IotNode::STM32IotNode() :
 
     // Configure serial port for debugging
     //serial.set_flow_control(mbed::Serial::Disabled);
-    serial.baud(115200);
+    serial.baud(9600);
 
     device_instance = this;
 }
@@ -72,11 +72,11 @@ STM32IotNode::STM32IotNode() :
   * static context i.e. in a constructor.
   *
   * @code
-  * uBit.init();
+  * stm32IotNode.init();
   * @endcode
   *
   * @note This method must be called before user code utilises any functionality
-  *       contained within the GenuinoZero class.
+  *       contained within the STM32IotNode class.
   */
 int STM32IotNode::init()
 {
@@ -85,16 +85,19 @@ int STM32IotNode::init()
 
     status |= DEVICE_INITIALIZED;
 
-//    // Bring up fiber scheduler.
-//    scheduler_init(messageBus);
+    codal_dmesg_set_flush_fn(STM32IotNode_dmesg_flush);
+    messageBus.listen(DEVICE_ID_MESSAGE_BUS_LISTENER, DEVICE_EVT_ANY, this, &STM32IotNode::onListenerRegisteredEvent);
+    
+    // Bring up fiber scheduler.
+    //scheduler_init(messageBus);
+   
 
     for(int i = 0; i < DEVICE_COMPONENT_COUNT; i++)
     {
         if(CodalComponent::components[i])
             CodalComponent::components[i]->init();
     }
-
-//    codal_dmesg_set_flush_fn(STM32IotNode_dmesg_flush);
+    
     status |= DEVICE_COMPONENT_STATUS_IDLE_TICK;
 
     return DEVICE_OK;
@@ -108,6 +111,20 @@ int STM32IotNode::init()
 void STM32IotNode::idleCallback()
 {
     codal_dmesg_flush();
+}
+
+void STM32IotNode::periodicCallback(){}
+
+/**
+  * A listener to perform actions as a result of Message Bus reflection.
+  *
+  * In some cases we want to perform lazy instantiation of components, such as
+  * the compass and the accelerometer, where we only want to add them to the idle
+  * fiber when someone has the intention of using these components.
+  */
+void STM32IotNode::onListenerRegisteredEvent(Event evt)
+{
+
 }
 
 extern "C"
@@ -205,6 +222,4 @@ void STM32IotNode_dmesg_flush()
     }
 #endif
 #endif
-}
-
 }

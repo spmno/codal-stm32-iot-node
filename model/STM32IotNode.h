@@ -64,7 +64,7 @@ DEALINGS IN THE SOFTWARE.
  */
 namespace codal
 {
-    class STM32IotNode : public CodalComponent
+    class STM32IotNode : public CodalDevice, public CodalComponent
     {
         public:
 
@@ -90,24 +90,7 @@ namespace codal
             /**
              * Post constructor initialisation method.
              */
-            int init();
-
-            /**
-             * Delay execution for the given amount of time.
-             *
-             * If the scheduler is running, this will deschedule the current fiber and perform
-             * a power efficient, concurrent sleep operation.
-             *
-             * If the scheduler is disabled or we're running in an interrupt context, this
-             * will revert to a busy wait.
-             *
-             * Alternatively: wait, wait_ms, wait_us can be used which will perform a blocking sleep
-             * operation.
-             *
-             * @param milliseconds the amount of time, in ms, to wait for. This number cannot be negative.
-             *
-             */
-            void sleep(uint32_t milliseconds);
+            virtual int init();
 
             /**
              * A periodic callback invoked by the fiber scheduler idle thread.
@@ -116,54 +99,18 @@ namespace codal
             virtual void idleCallback();
 
             /**
-             * Determine the time since this MicroBit was last reset.
-             *
-             * @return The time since the last reset, in milliseconds.
-             *
-             * @note This will value overflow after 1.6 months.
+             * A periodic callback invoked by the fiber scheduler every SCHEDULER_TICK_PERIOD_MS.
              */
-            //TODO: handle overflow case.
-            unsigned long systemTime();
+            virtual void periodicCallback();
+
+            /**
+             * A listener to perform actions as a result of Message Bus reflection.
+             *
+             * In some cases we want to perform lazy instantiation of components, such as
+             * the compass and the accelerometer, where we only want to add them to the idle
+             * fiber when someone has the intention of using these components.
+             */
+            void onListenerRegisteredEvent(Event evt);
     };
-
-
-    /**
-     * Delay execution for the given amount of time.
-     *
-     * If the scheduler is running, this will deschedule the current fiber and perform
-     * a power efficient, concurrent sleep operation.
-     *
-     * If the scheduler is disabled or we're running in an interrupt context, this
-     * will revert to a busy wait.
-     *
-     * Alternatively: wait, wait_ms, wait_us can be used which will perform a blocking sleep
-     * operation.
-     *
-     * @param milliseconds the amount of time, in ms, to wait for. This number cannot be negative.
-     *
-     * @return MICROBIT_OK on success, MICROBIT_INVALID_PARAMETER milliseconds is less than zero.
-     *
-     */
-    inline void STM32IotNode::sleep(uint32_t milliseconds)
-    {
-        fiber_sleep(milliseconds);
-    }
-
-    /**
-     * Determine the time since this MicroBit was last reset.
-     *
-     * @return The time since the last reset, in milliseconds.
-     *
-     * @note This will value overflow after 1.6 months.
-     */
-    inline unsigned long STM32IotNode::systemTime()
-    {
-        return system_timer_current_time();
-    }
 }
-
-void STM32IotNode_dmesg_flush();
-
-using namespace codal;
-
 #endif
