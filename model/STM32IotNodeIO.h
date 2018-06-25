@@ -46,9 +46,9 @@ DEALINGS IN THE SOFTWARE.
 #define ID_PIN_P4        (DEVICE_ID_IO_P0 + 4)
 #define ID_PIN_P5        (DEVICE_ID_IO_P0 + 5)
 #define ID_PIN_P6        (DEVICE_ID_IO_P0 + 6)
-#define ID_PIN_BUTTONA   (DEVICE_ID_IO_P0 + 7)
-#define ID_PIN_SDA       (DEVICE_ID_IO_P0 + 8)
-#define ID_PIN_SCL       (DEVICE_ID_IO_P0 + 9)
+#define ID_PIN_P7        (DEVICE_ID_IO_P0 + 7)
+#define ID_PIN_P8        (DEVICE_ID_IO_P0 + 8)
+#define ID_PIN_P9        (DEVICE_ID_IO_P0 + 9)
 #define ID_PIN_P10       (DEVICE_ID_IO_P0 + 10)
 #define ID_PIN_P11       (DEVICE_ID_IO_P0 + 11)
 #define ID_PIN_P12       (DEVICE_ID_IO_P0 + 12)
@@ -71,6 +71,10 @@ DEALINGS IN THE SOFTWARE.
 #define ID_PIN_P29       (DEVICE_ID_IO_P0 + 29)
 #define ID_PIN_P30       (DEVICE_ID_IO_P0 + 30)
 #define ID_PIN_P31       (DEVICE_ID_IO_P0 + 31)
+#define ID_PIN_SDA       (DEVICE_ID_IO_P0 + 32)
+#define ID_PIN_SCL       (DEVICE_ID_IO_P0 + 33)
+#define ID_PIN_MISO       (DEVICE_ID_IO_P0 + 34)
+#define ID_PIN_MOSI       (DEVICE_ID_IO_P0 + 35)
 
 namespace codal
 {
@@ -80,18 +84,41 @@ namespace codal
     class STM32IotNodeIO
     {
         public:
-
-            _mbed::Pin        pin[0];
             _mbed::Pin        A0;
             _mbed::Pin        A1;
             _mbed::Pin        A2;
             _mbed::Pin        A3;
             _mbed::Pin        A4;
             _mbed::Pin        A5;
+            
+            _mbed::Pin        D0;
+            _mbed::Pin        D1;
+            _mbed::Pin        D2;
+            _mbed::Pin        D3;
+            _mbed::Pin        D4;
+            _mbed::Pin        D5;
+            _mbed::Pin        D6;
+            _mbed::Pin        D7;
+            _mbed::Pin        D8;
+            _mbed::Pin        D9;
+            _mbed::Pin        D10;
+            _mbed::Pin        D11;
+            _mbed::Pin        D12;
+            _mbed::Pin        D13;
+            _mbed::Pin        D14;
+            _mbed::Pin        D15;
+
+
             _mbed::Pin        led;
+            _mbed::Pin        led2;
+            
             _mbed::Pin        buttonA;
+            
             _mbed::Pin        sda;
             _mbed::Pin        scl;
+
+            _mbed::Pin        miso;
+            _mbed::Pin        mosi;
 
             /**
              * Constructor.
