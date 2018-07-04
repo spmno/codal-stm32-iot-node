@@ -27,7 +27,7 @@ DEALINGS IN THE SOFTWARE.
 #define STM32_IOT_NODE_PRESSURE_H
 
 #include "CodalConfig.h"
-#include "codal-core/inc/drivers/Sensor.h"
+#include "codal-core/inc/driver-models/Sensor.h"
 #include "MbedPin.h"
 
 #include "STM32IotNodeI2C.h"
