@@ -32,13 +32,13 @@
     "generate_hex": true,
     "libraries": [
         {
-            "branch": "43c821833b0f27687ea2fade269f82706253bda2",
+            "branch": "de5a573666bc9357ca38a24ad7f19f501feaea22",
             "name": "codal-core",
             "type": "git",
             "url": "https://github.com/LabAixBidouille-STM32/codal-core"
         },
         {
-            "branch": "f9f9ba66a3fa812e588154f1be0a5e6607aa4979",
+            "branch": "68b2776255afe4e1908384fe635b039349acdb05",
             "name": "codal-mbedos",
             "type": "git",
             "url": "https://github.com/LabAixBidouille-STM32/codal-mbedos"
@@ -47,6 +47,6 @@
     "linker_flags": "-Wl,--no-wchar-size-warning -Wl,--gc-sections -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=softfp",
     "post_process": "",
     "processor": "STM32L4",
-    "snapshot_version": "v0.0.18",
+    "snapshot_version": "v0.0.19",
     "toolchain": "ARM_GCC"
 }
