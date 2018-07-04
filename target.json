@@ -1,7 +1,7 @@
 {
-    "device":"STM32_IOT_NODE",
+    "device":"DISCO_L475VG_IOT01A",
     "processor":"STM32L4",
-    "architecture":"CORTEX_M4F",
+    "architecture":"CORTEX_M4",
     "toolchain":"ARM_GCC",
     "post_process":"",
     "generate_bin":true,
