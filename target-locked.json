@@ -38,7 +38,7 @@
             "url": "https://github.com/LabAixBidouille-STM32/codal-core"
         },
         {
-            "branch": "e419f8d03a0a20e4fb141fedfc83af6ccc201483",
+            "branch": "af58c7d10002dcaa357fdf78723bf64f2719ecfa",
             "name": "codal-mbedos",
             "type": "git",
             "url": "https://github.com/LabAixBidouille-STM32/codal-mbedos"
@@ -47,6 +47,6 @@
     "linker_flags": "-Wl,--gc-sections -Wl,--wrap,main -Wl,--wrap,_malloc_r -Wl,--wrap,_free_r -Wl,--wrap,_realloc_r -Wl,--wrap,_memalign_r -Wl,--wrap,_calloc_r -Wl,--wrap,exit -Wl,--wrap,atexit -Wl,-n -mcpu=cortex-m4 -mthumb",
     "post_process": "",
     "processor": "STM32L4",
-    "snapshot_version": "v0.0.21",
+    "snapshot_version": "v0.0.22",
     "toolchain": "ARM_GCC"
 }
