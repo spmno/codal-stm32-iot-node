@@ -89,7 +89,7 @@ int STM32IotNode::init()
     messageBus.listen(DEVICE_ID_MESSAGE_BUS_LISTENER, DEVICE_EVT_ANY, this, &STM32IotNode::onListenerRegisteredEvent);
     
     // Bring up fiber scheduler.
-    //scheduler_init(messageBus);
+    scheduler_init(messageBus);
    
 
     for(int i = 0; i < DEVICE_COMPONENT_COUNT; i++)

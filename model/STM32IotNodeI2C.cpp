@@ -28,7 +28,7 @@ DEALINGS IN THE SOFTWARE.
 #include "STM32IotNodeI2C.h"
 
 #include "codal-core/inc/driver-models/I2C.h"
-#include "codal-mbedos/DISCO_L475VG_IOT01A/inc/drivers/I2C.h"
+#include "codal-mbedos/STM32_IOT_NODE/inc/drivers/I2C.h"
 //#include "common_objects.h"
 
 namespace codal
