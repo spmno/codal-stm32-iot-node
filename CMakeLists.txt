@@ -24,7 +24,7 @@ add_library(codal-stm32-iot-node ${TOP_LEVEL_SOURCE_FILES} ${MODEL_SOURCE_FILES}
 target_link_libraries(
     codal-stm32-iot-node
     codal-core
-    codal-stm32
+    codal-stm32l475
 )
 
 # expose it to parent cmake.
