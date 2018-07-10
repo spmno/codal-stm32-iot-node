@@ -1,10 +1,9 @@
 #include "stm32.h"
+#include "stm32l4xx_it.h"
 #include "codal_target_hal.h"
 #include "CodalDmesg.h"
 
-void target_init();
-
-extern "C" void cpu_init()
+void cpu_init()
 {
     target_init();
 
@@ -100,7 +99,7 @@ extern "C" void cpu_init()
   * @param  line: The line in file as a number.
   * @retval None
   */
-extern "C" void _Error_Handler(const char *file, int line)
+void _Error_Handler(const char *file, int line)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
