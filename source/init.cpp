@@ -6,22 +6,20 @@ void target_init();
 
 extern "C" void cpu_init()
 {
-    SystemCoreClockUpdate();
-
     target_init();
 
     RCC_OscInitTypeDef RCC_OscInitStruct;
     RCC_ClkInitTypeDef RCC_ClkInitStruct;
     RCC_PeriphCLKInitTypeDef PeriphClkInit;
 
-        /**Configure LSE Drive Capability 
-        */
+      /**Configure LSE Drive Capability 
+      */
     HAL_PWR_EnableBkUpAccess();
 
     __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);
 
-        /**Initializes the CPU, AHB and APB busses clocks 
-        */
+      /**Initializes the CPU, AHB and APB busses clocks 
+      */
     RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSE|RCC_OSCILLATORTYPE_MSI;
     RCC_OscInitStruct.LSEState = RCC_LSE_ON;
     RCC_OscInitStruct.MSIState = RCC_MSI_ON;
@@ -36,11 +34,11 @@ extern "C" void cpu_init()
     RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
     if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
     {
-        _Error_Handler(__FILE__, __LINE__);
+      _Error_Handler(__FILE__, __LINE__);
     }
 
-        /**Initializes the CPU, AHB and APB busses clocks 
-        */
+      /**Initializes the CPU, AHB and APB busses clocks 
+      */
     RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                                 |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
     RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
@@ -50,7 +48,7 @@ extern "C" void cpu_init()
 
     if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK)
     {
-        _Error_Handler(__FILE__, __LINE__);
+      _Error_Handler(__FILE__, __LINE__);
     }
 
     PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1|RCC_PERIPHCLK_USART3
@@ -70,78 +68,30 @@ extern "C" void cpu_init()
     PeriphClkInit.PLLSAI1.PLLSAI1ClockOut = RCC_PLLSAI1_48M2CLK;
     if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
     {
-        _Error_Handler(__FILE__, __LINE__);
+      _Error_Handler(__FILE__, __LINE__);
     }
 
-        /**Configure the main internal regulator output voltage 
-        */
+      /**Configure the main internal regulator output voltage 
+      */
     if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1) != HAL_OK)
     {
-        _Error_Handler(__FILE__, __LINE__);
+      _Error_Handler(__FILE__, __LINE__);
     }
 
-        /**Configure the Systick interrupt time 
-        */
+      /**Configure the Systick interrupt time 
+      */
     HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
 
-        /**Configure the Systick 
-        */
+      /**Configure the Systick 
+      */
     HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 
-        /**Enable MSI Auto calibration 
-        */
+      /**Enable MSI Auto calibration 
+      */
     HAL_RCCEx_EnableMSIPLLMode();
 
-    /* SysTick_IRQn interrupt configuration */
+      /* SysTick_IRQn interrupt configuration */
     HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
-    SystemCoreClockUpdate();
-
-    // RCC_ClkInitTypeDef RCC_ClkInitStruct;
-    // RCC_OscInitTypeDef RCC_OscInitStruct;
-
-    // /* Enable Power Control clock */
-    // __HAL_RCC_PWR_CLK_ENABLE();
-
-    // /* The voltage scaling allows optimizing the power consumption when the device is
-    //    clocked below the maximum system frequency, to update the voltage scaling value
-    //    regarding system frequency refer to product datasheet.  */
-    // __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
-
-    // /* Enable HSE Oscillator and activate PLL with HSE as source */
-    // RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-    // RCC_OscInitStruct.HSEState = RCC_HSE_ON;
-    // RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-    // RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-
-    // uint32_t pllm = HSE_VALUE / 1000000;
-
-    // CODAL_ASSERT(pllm >= 4);
-    // CODAL_ASSERT(pllm <= 25);
-    // CODAL_ASSERT(pllm * 1000000 == HSE_VALUE);
-
-    // RCC_OscInitStruct.PLL.PLLM = pllm;
-    // RCC_OscInitStruct.PLL.PLLN = 336;
-    // RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;
-    // RCC_OscInitStruct.PLL.PLLQ = 7;
-    // HAL_RCC_OscConfig(&RCC_OscInitStruct);
-
-    // /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2
-    //    clocks dividers */
-    // RCC_ClkInitStruct.ClockType =
-    //     (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
-    // RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-    // RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-    // RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
-    // RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
-    // HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2);
-
-    // SystemCoreClockUpdate();
-
-    // __HAL_RCC_TIM5_CLK_ENABLE();
-
-    // // enable backup registers (for reboot into bootloader or into app)
-    // PWR->CR |= PWR_CR_DBP;
-    // RCC->BDCR |= RCC_BDCR_RTCEN;
 }
 
 /**
