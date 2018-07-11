@@ -42,7 +42,6 @@ int STM32IotNode::init()
     status |= DEVICE_INITIALIZED;
 
     timer.init();
-    sleep(5000);
     // Bring up fiber scheduler.
     scheduler_init(messageBus);
 
