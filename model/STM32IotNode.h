@@ -9,6 +9,7 @@
 #include "MessageBus.h"
 
 #include "STM32IotNodeIO.h"
+#include "stm32l4xxTimer.h"
 
 // Status flag values
 #define DEVICE_INITIALIZED                    0x01
@@ -24,8 +25,9 @@ namespace codal
     class STM32IotNode : public CodalDevice, public CodalComponent
     {
         public:
-            MessageBus                  messageBus;
-            STM32IotNodeIO              io;
+            STM32L4xxTimer timer;
+            MessageBus     messageBus;
+            STM32IotNodeIO io;
             /**
              * Constructor.
              */
@@ -35,6 +37,25 @@ namespace codal
              * Post constructor initialisation method.
              */
             virtual int init();
+
+                        /**
+             * Delay execution for the given amount of time.
+             *
+             * If the scheduler is running, this will deschedule the current fiber and perform
+             * a power efficient, concurrent sleep operation.
+             *
+             * If the scheduler is disabled or we're running in an interrupt context, this
+             * will revert to a busy wait.
+             *
+             * Alternatively: wait, wait_ms, wait_us can be used which will perform a blocking sleep
+             * operation.
+             *
+             * @param milliseconds the amount of time, in ms, to wait for. This number cannot be negative.
+             *
+             */
+            virtual void sleep(uint32_t milliseconds){
+                fiber_sleep(milliseconds);
+            }
 
             /**
              * A periodic callback invoked by the fiber scheduler idle thread.
@@ -48,13 +69,16 @@ namespace codal
             virtual void periodicCallback();
 
             /**
-             * A listener to perform actions as a result of Message Bus reflection.
+             * Determine the time since this MicroBit was last reset.
              *
-             * In some cases we want to perform lazy instantiation of components, such as
-             * the compass and the accelerometer, where we only want to add them to the idle
-             * fiber when someone has the intention of using these components.
+             * @return The time since the last reset, in milliseconds.
+             *
+             * @note This will value overflow after 1.6 months.
              */
-            void onListenerRegisteredEvent(Event evt);
+            //TODO: handle overflow case.
+            unsigned long systemTime(){
+                return system_timer_current_time();
+            }
     };
 }
 #endif

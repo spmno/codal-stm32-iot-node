@@ -12,7 +12,7 @@ static STM32IotNode *device_instance = NULL;
   * Create a representation of a device, which includes member variables
   * that represent various device drivers used to control aspects of the STM32 IOT node.
   */
-STM32IotNode::STM32IotNode() : io()
+STM32IotNode::STM32IotNode() :timer(), messageBus(), io()
 {
     // Clear our status
     status = 0;
@@ -36,6 +36,28 @@ STM32IotNode::STM32IotNode() : io()
   */
 int STM32IotNode::init()
 {
+    if (status & DEVICE_INITIALIZED)
+        return DEVICE_NOT_SUPPORTED;
+
+    status |= DEVICE_INITIALIZED;
+
+    timer.init();
+
+    // Bring up fiber scheduler.
+    //scheduler_init(messageBus);
+
+    for(int i = 0; i < DEVICE_COMPONENT_COUNT; i++)
+    {
+        if(CodalComponent::components[i])
+            CodalComponent::components[i]->init();
+    }
+
+    // Seed our random number generator
+    //seedRandom();
+
+    codal_dmesg_set_flush_fn(STM32IotNode_dmesg_flush);
+    status |= DEVICE_COMPONENT_STATUS_IDLE_TICK;
+
     return DEVICE_OK;
 }
 
@@ -50,34 +72,6 @@ void STM32IotNode::idleCallback()
 }
 
 void STM32IotNode::periodicCallback(){}
-
-/**
-  * A listener to perform actions as a result of Message Bus reflection.
-  *
-  * In some cases we want to perform lazy instantiation of components, such as
-  * the compass and the accelerometer, where we only want to add them to the idle
-  * fiber when someone has the intention of using these components.
-  */
-void STM32IotNode::onListenerRegisteredEvent(Event evt)
-{
-
-}
-
-void STM32IotNode_Trace( const char* Format )
-{
-/*
- if ( device_instance )
-  device_instance->serial.printf( Format );
-*/
-}
-
-void STM32IotNode_TraceU16( const char* Format, uint16_t Value )
-{
-/*
- if ( device_instance )
-  device_instance->serial.printf( Format, Value );
-*/
-}
 
 void STM32IotNode_dmesg_flush()
 {
