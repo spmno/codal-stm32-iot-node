@@ -22,7 +22,7 @@
  */
 namespace codal
 {
-    class STM32IotNode : public CodalDevice, public CodalComponent
+    class STM32IotNode : public CodalComponent
     {
         public:
             STM32L4xxTimer timer;
@@ -38,7 +38,7 @@ namespace codal
              */
             virtual int init();
 
-                        /**
+            /**
              * Delay execution for the given amount of time.
              *
              * If the scheduler is running, this will deschedule the current fiber and perform
