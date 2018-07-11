@@ -82,6 +82,7 @@ namespace codal
 
             STM32L4xxPin        led;
             STM32L4xxPin        led2;
+            STM32L4xxPin        led3;
             
             STM32L4xxPin        buttonA;
             
@@ -90,7 +91,10 @@ namespace codal
 
             STM32L4xxPin        miso;
             STM32L4xxPin        mosi;
+            STM32L4xxPin        sclk;
 
+            STM32L4xxPin        tx;
+            STM32L4xxPin        rx;
     };
 }
 

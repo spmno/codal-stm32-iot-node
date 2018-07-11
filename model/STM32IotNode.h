@@ -1,7 +1,6 @@
 #ifndef STM32_IOT_NODE_H
 #define STM32_IOT_NODE_H
 
-#include "CodalDevice.h"
 #include "CodalComponent.h"
 #include "CodalCompat.h"
 
@@ -10,6 +9,9 @@
 
 #include "STM32IotNodeIO.h"
 #include "stm32l4xxTimer.h"
+#include "stm32l4xxSPI.h"
+#include "stm32l4xxI2C.h"
+#include "stm32l4xxSerial.h"
 
 // Status flag values
 #define DEVICE_INITIALIZED                    0x01
@@ -27,7 +29,12 @@ namespace codal
         public:
             STM32L4xxTimer timer;
             MessageBus     messageBus;
+
             STM32IotNodeIO io;
+            STM32L4xxSPI spi;
+            STM32L4xxI2C i2c;
+            STM32L4xxSerial serial;            
+
             /**
              * Constructor.
              */

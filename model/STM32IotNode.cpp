@@ -12,7 +12,7 @@ static STM32IotNode *device_instance = NULL;
   * Create a representation of a device, which includes member variables
   * that represent various device drivers used to control aspects of the STM32 IOT node.
   */
-STM32IotNode::STM32IotNode() :timer(), messageBus(), io()
+STM32IotNode::STM32IotNode() :timer(), messageBus(), io(), spi(io.miso, io.mosi, io.sclk), i2c(io.sda, io.scl), serial(io.tx, io.rx)
 {
     // Clear our status
     status = 0;
