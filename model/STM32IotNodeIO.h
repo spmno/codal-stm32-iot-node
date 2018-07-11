@@ -1,6 +1,7 @@
 #ifndef STM32_IOT_NODE_IO_H
 #define STM32_IOT_NODE_IO_H
 
+#include "stm32l4xxPin.h"
 //
 // Component IDs for each pin.
 // The can be user defined, but uniquely identify a pin when using the eventing APIs/
@@ -54,6 +55,42 @@ namespace codal
              * Constructor.
              */
             STM32IotNodeIO();
+
+            STM32L4xxPin        A0;
+            STM32L4xxPin        A1;
+            STM32L4xxPin        A2;
+            STM32L4xxPin        A3;
+            STM32L4xxPin        A4;
+            STM32L4xxPin        A5;
+            
+            STM32L4xxPin        D0;
+            STM32L4xxPin        D1;
+            STM32L4xxPin        D2;
+            STM32L4xxPin        D3;
+            STM32L4xxPin        D4;
+            STM32L4xxPin        D5;
+            STM32L4xxPin        D6;
+            STM32L4xxPin        D7;
+            STM32L4xxPin        D8;
+            STM32L4xxPin        D9;
+            STM32L4xxPin        D10;
+            STM32L4xxPin        D11;
+            STM32L4xxPin        D12;
+            STM32L4xxPin        D13;
+            STM32L4xxPin        D14;
+            STM32L4xxPin        D15;
+
+            STM32L4xxPin        led;
+            STM32L4xxPin        led2;
+            
+            STM32L4xxPin        buttonA;
+            
+            STM32L4xxPin        sda;
+            STM32L4xxPin        scl;
+
+            STM32L4xxPin        miso;
+            STM32L4xxPin        mosi;
+
     };
 }
 
