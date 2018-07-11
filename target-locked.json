@@ -32,13 +32,13 @@
     "generate_hex": true,
     "libraries": [
         {
-            "branch": "f23e860421380bd836682289749c4601501ba214",
+            "branch": "e75e35a2777969556cc045e13dbf00ea6a0c379e",
             "name": "codal-core",
             "type": "git",
             "url": "https://github.com/LabAixBidouille-STM32/codal-core"
         },
         {
-            "branch": "2a4ea9630eb660aaba3cf7848f7bc9260eec2392",
+            "branch": "67c5e2f0a8dd036634a8b50db5b53e50fbdebfed",
             "name": "codal-stm32l475",
             "type": "git",
             "url": "https://github.com/nedseb/codal-stm32l475"
@@ -47,6 +47,6 @@
     "linker_flags": "-Wl,--no-wchar-size-warning -Wl,--gc-sections -static -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16",
     "post_process": "",
     "processor": "STM32L4",
-    "snapshot_version": "v0.0.5",
+    "snapshot_version": "v0.0.6",
     "toolchain": "ARM_GCC"
 }
