@@ -39,7 +39,7 @@
         {
             "name":"codal-core",
             "url":"https://github.com/LabAixBidouille-STM32/codal-core",
-            "branch":"pktserial",
+            "branch":"master",
             "type":"git"
         },
         {
