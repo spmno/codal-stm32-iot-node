@@ -24,7 +24,7 @@
         "SCHEDULER_TICK_PERIOD_US": 4000,
         "USE_ACCEL_LSB": 0
     },
-    "cpp_flags": "-std=c++11 -D__weak=\"__attribute__((weak))\" -D__packed=\"__attribute__((__packed__))\" -fwrapv -fno-rtti -fno-threadsafe-statics -fno-exceptions -fno-unwind-tables -Wl,--gc-sections -Wl,--sort-common -Wl,--sort-section=alignment -Wno-array-bounds -DUSE_HAL_DRIVER -DSTM32L475xx -g -fstack-usage -Wall",
+    "cpp_flags": "-std=c++17 -Wno-register -D__weak=\"__attribute__((weak))\" -D__packed=\"__attribute__((__packed__))\" -fwrapv -fno-rtti -fno-threadsafe-statics -fno-exceptions -fno-unwind-tables -Wl,--gc-sections -Wl,--sort-common -Wl,--sort-section=alignment -Wno-array-bounds -DUSE_HAL_DRIVER -DSTM32L475xx -g -fstack-usage -Wall",
     "cpu_opts": "-mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16",
     "definitions": "-DSTM32L4 -DSTM32L475xx -DDMESG_SERIAL_DEBUG -include codal-stm32-iot-node/inc/localconf.h",
     "device": "STM32_IOT_NODE",
@@ -32,13 +32,13 @@
     "generate_hex": true,
     "libraries": [
         {
-            "branch": "a6350893b6dde7b7498e513ff4f94b2165612e2b",
+            "branch": "4356c39abb43471b4900360c663d4f731844397e",
             "name": "codal-core",
             "type": "git",
             "url": "https://github.com/LabAixBidouille-STM32/codal-core"
         },
         {
-            "branch": "4403245a20820da27a2b5e7a6cde185d488d4541",
+            "branch": "b58274f9407ff77c6836cf1c68bd12f1fc427aca",
             "name": "codal-stm32l475",
             "type": "git",
             "url": "https://github.com/nedseb/codal-stm32l475"
@@ -47,6 +47,6 @@
     "linker_flags": "-Wl,--no-wchar-size-warning -Wl,--gc-sections -static -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16",
     "post_process": "",
     "processor": "STM32L4",
-    "snapshot_version": "v0.1.3",
+    "snapshot_version": "v0.1.4",
     "toolchain": "ARM_GCC"
 }
