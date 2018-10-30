@@ -4,6 +4,8 @@
 #include "CodalComponent.h"
 #include "CodalCompat.h"
 
+#include "CodalFiber.h"
+
 #include "NotifyEvents.h"
 #include "MessageBus.h"
 
@@ -11,7 +13,6 @@
 #include "stm32l4xxTimer.h"
 #include "stm32l4xxSPI.h"
 #include "stm32l4xxI2C.h"
-#include "stm32l4xxSerial.h"
 
 // Status flag values
 #define DEVICE_INITIALIZED                    0x01
@@ -33,7 +34,6 @@ namespace codal
             STM32IotNodeIO io;
             STM32L4xxSPI spi;
             STM32L4xxI2C i2c;
-            STM32L4xxSerial serial;            
 
             /**
              * Constructor.
