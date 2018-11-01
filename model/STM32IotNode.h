@@ -3,7 +3,6 @@
 
 #include "CodalComponent.h"
 #include "CodalCompat.h"
-
 #include "CodalFiber.h"
 
 #include "NotifyEvents.h"
@@ -76,7 +75,7 @@ namespace codal
             virtual void periodicCallback();
 
             /**
-             * Determine the time since this MicroBit was last reset.
+             * Determine the time since this board was last reset.
              *
              * @return The time since the last reset, in milliseconds.
              *
