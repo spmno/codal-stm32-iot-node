@@ -9,6 +9,8 @@
 #include "MessageBus.h"
 
 #include "STM32IotNodeIO.h"
+#include "STM32IotNodeTemperature.h"
+#include "STM32SPBTLE.h"
 #include "stm32l4xxTimer.h"
 #include "stm32l4xxSPI.h"
 #include "stm32l4xxI2C.h"
@@ -33,6 +35,10 @@ namespace codal
             STM32IotNodeIO io;
             STM32L4xxSPI spi;
             STM32L4xxI2C i2c;
+
+            STM32SPBTLE ble;
+
+            STM32IotNodeTemperature temperature;
 
             /**
              * Constructor.
