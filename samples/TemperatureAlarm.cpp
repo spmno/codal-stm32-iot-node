@@ -8,7 +8,8 @@
  * Uses the Bluetooth Event Service to inform registered clients whenever the temperature falls below xx or rises above yy
  */
 using namespace codal;
-extern STM32IotNode iotNode;
+
+STM32IotNode* piotNode;
 
 uint16_t state      = 0; // 0=ok, 1=alarming because it's cold, 2=alarming because it's hot
 uint16_t ok         = 0;
@@ -36,7 +37,7 @@ void onSetUpper(Event e)
 
 void onTemperatureReading(Event e)
 {
-    int temperature = iotNode.temperature.getValue();
+    int temperature = piotNode->temperature.getValue();
     reading_count++;
     if (reading_count == 10) { 
         DMESG("Temp=",temperature);
@@ -61,14 +62,14 @@ void onTemperatureReading(Event e)
     }  
 }
 
-void TemperatureAlarm_main()
+void TemperatureAlarm_main(STM32IotNode& _iotNode)
 {
+    piotNode = &_iotNode;
     DMESG("TEMP ALARM");
-    new TemperatureService(iotNode.ble, iotNode.temperature);
+    new TemperatureService(piotNode->ble, piotNode->temperature);
     // listen for client events which set the upper and lower temperature limits
-    iotNode.messageBus.listen(set_lower, any, onSetLower);
-    iotNode.messageBus.listen(set_upper, any, onSetUpper);
+    piotNode->messageBus.listen(set_lower, any, onSetLower);
+    piotNode->messageBus.listen(set_upper, any, onSetUpper);
     // listen to the temperature sensor
-    iotNode.messageBus.listen(DEVICE_ID_THERMOMETER, SENSOR_UPDATE_NEEDED, onTemperatureReading);
-
+    piotNode->messageBus.listen(DEVICE_ID_THERMOMETER, SENSOR_UPDATE_NEEDED, onTemperatureReading);
 }

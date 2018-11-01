@@ -3,10 +3,10 @@
 #include "TemperatureAlarm.h"
 
 using namespace codal;
-STM32IotNode IotNode;
+STM32IotNode iotNode;
 
 int main()
 {
-    IotNode.init();
-    TemperatureAlarm_main();
+    iotNode.init();
+    TemperatureAlarm_main(iotNode);
 }

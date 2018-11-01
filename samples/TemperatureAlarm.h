@@ -4,6 +4,6 @@
 #ifndef TEMPERATURE_ALARM_H
 #define TEMPERATURE_ALARM_H
 
-void TemperatureAlarm_main();
+void TemperatureAlarm_main(codal::STM32IotNode& _iotNode);
 
 #endif
