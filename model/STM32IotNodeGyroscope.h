@@ -1,37 +1,15 @@
-/*
-The MIT License (MIT)
-
-Copyright (c) 2016 Lancaster University, UK.
-
-
-Permission is hereby granted, free of charge, to any person obtaining a
-copy of this software and associated documentation files (the "Software"),
-to deal in the Software without restriction, including without limitation
-the rights to use, copy, modify, merge, publish, distribute, sublicense,
-and/or sell copies of the Software, and to permit persons to whom the
-Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-DEALINGS IN THE SOFTWARE.
-*/
-
 #ifndef STM32_IOT_NODE_GYRO_H
 #define STM32_IOT_NODE_GYRO_H
 
 #include "CodalConfig.h"
 #include "codal-core/inc/driver-models/Gyroscope.h"
 
+#include "stm32l4xxPin.h"
 #include "stm32l4xxI2C.h"
+#include "stm32l475e_iot01.h"
 
-#include "LSM6DSL_ACC_GYRO_driver_HL.h"
+#include "gyro.h"
+#include "lsm6dsl.h"
 
 namespace codal
 {
@@ -39,35 +17,10 @@ namespace codal
    * Represents the gyroscope on the STM32 IOT node.
    */
  class STM32IotNodeGyroscope : protected Gyroscope
- {
-   LSM6DSL_G_Data_t LSM6DSL_G_Data =
-   {
-    &LSM6DSL_Combo_Data[ 0 ],
-    0.0,
-   };
-
-   GYRO_Data_t GYRO_Data =
-   {
-    ( void * ) &LSM6DSL_G_Data,
-    0,
-   };
-
-   DrvContextTypeDef DrvContext =
-   {
-    LSM6DSL_ACC_GYRO_WHO_AM_I,
-    0,
-    LSM6DSL_ACC_GYRO_I2C_ADDRESS_LOW,
-    0,
-    0,
-    0,
-    0,
-    0,
-    &GYRO_Data,
-    ( void * ) &LSM6DSL_G_Drv,
-    0,
-   };
-
+ {  
    STM32L4xxI2C& _i2c;
+   GYRO_DrvTypeDef* gyroscopeDrv;
+   bool isInitialized;
 
    public:
    /**
@@ -109,6 +62,10 @@ namespace codal
      * changes in hardware.
      */
     virtual int requestUpdate();
+    
+    private:
+    uint8_t getBestAdaptedODRValue();
+    uint8_t getBestAdaptedFSValue();
 
     };
 }
