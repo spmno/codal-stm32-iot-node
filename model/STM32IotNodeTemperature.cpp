@@ -1,28 +1,3 @@
-/*
-The MIT License (MIT)
-
-Copyright (c) 2016 Lancaster University, UK.
-
-
-Permission is hereby granted, free of charge, to any person obtaining a
-copy of this software and associated documentation files (the "Software"),
-to deal in the Software without restriction, including without limitation
-the rights to use, copy, modify, merge, publish, distribute, sublicense,
-and/or sell copies of the Software, and to permit persons to whom the
-Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-DEALINGS IN THE SOFTWARE.
-*/
-
 /**
   * Class definition for temperature.
   * Represents the temperature on the STM IOT node.
@@ -31,68 +6,112 @@ DEALINGS IN THE SOFTWARE.
 #include "CodalConfig.h"
 #include "STM32IotNode.h"
 #include "STM32IotNodeTemperature.h"
-
 namespace codal
 {
+  /**
+    * Constructor.
+    *
+    * Create a representation of the temperature on the STM32 IOT node
+    *
+    */
+  STM32IotNodeTemperature::STM32IotNodeTemperature( STM32L4xxI2C& i2c )
+  :  Sensor(DEVICE_ID_THERMOMETER), 
+    _i2c(i2c),
+    tsensor_drv(&HTS221_T_Drv),
+    isInitialized(false)
+  {
+    configure();
+    updateSample();
+  }
 
-/**
-  * Constructor.
+  /**
+  * Configures output data rate register
   *
-  * Create a representation of the temperature on the STM32 IOT node
   *
   */
-STM32IotNodeTemperature::STM32IotNodeTemperature( STM32L4xxI2C& i2c )
-:  Sensor(DEVICE_ID_THERMOMETER)
-, _i2c( i2c )
-{
-    updateSample( );
-}
 
-/**
- * Configures the temperature for celsius range defined
- * in this object. The nearest values are chosen to those defined
- * that are supported by the hardware. The instance variables are then
- * updated to reflect reality.
- *
- * @return DEVICE_OK on success, DEVICE_I2C_ERROR if the temperature could not be configured.
- *
- */
+  void updateODR(uint8_t odr){
+    uint8_t tmp;
+    /* Read CTRL_REG1 */
+    tmp = SENSOR_IO_Read(TSENSOR_I2C_ADDRESS, HTS221_CTRL_REG1);
+    
+    /* Set default ODR */
+    tmp &= ~HTS221_ODR_MASK;
+    tmp |= odr & HTS221_ODR_MASK; /*Set ODR*/
+    
+    /* Apply settings to CTRL_REG1 */
+    SENSOR_IO_Write(TSENSOR_I2C_ADDRESS, HTS221_CTRL_REG1, tmp);
+  }
 
-int STM32IotNodeTemperature::configure( )
-{
- if ( !samplePeriod )
-  samplePeriod = 1;
- float Value = 1000.0f / ( float ) samplePeriod;
- if ( ( ( TEMPERATURE_Drv_t* ) DrvContext.pVTable )->Set_ODR_Value( &DrvContext, Value ) != COMPONENT_OK )
-  return DEVICE_I2C_ERROR;
- if ( ( ( TEMPERATURE_Drv_t* ) DrvContext.pVTable )->Get_ODR( &DrvContext, &Value ) != COMPONENT_OK )
-  return DEVICE_I2C_ERROR;
- samplePeriod = 1000.0f / ( float ) Value;
- return DEVICE_OK;
-}
+  uint8_t getBestAdaptedODRValue(float& frequency){
+  uint8_t odr = 0; 
 
-/**
- * Poll to see if new data is available from the hardware. If so, update it.
- * n.b. it is not necessary to explicitly call this function to update data
- * (it normally happens in the background when the scheduler is idle), but a check is performed
- * if the user explicitly requests up to date data.
- *
- * @return The value on success, DEVICE_I2C_ERROR if the update fails.
- *
- */
+    if(frequency <= 5.f){
+      odr = 1; //frequency = 1Hz
+      frequency = 1.f;
+    }
+    else if (frequency <= 10.f){
+      odr = 2; //frequency = 7Hz
+      frequency = 7.f;
+    }
+    else if (frequency > 10.f){
+      odr = 3; //frequency = 12.5Hz
+      frequency = 12.5f;    
+    }
+    else{
+      odr = 0; //one shot
+      frequency = 0;
+    }
+    return odr;
 
-int STM32IotNodeTemperature::readValue()
-{
- if ( !DrvContext.isInitialized )
- {
-   ( ( TEMPERATURE_Drv_t* ) DrvContext.pVTable )->Init( &DrvContext );
-  STM32IotNodeTemperature::configure();
-  ( ( TEMPERATURE_Drv_t* ) DrvContext.pVTable )->Sensor_Enable( &DrvContext );
- }
- float Data;
- if ( ( ( TEMPERATURE_Drv_t* ) DrvContext.pVTable )->Get_Temp( &DrvContext, &Data ) == COMPONENT_OK )
-  return ( int ) ( Data * 10.0 );
- return DEVICE_I2C_ERROR;
-}
+  }
+
+  /**
+  * Configures the temperature for celsius range defined
+  * in this object. The nearest values are chosen to those defined
+  * that are supported by the hardware. The instance variables are then
+  * updated to reflect reality.
+  *
+  * @return DEVICE_OK on success, DEVICE_I2C_ERROR if the temperature could not be configured.
+  *
+  */
+
+  int STM32IotNodeTemperature::configure()
+  {
+    /* Low level init */
+    SENSOR_IO_Init();
+    /* TSENSOR Init */   
+    tsensor_drv->Init(HTS221_I2C_ADDRESS, NULL);
+    
+    if ( !samplePeriod )
+      samplePeriod = 1;
+
+    float frequency = 1000.0f / (float) samplePeriod;
+
+    uint8_t odr = getBestAdaptedODRValue(frequency); 
+    updateODR(odr);
+
+    samplePeriod = 1000.0f / frequency;
+
+    isInitialized = true;
+    return DEVICE_OK;
+  }
+
+  /**
+  * Poll to see if new data is available from the hardware. If so, update it.
+  * n.b. it is not necessary to explicitly call this function to update data
+  * (it normally happens in the background when the scheduler is idle), but a check is performed
+  * if the user explicitly requests up to date data.
+  *
+  * @return The value on success, DEVICE_I2C_ERROR if the update fails.
+  *
+  */
+
+  int STM32IotNodeTemperature::readValue()
+  {
+    if(!isInitialized)
+      configure();
+    return (int) tsensor_drv->ReadTemp(TSENSOR_I2C_ADDRESS) * 10;
+  }
 
 }
