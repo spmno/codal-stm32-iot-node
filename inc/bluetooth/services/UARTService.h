@@ -26,7 +26,6 @@ DEALINGS IN THE SOFTWARE.
 #ifndef CODAL_UART_SERVICE_H
 #define CODAL_UART_SERVICE_H
 
-#include "mbed.h"
 #include "UUID.h"
 #include "BLE.h"
 #include "CodalConfig.h"
