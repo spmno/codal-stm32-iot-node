@@ -27,8 +27,8 @@ DEALINGS IN THE SOFTWARE.
 #define CODAL_UART_SERVICE_H
 
 #include "mbed.h"
-#include "ble/UUID.h"
-#include "ble/BLE.h"
+#include "UUID.h"
+#include "BLE.h"
 #include "CodalConfig.h"
 #include "Serial.h"
 

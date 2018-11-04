@@ -27,7 +27,7 @@ DEALINGS IN THE SOFTWARE.
 #define CODAL_BUTTON_SERVICE_H
 
 #include "CodalConfig.h"
-#include "ble/BLE.h"
+#include "BLE.h"
 #include "EventModel.h"
 
 // UUIDs for our service and characteristics

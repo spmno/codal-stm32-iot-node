@@ -1,8 +1,24 @@
+/* mbed Microcontroller Library
+ * Copyright (c) 2006-2013 ARM Limited
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 #ifndef __GATT_ATTRIBUTE_H__
 #define __GATT_ATTRIBUTE_H__
- 
+
 #include "UUID.h"
- 
+
 /**
  * Instances of this class encapsulate the data that belongs to a Bluetooth Low
  * Energy attribute.
@@ -18,7 +34,7 @@ public:
      * Define the value of an invalid attribute handle.
      */
     static const Handle_t INVALID_HANDLE = 0x0000;
- 
+
 public:
     /**
      *  @brief  Creates a new GattAttribute using the specified
@@ -48,7 +64,7 @@ public:
         _uuid(uuid), _valuePtr(valuePtr), _lenMax(maxLen), _len(len), _hasVariableLen(hasVariableLen), _handle() {
         /* Empty */
     }
- 
+
 public:
     /**
      * Get the attribute's handle in the ATT table.
@@ -58,7 +74,7 @@ public:
     Handle_t getHandle(void) const {
         return _handle;
     }
- 
+
     /**
      * The UUID of the characteristic that this attribute belongs to.
      *
@@ -67,7 +83,7 @@ public:
     const UUID &getUUID(void) const {
         return _uuid;
     }
- 
+
     /**
      * Get the current length of the attribute value.
      *
@@ -76,7 +92,7 @@ public:
     uint16_t getLength(void) const {
         return _len;
     }
- 
+
     /**
      * Get the maximum length of the attribute value.
      *
@@ -85,7 +101,7 @@ public:
     uint16_t getMaxLength(void) const {
         return _lenMax;
     }
- 
+
     /**
      * Get a pointer to the current length of the attribute value.
      *
@@ -94,7 +110,7 @@ public:
     uint16_t *getLengthPtr(void) {
         return &_len;
     }
- 
+
     /**
      * Set the attribute handle.
      *
@@ -104,7 +120,7 @@ public:
     void setHandle(Handle_t id) {
         _handle = id;
     }
- 
+
     /**
      * Get a pointer to the attribute value.
      *
@@ -113,7 +129,7 @@ public:
     uint8_t *getValuePtr(void) {
         return _valuePtr;
     }
- 
+
     /**
      * Check whether the length of the attribute's value can change over time.
      *
@@ -122,7 +138,7 @@ public:
     bool hasVariableLength(void) const {
         return _hasVariableLen;
     }
- 
+
 private:
     /**
      * Characteristic's UUID.
@@ -148,11 +164,11 @@ private:
      * The attribute's handle in the ATT table.
      */
     Handle_t  _handle;
- 
+
 private:
     /* Disallow copy and assignment. */
     GattAttribute(const GattAttribute &);
     GattAttribute& operator=(const GattAttribute &);
 };
- 
+
 #endif /* ifndef __GATT_ATTRIBUTE_H__ */

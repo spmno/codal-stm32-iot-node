@@ -26,7 +26,7 @@ DEALINGS IN THE SOFTWARE.
 #ifndef CODAL_MAGNETOMETER_SERVICE_H
 #define CODAL_MAGNETOMETER_SERVICE_H
 
-#include "ble/BLE.h"
+#include "BLE.h"
 #include "CodalConfig.h"
 #include "Compass.h"
 #include "EventModel.h"

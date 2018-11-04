@@ -1,12 +1,28 @@
+/* mbed Microcontroller Library
+ * Copyright (c) 2006-2013 ARM Limited
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 #ifndef __UUID_H__
 #define __UUID_H__
- 
+
 #include <stdint.h>
 #include <string.h>
 #include <algorithm>
- 
-#include "BLECommon.h"
- 
+
+#include "blecommon.h"
+
 /**
  * A trivial converter for single hexadecimal character to an unsigned integer.
  *
@@ -26,7 +42,7 @@ static uint8_t char2int(char c) {
         return 0;
     }
 }
- 
+
 /**
  * An instance of this class represents a Universally Unique Identifier (UUID)
  * in the BLE API.
@@ -36,42 +52,42 @@ public:
     /**
      * Enumeration of the possible types of UUIDs in BLE with regards to length.
      */
-    enum class UUID_Type_t {
+    enum UUID_Type_t {
         UUID_TYPE_SHORT = 0,    /**< Short 16-bit UUID. */
         UUID_TYPE_LONG  = 1     /**< Full 128-bit UUID. */
     };
- 
+
     /**
      * Enumeration to specify byte ordering of the long version of the UUID.
      */
-    enum class ByteOrder_t {
+    typedef enum {
         MSB, /**< Most-significant byte first (at the smallest address) */
         LSB  /**< least-significant byte first (at the smallest address) */
-    } ;
- 
+    } ByteOrder_t;
+
     /**
      * Type for a 16-bit UUID.
      */
-    typedef uint16_t ShortUUIDBytes_t;
- 
+    typedef uint16_t      ShortUUIDBytes_t;
+
     /**
      * Length of a long UUID in bytes.
      */
-    static constexpr unsigned LENGTH_OF_LONG_UUID = 16;
+    static const unsigned LENGTH_OF_LONG_UUID = 16;
     /**
      * Type for a 128-bit UUID.
      */
     typedef uint8_t       LongUUIDBytes_t[LENGTH_OF_LONG_UUID];
- 
+
     /**
      * Maximum length of a string representation of a UUID not including the
      * null termination ('\0'): two characters per
      * byte plus four '-' characters.
      */
-    static constexpr unsigned MAX_UUID_STRING_LENGTH = LENGTH_OF_LONG_UUID * 2 + 4;
- 
+    static const unsigned MAX_UUID_STRING_LENGTH = LENGTH_OF_LONG_UUID * 2 + 4;
+
 public:
- 
+
     /**
      * Creates a new 128-bit UUID.
      *
@@ -85,12 +101,12 @@ public:
      *          upto four of them. The UUID is stored internally as a 16 byte
      *          array, LSB (little endian), which is opposite from the string.
      */
-    UUID(const char* stringUUID) : type(UUID_Type_t::UUID_TYPE_LONG), baseUUID(), shortUUID(0) {
+    UUID(const char* stringUUID) : type(UUID_TYPE_LONG), baseUUID(), shortUUID(0) {
         bool nibble = false;
         uint8_t byte = 0;
         size_t baseIndex = 0;
         uint8_t tempUUID[LENGTH_OF_LONG_UUID];
- 
+
         /*
          * Iterate through string, abort if NULL is encountered prematurely.
          * Ignore upto four hyphens.
@@ -106,6 +122,7 @@ public:
                 /* Got second nibble */
                 byte |= char2int(stringUUID[index]);
                 nibble = false;
+
                 /* Store copy */
                 tempUUID[baseIndex++] = byte;
             } else {
@@ -114,17 +131,17 @@ public:
                 nibble = true;
             }
         }
- 
+
         /* Populate internal variables if string was successfully parsed */
         if (baseIndex == LENGTH_OF_LONG_UUID) {
-            setupLong(tempUUID, ByteOrder_t::MSB);
+            setupLong(tempUUID, UUID::MSB);
         } else {
             const uint8_t sig[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00,
                                     0x80, 0x00, 0x00, 0x80, 0x5F, 0x9B, 0x34, 0xFB };
-            setupLong(sig, ByteOrder_t::MSB);
+            setupLong(sig, UUID::MSB);
         }
     }
- 
+
     /**
      * Creates a new 128-bit UUID.
      *
@@ -136,10 +153,10 @@ public:
      * @note   The UUID is a unique 128-bit (16 byte) ID used to identify
      *         different service or characteristics on the BLE device.
      */
-    UUID(const LongUUIDBytes_t longUUID, ByteOrder_t order = ByteOrder_t::MSB) : type(UUID_Type_t::UUID_TYPE_LONG), baseUUID(), shortUUID(0) {
+    UUID(const LongUUIDBytes_t longUUID, ByteOrder_t order = UUID::MSB) : type(UUID_TYPE_LONG), baseUUID(), shortUUID(0) {
         setupLong(longUUID, order);
     }
- 
+
     /**
      * Creates a new 16-bit UUID.
      *
@@ -169,10 +186,10 @@ public:
      *
      * @note We do not yet support 32-bit shortened UUIDs.
      */
-    UUID(ShortUUIDBytes_t _shortUUID) : type(UUID_Type_t::UUID_TYPE_SHORT), baseUUID(), shortUUID(_shortUUID) {
+    UUID(ShortUUIDBytes_t _shortUUID) : type(UUID_TYPE_SHORT), baseUUID(), shortUUID(_shortUUID) {
         /* Empty */
     }
- 
+
     /**
      * Copy constructor.
      *
@@ -184,17 +201,17 @@ public:
         shortUUID = source.shortUUID;
         memcpy(baseUUID, source.baseUUID, LENGTH_OF_LONG_UUID);
     }
- 
+
     /**
      * The empty constructor.
      *
-     * @note The type of the resulting UUID instance is UUID_Type_t::UUID_TYPE_SHORT and the
+     * @note The type of the resulting UUID instance is UUID_TYPE_SHORT and the
      *       value BLE_UUID_UNKNOWN.
      */
-    UUID(void) : type(UUID_Type_t::UUID_TYPE_SHORT), shortUUID(BLE_UUID_UNKNOWN) {
+    UUID(void) : type(UUID_TYPE_SHORT), shortUUID(BLE_UUID_UNKNOWN) {
         /* empty */
     }
- 
+
     /**
      * Fill in a 128-bit UUID; this is useful when the UUID is not known at the
      * time of the object construction.
@@ -204,9 +221,9 @@ public:
      * @param[in]  order
      *              The byte ordering of the UUID at @p longUUID.
      */
-    void setupLong(const LongUUIDBytes_t longUUID, ByteOrder_t order = ByteOrder_t::MSB) {
-        type      = UUID_Type_t::UUID_TYPE_LONG;
-        if (order == ByteOrder_t::MSB) {
+    void setupLong(const LongUUIDBytes_t longUUID, ByteOrder_t order = UUID::MSB) {
+        type      = UUID_TYPE_LONG;
+        if (order == UUID::MSB) {
             /*
              * Switch endian. Input is big-endian, internal representation
              * is little endian.
@@ -217,32 +234,32 @@ public:
         }
         shortUUID = (uint16_t)((baseUUID[13] << 8) | (baseUUID[12]));
     }
- 
+
 public:
     /**
      * Check whether this UUID is short or long.
      *
-     * @return UUID_Type_t::UUID_TYPE_SHORT if the UUID is short, UUID_Type_t::UUID_TYPE_LONG otherwise.
+     * @return UUID_TYPE_SHORT if the UUID is short, UUID_TYPE_LONG otherwise.
      */
     UUID_Type_t shortOrLong(void) const {
         return type;
     }
- 
+
     /**
      * Get a pointer to the UUID value based on the current UUID type.
      *
      * @return A pointer to the short UUID if the type is set to
-     *         UUID_Type_t::UUID_TYPE_SHORT. Otherwise, a pointer to the long UUID if the
+     *         UUID_TYPE_SHORT. Otherwise, a pointer to the long UUID if the
      *         type is set to UUID_TYPE_LONG.
      */
-    const uint8_t* getBaseUUID(void) const {
-        if (type == UUID_Type_t::UUID_TYPE_SHORT) {
+    const uint8_t *getBaseUUID(void) const {
+        if (type == UUID_TYPE_SHORT) {
             return (const uint8_t*)&shortUUID;
         } else {
             return baseUUID;
         }
     }
- 
+
     /**
      * Get the short UUID.
      *
@@ -251,17 +268,17 @@ public:
     ShortUUIDBytes_t getShortUUID(void) const {
         return shortUUID;
     }
- 
+
     /**
      * Get the length (in bytes) of the UUID based on its type.
      *
-     * @retval sizeof(ShortUUIDBytes_t) if the UUID type is UUID_Type_t::UUID_TYPE_SHORT.
+     * @retval sizeof(ShortUUIDBytes_t) if the UUID type is UUID_TYPE_SHORT.
      * @retval LENGTH_OF_LONG_UUID if the UUID type is UUID_TYPE_LONG.
      */
     uint8_t getLen(void) const {
-        return ((type == UUID_Type_t::UUID_TYPE_SHORT) ? sizeof(ShortUUIDBytes_t) : LENGTH_OF_LONG_UUID);
+        return ((type == UUID_TYPE_SHORT) ? sizeof(ShortUUIDBytes_t) : LENGTH_OF_LONG_UUID);
     }
- 
+
     /**
      * Overload == operator to enable UUID comparisons.
      *
@@ -271,19 +288,19 @@ public:
      * @return true if this == @p other, false otherwise.
      */
     bool operator== (const UUID &other) const {
-        if ((this->type == UUID_Type_t::UUID_TYPE_SHORT) && (other.type == UUID_Type_t::UUID_TYPE_SHORT) &&
+        if ((this->type == UUID_TYPE_SHORT) && (other.type == UUID_TYPE_SHORT) &&
             (this->shortUUID == other.shortUUID)) {
             return true;
         }
- 
-        if ((this->type == UUID_Type_t::UUID_TYPE_LONG) && (other.type == UUID_Type_t::UUID_TYPE_LONG) &&
+
+        if ((this->type == UUID_TYPE_LONG) && (other.type == UUID_TYPE_LONG) &&
             (memcmp(this->baseUUID, other.baseUUID, LENGTH_OF_LONG_UUID) == 0)) {
             return true;
         }
- 
+
         return false;
     }
- 
+
     /**
      * Overload != operator to enable UUID comparisons.
      *
@@ -295,7 +312,7 @@ public:
     bool operator!= (const UUID &other) const {
         return !(*this == other);
     }
- 
+
 private:
     /**
      * The UUID type. Refer to UUID_Type_t.
@@ -310,5 +327,5 @@ private:
      */
     ShortUUIDBytes_t shortUUID;
 };
- 
+
 #endif // ifndef __UUID_H__

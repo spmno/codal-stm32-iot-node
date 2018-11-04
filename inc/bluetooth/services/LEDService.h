@@ -27,7 +27,7 @@ DEALINGS IN THE SOFTWARE.
 #define CODAL_LED_SERVICE_H
 
 #include "CodalConfig.h"
-#include "ble/BLE.h"
+#include "BLE.h"
 #include "Display.h"
 
 // Defines the buffer size for scrolling text over BLE, hence also defines

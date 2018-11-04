@@ -27,7 +27,7 @@ DEALINGS IN THE SOFTWARE.
 #define CODAL_IO_PIN_SERVICE_H
 
 #include "CodalConfig.h"
-#include "ble/BLE.h"
+#include "BLE.h"
 #include "IO.h"
 
 #define CODAL_IO_PIN_SERVICE_PINCOUNT       19
