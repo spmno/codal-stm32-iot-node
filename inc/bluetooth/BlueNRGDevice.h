@@ -47,6 +47,8 @@
 #include "BlueNRGGattClient.h"
 #include "Pin.h"
 #include "stm32l4xxSPI.h"
+#include "stm32l4xxPin.h"
+#include "STM32IotNodeIO.h"
 
 class BlueNRGDevice : public BLEInstanceBase
 {
@@ -99,10 +101,14 @@ public:
 private:
     bool isInitialized;
 
-    codal::SPI& spi_;
-    codal::Pin  nCS_;
-    codal::Pin  rst_;
-    codal::Pin irq_;
+    codal::STM32L4xxPin pinMosi;
+    codal::STM32L4xxPin pinMiso;
+    codal::STM32L4xxPin pinSck;
+    codal::STM32L4xxPin pinCs;
+    codal::STM32L4xxPin pinRst;
+    codal::STM32L4xxPin pinIrq;
+
+    codal::STM32L4xxSPI spi_;
 
     //FIXME: TBI (by now just placeholders to let build
     /*** betzw: placeholders ***/

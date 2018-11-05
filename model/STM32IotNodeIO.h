@@ -42,6 +42,17 @@
 #define ID_PIN_SCL       (DEVICE_ID_IO_P0 + 33)
 #define ID_PIN_MISO       (DEVICE_ID_IO_P0 + 34)
 #define ID_PIN_MOSI       (DEVICE_ID_IO_P0 + 35)
+#define ID_PIN_SCLK       (DEVICE_ID_IO_P0 + 36)
+#define ID_PIN_CS       (DEVICE_ID_IO_P0 + 37)
+#define ID_PIN_BLE_MISO       (DEVICE_ID_IO_P0 + 38)
+#define ID_PIN_BLE_MOSI       (DEVICE_ID_IO_P0 + 39)
+#define ID_PIN_BLE_SCLK       (DEVICE_ID_IO_P0 + 40)
+#define ID_PIN_BLE_CS       (DEVICE_ID_IO_P0 + 41)
+#define ID_PIN_BLE_RST       (DEVICE_ID_IO_P0 + 42)
+#define ID_PIN_BLE_IRQ       (DEVICE_ID_IO_P0 + 43)
+#define ID_PIN_RX       (DEVICE_ID_IO_P0 + 44)
+#define ID_PIN_TX       (DEVICE_ID_IO_P0 + 45)
+
 
 namespace codal
 {
@@ -95,6 +106,8 @@ namespace codal
 
             STM32L4xxPin        tx;
             STM32L4xxPin        rx;
+
+            
     };
 }
 

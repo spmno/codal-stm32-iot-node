@@ -55,6 +55,8 @@ extern "C" {
     #include "bluenrg_utils.h"
 }
 
+using namespace codal;
+
 #define HEADER_SIZE 5
 #define MAX_BUFFER_SIZE 255
 
@@ -98,16 +100,23 @@ BlueNRGDevice::BlueNRGDevice(codal::PinNumber mosi,
                              codal::PinNumber sck,
                              codal::PinNumber cs,
                              codal::PinNumber rst,
-                             codal::PinNumber irq) :
-	isInitialized(false), spi_(mosi, miso, sck), nCS_(cs), rst_(rst), irq_(irq)
+                             codal::PinNumber irq) 
+    : isInitialized(false),
+    pinMosi(ID_PIN_BLE_MISO, miso, PIN_CAPABILITY_DIGITAL),
+    pinMiso(ID_PIN_BLE_MOSI, mosi, PIN_CAPABILITY_DIGITAL),
+    pinSck(ID_PIN_BLE_SCLK, sck, PIN_CAPABILITY_DIGITAL),
+    pinCs(ID_PIN_BLE_CS, cs, PIN_CAPABILITY_DIGITAL),
+    pinRst(ID_PIN_BLE_RST, rst, PIN_CAPABILITY_DIGITAL),
+    pinIrq(ID_PIN_BLE_IRQ, irq, PIN_CAPABILITY_DIGITAL),
+    spi_(pinMosi, pinMiso, pinSck)
 {
     // Setup the spi for 8 bit data, low clock polarity,
     // 1-edge phase, with an 8MHz clock rate
-    spi_.format(8, 0);
-    spi_.frequency(8000000);
+    spi_.setMode(0, 8);
+    spi_.setFrequency(8000000);
 
     // Deselect the BlueNRG chip by keeping its nCS signal high
-    nCS_ = 1;
+    pinCs.setDigitalValue(1);
 
     wait_us(500);
 
@@ -206,9 +215,9 @@ ble_error_t BlueNRGDevice::init(BLE::InstanceID_t instanceID, FunctionPointerWit
 void BlueNRGDevice::reset(void)
 {
     /* Reset BlueNRG SPI interface. Hold reset line to 0 for 1500us */
-    rst_ = 0;
+    pinRst.setDigitalValue(0);
     wait_us(1500);
-    rst_ = 1;
+    pinRst.setDigitalValue(1);
 
     /* Wait for the radio to come back up */
     wait_us(5000);
@@ -346,7 +355,7 @@ int32_t BlueNRGDevice::spiRead(uint8_t *buffer, uint8_t buff_size)
   uint8_t header_slave[HEADER_SIZE];
 
   /* Select the chip */
-  nCS_ = 0;
+  pinCs.setDigitalValue(0);
 
   /* Read the header */
   for (i = 0; i < 5; i++)
@@ -373,7 +382,7 @@ int32_t BlueNRGDevice::spiRead(uint8_t *buffer, uint8_t buff_size)
     }
   }
   /* Release CS line to deselect the chip */
-  nCS_ = 1;
+  pinCs.setDigitalValue(1);
 
   // Add a small delay to give time to the BlueNRG to set the IRQ pin low
   // to avoid a useless SPI read at the end of the transaction
@@ -413,7 +422,7 @@ int32_t BlueNRGDevice::spiWrite(uint8_t* data1,
   disable_irq();
 
   /* CS reset */
-  nCS_ = 0;
+  pinCs.setDigitalValue(0);
 
   /* Exchange header */
   for (i = 0; i < 5; i++)
@@ -444,7 +453,7 @@ int32_t BlueNRGDevice::spiWrite(uint8_t* data1,
 
   /* Release CS line */
   //HAL_GPIO_WritePin(BNRG_SPI_CS_PORT, BNRG_SPI_CS_PIN, GPIO_PIN_SET);
-  nCS_ = 1;
+  pinCs.setDigitalValue(1);
 
   enable_irq();
 

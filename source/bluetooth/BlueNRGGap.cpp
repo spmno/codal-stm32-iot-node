@@ -38,6 +38,7 @@
  *  @{
  */
 
+#include "CodalFiber.h"
 #include "BlueNRGDevice.h"
 #include "ble_payload.h"
 #include "ble_utils.h"
@@ -195,14 +196,6 @@ ble_error_t BlueNRGGap::setAdvertisingData(const GapAdvertisingData &advData, co
 void BlueNRGGap::setAdvToFlag(void) {
     AdvToFlag = true;
     signalEventsToProcess();
-}
-
-/*
- * ADV timeout callback
- */
-static void advTimeoutCB(void)
-{
-    BlueNRGGap::getInstance().stopAdvertising();
 }
 
 /*
@@ -364,12 +357,8 @@ ble_error_t BlueNRGGap::startAdvertising(const GapAdvertisingParams &params)
     }
 
     if(params.getTimeout() != 0) {
-        PRINTF("!!! attaching adv to!!!\n");
-#ifdef AST_FOR_MBED_OS
-        minar::Scheduler::postCallback(advTimeoutCB).delay(minar::milliseconds(params.getTimeout() * 1000));
-#else
-        advTimeout.attach(advTimeoutCB, params.getTimeout());
-#endif
+        codal::fiber_sleep(params.getTimeout());
+        params.getTimeout();
     }
 
     return BLE_ERROR_NONE;
@@ -1114,7 +1103,8 @@ ble_error_t BlueNRGGap::startRadioScan(const GapScanningParams &scanningParams)
 
     if(scanningParams.getTimeout() != 0) {
         PRINTF("!!! attaching scan to!!!\n");
-        scanTimeout.attach(scanTimeoutCB, scanningParams.getTimeout());
+        codal::fiber_sleep(scanningParams.getTimeout());
+        BlueNRGGap::getInstance().setScanToFlag();
     }
 
     return BLE_ERROR_NONE;
