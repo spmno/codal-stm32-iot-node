@@ -1,4 +1,4 @@
-# codal-stm32-iot-node
+# Codal target for STM32 IoT Node Board
 
 Codal target for the [B-L475E-IOT01A](http://www.st.com/en/evaluation-tools/b-l475e-iot01a.html) Discovery kit for IoT node. Codal is the core set of drivers, mechanisms and types that make up the runtime for a board in Makecode.
 
@@ -38,7 +38,7 @@ The support for Arduino Uno V3 and PMOD connectivity provides unlimited expansio
 - [x] 2 push-buttons (user and reset)
 - [x] GPIO
 - [x] ADC 12 bits
-- [~] FAT Storage over the flash memory
-- [~] Expansion connectors:
+- [ ] FAT Storage over the flash memory
+- [ ] Expansion connectors:
   - [x] Arduino™ Uno V3
   - [ ] PMOD
