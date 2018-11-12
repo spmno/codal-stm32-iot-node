@@ -1,3 +1,4 @@
+/*
 #include "stm32.h"
 #include "STM32IotNode.h"
 
@@ -37,4 +38,9 @@ int main()
     #else
     Blink_main(iotNode);
     #endif
+}
+*/
+
+int main() {
+    return 0;
 }
