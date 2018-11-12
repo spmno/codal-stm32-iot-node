@@ -124,8 +124,8 @@ BlueNRGDevice::BlueNRGDevice(codal::PinNumber mosi,
     HCI_Init();
 
     // Set the interrupt handler for the device
-    irq_.mode(PullDown); // set irq mode
-    irq_.rise(&HCI_Isr);
+    //irq_.mode(PullDown); // set irq mode
+    //irq_.rise(&HCI_Isr);
 }
 
 /**************************************************************************/
@@ -462,17 +462,17 @@ int32_t BlueNRGDevice::spiWrite(uint8_t* data1,
 
 bool BlueNRGDevice::dataPresent()
 {
-    return (irq_ == 1);
+    return 0; //(irq_ == 1);
 }
 
 void BlueNRGDevice::disable_irq()
 {
-    irq_.disable_irq();
+    //irq_.disable_irq();
 }
 
 void BlueNRGDevice::enable_irq()
 {
-    irq_.enable_irq();
+    //irq_.enable_irq();
 }
 
 void BlueNRGDevice::processEvents() {
