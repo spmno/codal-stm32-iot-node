@@ -22,9 +22,9 @@ include_directories(${INCLUDE_DIRS} ${TOP_LEVEL_INCLUDE_DIRS} ${MODEL_INCLUDE_DI
 add_library(codal-stm32-iot-node ${TOP_LEVEL_SOURCE_FILES} ${MODEL_SOURCE_FILES})
 
 target_link_libraries(
-    codal-stm32-iot-node
-    codal-core
-    codal-stm32l475
+	codal-stm32-iot-node
+	#    codal-core
+	#    codal-stm32l475
 )
 
 # expose it to parent cmake.
