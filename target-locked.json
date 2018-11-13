@@ -37,12 +37,25 @@
             "type": "git",
             "url": "https://github.com/LabAixBidouille-STM32/codal-core"
         },
+	        {
+            "branch": "7264420adbec119a1a6090287badc80651ba3fc1",
+            "name": "mbed-classic",
+            "type": "git",
+            "url": "https://github.com/lancaster-university/mbed-classic"
+},
         {
             "branch": "99133a9a5a5e4e65b230728362e63ee326cb88ca",
             "name": "codal-stm32l475",
             "type": "git",
             "url": "https://github.com/nedseb/codal-stm32l475"
-        }
+        }, 
+        {
+            "branch": "af4af97bd76be8f7f713dac55b791ea972a18b69", 
+            "name": "codal-mbed", 
+            "type": "git", 
+            "url": "https://github.com/lancaster-university/codal-mbed"
+}
+
     ],
     "linker_flags": "-Wl,--no-wchar-size-warning -Wl,--gc-sections -static -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16",
     "post_process": "",
